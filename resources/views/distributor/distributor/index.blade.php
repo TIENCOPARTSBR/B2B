@@ -1,0 +1,78 @@
+@extends('layouts.DirectDistributor')
+
+@section('content')
+    @if($distributor)
+        <section class="page">
+            <!-- breadcrumb -->
+            <ul class="breadcrumb">
+                <li><a href="/">{{ __('messages.Home') }}</a> &nbsp/</li>
+                <li class="active">&nbsp {{ __('messages.Distributors') }}</li>
+            </ul>
+
+            <!-- Title -->
+            <h1 class="title">{{__('messages.Distributors')}} -> {{ Helper::getDirectDistributorLogged()->name; }}</h1>
+
+            <!-- Card -->        
+            <div class="card">
+                <div class="tab-content">                    <!-- header -->
+                    <div class="tab-header">
+                        <!-- search -->
+                        <form method="POST" action="{{ url('/distribuidor') }}/" class="form-search" >
+                            @csrf @method('POST')
+                            <input type="text" name="name" placeholder="{{ __('messages.Search') }}" class="form-control" >
+        
+                            <button type="submit"></button>
+                        </form>
+                        
+                        <!-- add row -->
+                        <a href="{{ url('/distribuidor/novo') }}" class="button-yellow-1" >
+                            {{ __('messages.Add Distributor') }}
+                        </a>
+                    </div>
+
+                    <!-- table -->
+                    <div class="table">
+                        <!-- thead -->
+                        <div class="thead">
+                            <div class="th">{{__('messages.Name')}}</div>
+                            <div class="th">Status</div>
+                            <div class="th"></div>
+                        </div>
+
+                        <!-- list -->
+                        @foreach ($distributor as $distributor)
+                            <form method="POST" action="{{url('/produto/valor/unitario/atualizar')}}" class="tbody">
+                                @csrf @method('POST')
+
+                                <div class="td">
+                                    <input type="text" value="{{trim($distributor->name)}}" class="form-input" readonly >
+                                </div>
+
+                                <div class="td">
+                                    <input type="text" value="{{$distributor->is_active == 1 ? __('messages.Active') : __('messages.Inactive') }}" class="form-input" readonly >
+                                </div>
+
+                                <div class="td">
+                                    <div class="table-button">
+                                        <a href="{{ url('/distribuidor/produto/valor') }}/{{ $distributor->id }}/" data-button="product" >
+                                            <span class="tooltip">{{__('messages.Update products')}}</span>
+                                        </a>
+                                        <a href="{{ url('/distribuidor/visualizar') }}/{{ $distributor->id }}/" data-button="view" >
+                                            <span class="tooltip">{{__('messages.View')}}</span>
+                                        </a>
+                                        <a href="{{ url('/distribuidor/editar') }}/{{ $distributor->id }}/" data-button="edit" >
+                                            <span class="tooltip">{{__('messages.Edit')}}</span>
+                                        </a>
+                                        <button type="button" data-trigger="delete" onclick="triggerModal('/distribuidor/excluir', {{$distributor->id}})" >
+                                            <span class="tooltip">{{__('messages.Delete')}}</span>
+                                        </button>
+                                    </div>
+                                </div>
+                            </form>
+                        @endforeach
+                    </div>
+                </div>
+            </div>    
+        </section>
+    @endif
+@endsection
