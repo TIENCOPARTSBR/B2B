@@ -27,6 +27,11 @@ class Distributor extends Model
         return $this->hasMany(ProductValueDistributor::class, 'id_distributor', 'id');
     }
 
+    public function UserDistributor()
+    {
+        return $this->hasMany(UserDistributor::class, 'id_distributor', 'id');
+    }
+
     protected static function booted()
     {
         self::addGlobalScope('ordered', function (Builder $queryBuilder) {

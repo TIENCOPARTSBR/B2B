@@ -9,6 +9,7 @@ use App\Http\Controllers\Distributors\ProductValueDistributorController;
 use App\Http\Controllers\Distributors\UserDistributorController;
 use App\Http\Controllers\Distributors\UserDirectDistributorController;
 use App\Http\Controllers\LanguageController;
+use App\Http\Controllers\Distributors\DirectDistributorImportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -26,8 +27,8 @@ Route::group(['middleware' => 'Language'], function() {
 
     // login
     Route::middleware('distributor:distributor')->group(function() {
-        Route::get('/login', [LoginController::class, 'login'])->name('login');
-        Route::post('/login',[LoginController::class, 'processLogin']);
+        Route::get('/login', [LoginController::class, 'index'])->name('distributor.login');
+        Route::post('/login',[LoginController::class, 'store'])->name('distributor.login.store');
     });
 
     // distributor authenticate
@@ -35,15 +36,14 @@ Route::group(['middleware' => 'Language'], function() {
         Route::get('/', function() { return view('distributor.index'); });
 
         // the distributor routes
-
-        Route::controller(DistributorController::class)->group(function () {
+        Route::controller(DistributorController::class)->group(function() {
             Route::get('/distribuidor','index')->name('distributor.index');
             Route::get('/distribuidor/novo','create')->name('distributor.create');
-            Route::post('/distribuidor','store')->name('distributor.store');
+            Route::post('/distribuidor/novo','store')->name('distributor.store');
             Route::post('/distribuidor','show')->name('distributor.show');
             Route::get('/distribuidor/editar/{id}','edit')->name('distributor.edit');
-            Route::put('/distribuidor','updated')->name('distributor.updated');
-            Route::delete('/distribuidor/{id}','destroy')->name('distributor.destroy');
+            Route::post('/distribuidor','updated')->name('distributor.updated');
+            Route::post('/distribuidor/destroy','destroy')->name('distributor.destroy');
             Route::get('/distribuidor/visualizar/{id}','view');
         });
 
@@ -66,6 +66,7 @@ Route::group(['middleware' => 'Language'], function() {
         // products
         Route::get('/produto', [ProductSisrevController::class, 'index']);
         Route::post('/produto', [ProductSisrevController::class, 'show']);
+        
         Route::get('/produto/relatorio/', [ProductSisrevController::class, 'export']);
         Route::get('/produto/valor', [ProductValueDirectDistributorController::class, 'index']);
         Route::post('/produto/valor', [ProductValueDirectDistributorController::class, 'show']);
@@ -74,6 +75,9 @@ Route::group(['middleware' => 'Language'], function() {
         Route::get('/produto/valor/unitario/excluir/{id}', [ProductValueDirectDistributorController::class, 'destroy']);
 
         Route::post('/produto/valor/geral/', [DirectDistributorController::class, 'setGeneralValue']);
+
+        Route::post('/produto/valor/import', [DirectDistributorImportController::class, 'index'])->name('produto.valor.index');
+        Route::post('/produto/valor/import/store', [DirectDistributorImportController::class, 'store'])->name('produto.valor.import.store');
 
         // user distributor
         Route::get('/usuarios', [UserDirectDistributorController::class, 'index']);

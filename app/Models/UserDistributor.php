@@ -20,6 +20,11 @@ class UserDistributor extends Model
         'id_distributor'
     ];
 
+    public function Distributor()
+    {
+        return $this->belongsTo(Distributor::class);
+    }
+
     // create
     public static function store($r)
     {

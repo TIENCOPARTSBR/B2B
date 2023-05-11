@@ -1,7 +1,7 @@
 @extends('layouts.DirectDistributor')
 @section('content')
     <section class="products">
-        <h2 class="titleClient">{{ __('messages.Search product') }}</h2>
+        <h2 class="title mb-1">{{ __('messages.Search product') }}</h2>
 
         <form action="{{ url('/produto') }}" method="POST">
             @csrf

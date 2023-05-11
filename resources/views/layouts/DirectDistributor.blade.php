@@ -204,8 +204,10 @@
         <div class="modal" id="delete">
             <div class="modal-overlay"></div>
             <div class="modal-content">
-                <form method="GET" class="modal-form" >
-                    @csrf @method('GET')  
+                <form method="POST" class="modal-form">
+                    @csrf @method('POST')  
+                    <input type="hidden" name="id_delete" id="id_delete">
+                    
                     <div class="modal-header">
                         <button type="button" data-modal="close" ></button>
                     </div>
@@ -230,7 +232,12 @@
         </div>
     </div>
 
-    <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    
     <script defer src="{{ asset('js/main.js') }}"> </script>
+
+    @yield('endBody')
 </body>
 </html>

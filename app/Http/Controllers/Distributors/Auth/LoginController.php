@@ -10,26 +10,24 @@ use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
 {   
-    public function login()
+    public function index()
     {
-        if(View::exists('distributor.auth.login'))
-        {
-            return view('distributor.auth.login');
-        }
-        abort(Response::HTTP_NOT_FOUND);
+        return view('distributor.auth.login');
     }
 
-    public function processLogin(Request $r)
+    public function store(Request $request)
     {   
-        if(Auth::guard('distributor')->attempt(['mail' => $r->mail, 'password' => $r->password, 'is_active' => 1]))
+        if(Auth::guard('distributor')
+            ->attempt([ 'mail' => $request->mail, 
+                        'password' => $request->password, 
+                        'is_active' => 1]))
         {   
             return redirect('/');
         }
 
-        return redirect()->action([
-            LoginController::class,
-            'login'
-        ])->with('login', __('messages.Wrong email or password'));
+        return redirect()
+                ->action([LoginController::class,'index'])
+                ->with('login', __('messages.Wrong email or password'));
     }
 
     public function logout(Request $request)
@@ -38,6 +36,6 @@ class LoginController extends Controller
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 
-        return redirect()->action([ LoginController::class, 'login' ]);
+        return redirect()->action([LoginController::class, 'index']);
     }
 }

@@ -25,7 +25,7 @@
                         </form>
                         
                         <!-- add row -->
-                        <a href="{{ url('/distribuidor/novo') }}" class="button-yellow-1" >
+                        <a href="{{ route('distributor.create') }}" class="button-yellow-1" >
                             {{ __('messages.Add Distributor') }}
                         </a>
                     </div>
@@ -41,9 +41,7 @@
 
                         <!-- list -->
                         @foreach ($distributor as $distributor)
-                            <form method="POST" action="{{url('/produto/valor/unitario/atualizar')}}" class="tbody">
-                                @csrf @method('POST')
-
+                            <div class="tbody">
                                 <div class="td">
                                     <input type="text" value="{{trim($distributor->name)}}" class="form-input" readonly >
                                 </div>
@@ -57,18 +55,21 @@
                                         <a href="{{ url('/distribuidor/produto/valor') }}/{{ $distributor->id }}/" data-button="product" >
                                             <span class="tooltip">{{__('messages.Update products')}}</span>
                                         </a>
+
                                         <a href="{{ url('/distribuidor/visualizar') }}/{{ $distributor->id }}/" data-button="view" >
                                             <span class="tooltip">{{__('messages.View')}}</span>
                                         </a>
+
                                         <a href="{{ url('/distribuidor/editar') }}/{{ $distributor->id }}/" data-button="edit" >
                                             <span class="tooltip">{{__('messages.Edit')}}</span>
                                         </a>
-                                        <button type="button" data-trigger="delete" onclick="triggerModal('/distribuidor/excluir', {{$distributor->id}})" >
+
+                                        <button type="button" data-trigger="delete" onclick="triggerModal('{{route('distributor.destroy')}}',' {{$distributor->id}}')" >
                                             <span class="tooltip">{{__('messages.Delete')}}</span>
                                         </button>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         @endforeach
                     </div>
                 </div>

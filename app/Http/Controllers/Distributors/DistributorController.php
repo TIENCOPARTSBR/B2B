@@ -4,11 +4,7 @@ namespace App\Http\Controllers\Distributors;
 
 use App\Http\Controllers\Controller;
 use App\Models\Distributor;
-use App\Models\ProductValueDistributor;
-use App\Models\UserDistributor;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
 
 class DistributorController extends Controller
 {
@@ -30,6 +26,15 @@ class DistributorController extends Controller
  
 	public function store(Request $request)
 	{
+		$request->validate([
+			'name' => 'required',
+			'cif_freight' => 'required',
+			'profit_margin_value' => 'required'
+		],[
+			'cif_freight' => __('messages.Field CIF freight is required'),
+			'profit_margin_value' => __('messages.Value field is required'),
+		]);
+
 		Distributor::create($request->all());
 
 		return to_route('distributor.index')
@@ -44,18 +49,38 @@ class DistributorController extends Controller
 
 	public function updated(Request $request)
 	{
-		Distributor::updated($request->all());
+		$request->validate([
+			'name' => 'required',
+			'cif_freight' => 'required',
+			'profit_margin_value' => 'required'
+		],[
+			'cif_freight' => __('messages.Field CIF freight is required'),
+			'profit_margin_value' => __('messages.Value field is required'),
+		]);
+
+		Distributor::findOrFail($request->id)
+			->update($request->all());
 
 		return to_route('distributor.index')
 			->with('successfully', __('messages.Distributor changed successfully'));
 	}
 
-	public function destroy($id){
-		Distributor::destroy($id);
-		return Redirect::to('/distribuidor')->with('successfully', __('messages.Distributor deleted successfully'));
+	public function destroy(Request $request)
+	{
+		Distributor::findOrFail(trim($request->id_delete))
+			->delete();
+
+		return to_route('distributor.index')
+			->with('successfully', __('messages.Distributor deleted successfully'));
 	}
 
-	public function view($id){
-		return view('distributor.distributor.view', ['distributor' => Distributor::findOrFail($id), 'user' => UserDistributor::where('id_distributor', Auth::user()->id)->get(), 'type' => ProductValueDistributor::where('id_distributor', Auth::user()->id)->get()]);
+	public function view(Distributor $distributor, $id)
+	{
+		$distributor = $distributor->with('UserDistributor', 'ProductValueDistributor')->findOrFail($id);
+
+		return view('distributor.distributor.view')
+			->with('distributor', $distributor)
+			->with('user', $distributor['UserDistributor'])
+			->with('type', $distributor['ProductValueDistributor']);
 	}
 }

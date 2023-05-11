@@ -35,7 +35,7 @@
                     </div>
                 </div>
 
-                <form action="{{ url('/login') }}" method="POST">
+                <form action="{{ route('distributor.login.store') }}" method="POST">
                     @csrf
                     @method('POST')      
 

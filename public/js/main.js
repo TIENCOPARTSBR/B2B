@@ -27,12 +27,13 @@ $('.si-item').on('click', function(){
 // functions //
 ///////////////
 
-function alert(){
+/* function alert(){
     setTimeout(() => {
         $('.alert').remove();
         console.log('foi');
     }, 1000);
 }
+ */
 
 function triggerModal(url, id){
     var modal = document.getElementById('delete');
@@ -41,7 +42,9 @@ function triggerModal(url, id){
 
     document.querySelector('.main').classList.toggle('zIndex');
 
-    document.querySelector('#delete form').setAttribute('action', url+'/'+id);
+    document.querySelector('#delete form').setAttribute('action', url);
+    
+    $('#id_delete').val(id);
 
     document.querySelector('#delete .modal-overlay').onclick = function(){
         document.querySelector('.main').classList.toggle('zIndex');
@@ -83,3 +86,51 @@ $('[data-trigger="edit"]').on('click', function(){
 $('[data-form="add"], [data-trigger="close"]').on('click', function(){
     $('[data-form="new"]').toggleClass('d-none');
 });
+
+function removeRowForm(key)
+{
+    $('[data-form="'+key+'"]').remove();
+}
+
+$('[data-trigger="delete"]').on('click', function() {
+    
+});
+
+///////////////////////////////////
+///////////////////////////////////
+///////////////////////////////////
+///////////////////////////////////
+/////// INPUT DRAG & DROP /////////
+///////////////////////////////////
+///////////////////////////////////
+///////////////////////////////////
+///////////////////////////////////
+
+var $fileInput = $('.file-input');
+var $droparea = $('.file-drop-area');
+
+// highlight drag area
+$fileInput.on('dragenter focus click', function() {
+  $droparea.addClass('is-active');
+});
+
+// back to normal state
+$fileInput.on('dragleave blur drop', function() {
+  $droparea.removeClass('is-active');
+});
+
+// change inner text
+$fileInput.on('change', function() {
+  var filesCount = $(this)[0].files.length;
+  var $textContainer = $(this).prev();
+
+  if (filesCount === 1) {
+    // if single file is selected, show file name
+    var fileName = $(this).val().split('\\').pop();
+    $textContainer.text(fileName);
+  } else {
+    // otherwise show number of files
+    $textContainer.text(filesCount + ' files selected');
+  }
+});
+
