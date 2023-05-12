@@ -1,12 +1,12 @@
 @extends('layouts.DirectDistributor')
 @section('content')
-    <section class="products">
-        <h2 class="title mb-1">{{ __('messages.Search product') }}</h2>
+    <section class="page">
+        <h2 class="title">{{ __('messages.Search product') }}</h2>
 
-        <form action="{{ url('/produto') }}" method="POST">
+        <form action="{{ route('direct.distributor.product.show') }}" method="POST" class="form-product">
             @csrf
             @method('POST')
-            <input type="text" name="partNumber" placeholder="{{__('messages.Type the code')}}">
+            <input type="text" name="part_number" placeholder="{{__('messages.Type the code')}}">
 
             <button type="submit">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">

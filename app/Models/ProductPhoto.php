@@ -5,14 +5,14 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ProductSisrev extends Model
+class ProductPhoto extends Model
 {
     use HasFactory;
 
-    protected $table = 'product_sisrev';
+    protected $table = "product_photo";
 
     public function product_photo()
     {
-        return $this->hasMany(ProductPhoto::class, 'part_number', 'part_number');
+        return $this->belongsTo(ProductSisrev::class);
     }
 }

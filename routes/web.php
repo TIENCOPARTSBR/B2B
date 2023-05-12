@@ -35,17 +35,32 @@ Route::group(['middleware' => 'Language'], function() {
     Route::middleware('auth:distributor')->group(function(){
         Route::get('/', function() { return view('distributor.index'); });
 
-        // the distributor routes
-        Route::controller(DistributorController::class)->group(function() {
-            Route::get('/distribuidor','index')->name('distributor.index');
-            Route::get('/distribuidor/novo','create')->name('distributor.create');
-            Route::post('/distribuidor/novo','store')->name('distributor.store');
-            Route::post('/distribuidor','show')->name('distributor.show');
-            Route::get('/distribuidor/editar/{id}','edit')->name('distributor.edit');
-            Route::post('/distribuidor','updated')->name('distributor.updated');
-            Route::post('/distribuidor/destroy','destroy')->name('distributor.destroy');
-            Route::get('/distribuidor/visualizar/{id}','view');
-        });
+            /////////////////////
+            // ROUTES PRODUCTS //
+            /////////////////////
+            
+            Route::controller(ProductSisrevController::class)->group(function(){
+                Route::get('/produto', 'index')->name('direct.distributor.product.index');
+                Route::post('/produto', 'show')->name('direct.distributor.product.show');
+                Route::get('/produto/relatorio','report')->name('direct.distributor.product.report.index');
+                Route::get('/produto/relatorio/export','export')->name('direct.distributor.product.report.export');
+            });
+           
+
+            Route::controller(ProductValueDirectDistributorController::class)->group(function(){
+                Route::get('/produto/valor','index')->name('direct.distributor.product.value.index');
+            });
+    
+            Route::post('/produto/valor', [ProductValueDirectDistributorController::class, 'show']);
+            Route::post('/produto/valor/unitario/adicionar', [ProductValueDirectDistributorController::class, 'store']);
+            Route::post('/produto/valor/unitario/atualizar', [ProductValueDirectDistributorController::class, 'updated']);
+            Route::get('/produto/valor/unitario/excluir/{id}', [ProductValueDirectDistributorController::class, 'destroy']);
+    
+            Route::post('/produto/valor/geral/', [DirectDistributorController::class, 'setGeneralValue']);
+    
+            Route::post('/produto/valor/import', [DirectDistributorImportController::class, 'index'])->name('produto.valor.index');
+            Route::post('/produto/valor/import/store', [DirectDistributorImportController::class, 'store'])->name('produto.valor.import.store');
+            
 
         // the distributor users routes
         Route::controller(UserDistributorController::class)->group(function(){
@@ -63,21 +78,18 @@ Route::group(['middleware' => 'Language'], function() {
         Route::post('/distribuidor/produto/valor/unitario/atualizar', [ProductValueDistributorController::class, 'updated']);
         Route::get('/distribuidor/produto/valor/unitario/excluir/{id}', [ProductValueDistributorController::class, 'destroy']);
 
-        // products
-        Route::get('/produto', [ProductSisrevController::class, 'index']);
-        Route::post('/produto', [ProductSisrevController::class, 'show']);
-        
-        Route::get('/produto/relatorio/', [ProductSisrevController::class, 'export']);
-        Route::get('/produto/valor', [ProductValueDirectDistributorController::class, 'index']);
-        Route::post('/produto/valor', [ProductValueDirectDistributorController::class, 'show']);
-        Route::post('/produto/valor/unitario/adicionar', [ProductValueDirectDistributorController::class, 'store']);
-        Route::post('/produto/valor/unitario/atualizar', [ProductValueDirectDistributorController::class, 'updated']);
-        Route::get('/produto/valor/unitario/excluir/{id}', [ProductValueDirectDistributorController::class, 'destroy']);
 
-        Route::post('/produto/valor/geral/', [DirectDistributorController::class, 'setGeneralValue']);
-
-        Route::post('/produto/valor/import', [DirectDistributorImportController::class, 'index'])->name('produto.valor.index');
-        Route::post('/produto/valor/import/store', [DirectDistributorImportController::class, 'store'])->name('produto.valor.import.store');
+        // the distributor routes
+        Route::controller(DistributorController::class)->group(function() {
+            Route::get('/distribuidor','index')->name('distributor.index');
+            Route::get('/distribuidor/novo','create')->name('distributor.create');
+            Route::post('/distribuidor/novo','store')->name('distributor.store');
+            Route::post('/distribuidor','show')->name('distributor.show');
+            Route::get('/distribuidor/editar/{id}','edit')->name('distributor.edit');
+            Route::post('/distribuidor','updated')->name('distributor.updated');
+            Route::post('/distribuidor/destroy','destroy')->name('distributor.destroy');
+            Route::get('/distribuidor/visualizar/{id}','view');
+        });
 
         // user distributor
         Route::get('/usuarios', [UserDirectDistributorController::class, 'index']);

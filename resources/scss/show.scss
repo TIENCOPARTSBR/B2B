@@ -636,6 +636,7 @@
 ////////////////////////
 /////// TOOLTIP ////////
 ////////////////////////
+
 .tooltip{
     position: absolute;
     top: 0;
@@ -679,21 +680,16 @@
     }
 }
 
-.products{
+////////////////////////
+/////// PRODUCT ////////
+////////////////////////
+.form-product{
     width: 100%;
-    
-    .card-body{
-        display: flex;
-        flex-flow: wrap;
-    }
-
-    form{
-        width: 100%;
-        display: flex;
-        flex-flow: wrap;
-        justify-content: space-between;
-        align-items: center;
-    }
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-between;
+    align-items: center;
+    margin: 0 0 2rem;
 
     input{
         width: calc(100% - 60px);
@@ -745,57 +741,81 @@
             stroke: #ffffff;
         }
     }
-
-    .listing{
-        width: 100%;
-        display: flex;
-        flex-flow: wrap;
-        justify-content: space-between;
-        padding: 2rem;
-
-        h2{
-            font-size: 24px;
-            line-height: 37px;
-            color: #262626;
-            text-transform: uppercase;
-            margin: 0 0 .5rem;
-        }
-        
-        li{
-            font-size: 16px;
-            line-height: 24px;
-            font-weight: 400;
-            color: #616161;
-            margin: 0 0 .2rem;
-        }
-
-        .column{
-            width: 48%;
-            margin: 0 0 2rem;
-        }
-
-        .image{
-            width: 100%;
-            height: 100%;
-            display: flex;
-            align-items: center;
-            justify-content: flex-end;
-
-            img{
-                max-width: 400px;
-                object-fit: contain;
-            }
-        }
-
-        @media screen and (min-width: 768px) {
-            .column{
-                width: 48%;
-                margin: unset;
-            }
-        }
-    }
 }
 
+.listing-product{
+    width: 100%;
+    display: flex;
+    flex-flow: wrap;
+}
+
+.card-product{
+    width: 100%;
+    display: flex;
+    flex-flow: wrap;
+    justify-content: space-between;
+    padding: 2rem;
+    margin: 0 0 2rem;
+    border: 1px solid var(--border-card-color);
+    border-radius: 8px;
+
+    h2{
+        font-size: 24px;
+        line-height: 37px;
+        color: #262626;
+        text-transform: uppercase;
+        margin: 0 0 .5rem;
+    }
+    
+    li{
+        font-size: 16px;
+        line-height: 24px;
+        font-weight: 400;
+        color: #616161;
+        margin: 0 0 .2rem;
+    }
+
+    .column{
+        width: 100%;
+        margin: 0 0 1rem;
+
+        &:nth-child(2){
+            margin: unset;
+        }
+    }
+
+    .image{
+        width: 100%;
+        max-width: 200px;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+
+        img{
+            max-width: 100%;
+            object-fit: contain;
+        }
+    }
+
+    @media screen and (min-width: 992px) /* and (max-width: 1200px) */ {
+        width: 48%;
+        margin: 0 4% 4% 0;
+
+        &:nth-child(2n){
+            margin: 0 0 4% 0;
+        }
+    }
+
+    /* @media screen and (min-width: 1200px) {
+        width: 31.3%;
+        margin: 0 3% 3% 0;
+
+        &:nth-child(3n){
+            margin: 0 0 3% 0;
+        }
+    } */
+}
 
 ///////////////////////
 // INPUT DRAG & DROP //

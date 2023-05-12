@@ -101,15 +101,15 @@
 
                     <ul class="submenu" id="subMenuProduct">
                         <li class="sb-item">
-                            <a href="{{ url('/produto') }}" class="sb-link">{{ __('messages.Search') }}</a>
+                            <a href="{{ route('direct.distributor.product.index') }}" class="sb-link">{{ __('messages.Search') }}</a>
                         </li>
 
                         <li class="sb-item">
-                            <a href="{{ url('/produto/valor') }}" class="sb-link">{{ __('messages.Update products') }}</a>
+                            <a href="{{ route('direct.distributor.product.value.index') }}" class="sb-link">{{ __('messages.Update products') }}</a>
                         </li>
 
                         <li class="sb-item">
-                            <a href="{{ url('/produto/relatorio') }}" class="sb-link">{{ __('messages.Product report') }}</a>
+                            <a href="{{ route('direct.distributor.product.report.index') }}" class="sb-link">{{ __('messages.Product report') }}</a>
                         </li>
                     </ul>
                 </li>

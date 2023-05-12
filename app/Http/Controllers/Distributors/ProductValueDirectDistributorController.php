@@ -13,7 +13,7 @@ class ProductValueDirectDistributorController extends Controller
     // index
     public function index()
     {
-        return view('distributor.value.index', ['type' => ProductValueDirectDistributor::index(), 
+        return view('direct-distributor.product.value.index', ['type' => ProductValueDirectDistributor::index(), 
                                                 'general' => DirectDistributor::getGeneralValue()]);
     }
 
