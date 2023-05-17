@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Distributors;
+namespace App\Http\Controllers\DirectDistributor\Product;
 
 use App\Http\Controllers\Controller;
 use App\Models\ProductSisrev;
@@ -23,7 +23,7 @@ class ProductSisrevController extends Controller
         $part_number = explode(',', trim($request->part_number));
 
         // get products
-        $product = $product->whereIn('part_number', array_unique($part_number))->get();
+        $product = $product->with('product_photo')->whereIn('part_number', array_unique($part_number))->get();
 
         // remove languages
         if(app()->getLocale() == 'PT') unset($product['descricao_en'], $product['descricao_es']);

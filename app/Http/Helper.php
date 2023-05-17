@@ -11,12 +11,12 @@ class Helper
 {
     public static function getDirectDistributorLogged()
     {
-        return DirectDistributor::findOrFail(Auth::user()->id_direct_distributor);
+        return DirectDistributor::findOrFail(Auth::guard('distributor')->user()->direct_distributor_id);
     }
 
     public static function getUserDirectDistributor()
     {
-        return UserDirectDistributor::findOrFail(Auth::user()->id_direct_distributor);
+        return UserDirectDistributor::findOrFail(Auth::guard('distributor')->user()->direct_distributor_id);
     }
 
     public static function getSystemConfigurationKeyName($r)

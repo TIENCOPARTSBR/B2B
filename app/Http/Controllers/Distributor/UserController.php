@@ -1,18 +1,18 @@
 <?php
 
-namespace App\Http\Controllers\Distributors;
+namespace App\Http\Controllers\Distributor;
 
 use App\Http\Controllers\Controller;
 use App\Models\UserDistributor;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
-class UserDistributorController extends Controller
+class UserController extends Controller
 {
-    // index
     public function index()
     {
-        return view('distributor.users.show', ['users' => UserDistributor::all()]);
+        return view('direct-distributor.distributor.user.index')
+            ->with('user_distributor', UserDistributor::all());
     }
     
     // show

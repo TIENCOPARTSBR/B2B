@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Distributors;
+namespace App\Http\Controllers\DirectDistributor;
 
 use App\Http\Controllers\Controller;
 use App\Imports\ProductValueDistributorImport;

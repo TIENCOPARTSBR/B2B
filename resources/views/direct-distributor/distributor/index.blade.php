@@ -25,7 +25,7 @@
                         </form>
                         
                         <!-- add row -->
-                        <a href="{{ route('distributor.create') }}" class="button-yellow-1" >
+                        <a href="{{ route('direct.distributor.distributor.create') }}" class="button-yellow-1" >
                             {{ __('messages.Add Distributor') }}
                         </a>
                     </div>
@@ -52,19 +52,19 @@
 
                                 <div class="td">
                                     <div class="table-button">
-                                        <a href="{{ url('/distribuidor/produto/valor') }}/{{ $distributor->id }}/" data-button="product" >
+                                        <a href="{{ route('direct.distributor.distributor.value', $distributor->id) }}" data-button="product" >
                                             <span class="tooltip">{{__('messages.Update products')}}</span>
                                         </a>
 
-                                        <a href="{{ url('/distribuidor/visualizar') }}/{{ $distributor->id }}/" data-button="view" >
+                                        <a href="{{ route('direct.distributor.distributor.view', $distributor->id) }}" data-button="view" >
                                             <span class="tooltip">{{__('messages.View')}}</span>
                                         </a>
 
-                                        <a href="{{ url('/distribuidor/editar') }}/{{ $distributor->id }}/" data-button="edit" >
+                                        <a href="{{ route('direct.distributor.distributor.edit', $distributor->id) }}" data-button="edit" >
                                             <span class="tooltip">{{__('messages.Edit')}}</span>
                                         </a>
 
-                                        <button type="button" data-trigger="delete" onclick="triggerModal('{{route('distributor.destroy')}}',' {{$distributor->id}}')" >
+                                        <button type="button" data-trigger="delete" onclick="triggerModal('{{route('direct.distributor.distributor.destroy')}}',' {{$distributor->id}}')" >
                                             <span class="tooltip">{{__('messages.Delete')}}</span>
                                         </button>
                                     </div>

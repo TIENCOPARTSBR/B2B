@@ -133,4 +133,3 @@ $fileInput.on('change', function() {
     $textContainer.text(filesCount + ' files selected');
   }
 });
-

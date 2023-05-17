@@ -57,7 +57,6 @@ class Kernel extends HttpKernel
     protected $routeMiddleware = [  
         'auth' => \App\Http\Middleware\Authenticate::class,
         'guest' => \App\Http\Middleware\RedirectIfAuthenticated::class,
-        'distributor' => \App\Http\Middleware\AdminRedirectIfAuthenticated::class,
         'throttle' => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'Language' => \App\Http\Middleware\Language::class,
     ];

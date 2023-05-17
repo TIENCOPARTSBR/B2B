@@ -15,4 +15,9 @@ class ProductSisrev extends Model
     {
         return $this->hasMany(ProductPhoto::class, 'part_number', 'part_number');
     }
+
+    public function QuotationItem()
+    {
+        return $this->hasMany(QuotationItem::class);
+    }
 }

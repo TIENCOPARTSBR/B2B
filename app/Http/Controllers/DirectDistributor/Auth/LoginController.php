@@ -1,18 +1,16 @@
 <?php
 
-namespace App\Http\Controllers\Distributors\Auth;
+namespace App\Http\Controllers\DirectDistributor\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\View;
-use Symfony\Component\HttpFoundation\Response;
 
 class LoginController extends Controller
 {   
     public function index()
     {
-        return view('distributor.auth.login');
+        return view('direct-distributor.auth.login');
     }
 
     public function store(Request $request)

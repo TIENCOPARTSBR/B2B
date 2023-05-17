@@ -13,13 +13,13 @@ Route::name('admin.')->prefix('admin')->group(function(){
         // set locale
         Route::get('/change-language/{lang}', [LanguageController::class, 'changeLang']);
 
-        Route::namespace('Auth')->middleware('distributor:admin')->group(function(){
+        Route::middleware('guest:admin')->group(function(){
             //login route
             Route::get('/login', [LoginController::class, 'login'])->name('login');
             Route::post('/login',[LoginController::class, 'processLogin']);
         });
 
-        Route::namespace('Auth')->middleware('auth:admin')->group(function(){
+        Route::middleware('auth:admin')->group(function(){
             Route::get('/', [ProductsController::class, 'index']);
 
             // admin

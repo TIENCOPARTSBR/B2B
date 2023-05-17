@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers\Distributors;
+namespace App\Http\Controllers\DirectDistributor;
 
 use App\Http\Controllers\Controller;
 use App\Models\DirectDistributor;
-use App\Models\ProductValueDirectDistributor;
+use App\Models\ProductValue;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 
-class ProductValueDirectDistributorController extends Controller
+class ProductValueController extends Controller
 {
     // index
     public function index()
     {
-        return view('direct-distributor.product.value.index', ['type' => ProductValueDirectDistributor::index(), 
+        return view('direct-distributor.product.value.index', ['type' => ProductValue::index(), 
                                                 'general' => DirectDistributor::getGeneralValue()]);
     }
 
@@ -23,7 +23,7 @@ class ProductValueDirectDistributorController extends Controller
         $r->validate([ 'part_number' => 'required||min:3' ],
         [ 'part_number' => __('messages.Part number is required') ]);
 
-        return view('distributor.value.index', ['type' => ProductValueDirectDistributor::show($r->only('part_number')), 
+        return view('distributor.value.index', ['type' => ProductValue::show($r->only('part_number')), 
                                                 'general' => DirectDistributor::getGeneralValue()]);
     }
 
@@ -33,7 +33,7 @@ class ProductValueDirectDistributorController extends Controller
         $r->validate([ 'part_number' => 'required||max:10', 'product_value' => 'required', 'value_type' => 'required'], 
                     [ 'part_number' => __('messages.Part number is required'), 'product_value' => __('messages.Value is required') ]);
 
-        ProductValueDirectDistributor::store(
+        ProductValue::store(
             $r->only('part_number', 'product_value', 'value_type')
         );
 
@@ -46,7 +46,7 @@ class ProductValueDirectDistributorController extends Controller
         $r->validate([ 'part_number' => 'required||max:10', 'product_value' => 'required', 'value_type' => 'required'], 
                      [ 'part_number' => __('messages.Part number is required'), 'product_value' => __('messages.Value is required') ]);
 
-        ProductValueDirectDistributor::updated(
+        ProductValue::updated(
             $r->only('id','part_number', 'product_value', 'value_type')
         );
 
@@ -56,7 +56,7 @@ class ProductValueDirectDistributorController extends Controller
     // destroy
     public static function destroy($id)
     {
-        ProductValueDirectDistributor::destroy($id);
+        ProductValue::destroy($id);
 
         return Redirect::to('/produto/valor')->with('successfully', __('messages.Deleted product value'));
     }

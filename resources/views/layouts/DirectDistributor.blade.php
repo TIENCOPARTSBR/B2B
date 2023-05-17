@@ -31,6 +31,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/jquery.dataTables.min.css">
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/helpers.css') }}">
@@ -57,11 +58,11 @@
                         </button>
                     
                         <div class="list">
-                            <a href="http://127.0.0.1:8000/change-language/en" data-src="https://encoparts.com/wp-content/uploads/flags/us.png">
+                            <a href="{{url('/change-language/en')}}" data-src="https://encoparts.com/wp-content/uploads/flags/us.png">
                                 <img src="https://encoparts.com/wp-content/uploads/flags/us.png" alt="bandeira brasil">
                             </a>
             
-                            <a href="http://127.0.0.1:8000/change-language/pt" type="submit" data-src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png">
+                            <a href="{{url('/change-language/pt')}}" type="submit" data-src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png">
                                 <img src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png" alt="">
                             </a>
                         </div>
@@ -105,7 +106,7 @@
                         </li>
 
                         <li class="sb-item">
-                            <a href="{{ route('direct.distributor.product.value.index') }}" class="sb-link">{{ __('messages.Update products') }}</a>
+                            <a href="{{ route('direct.distributor.product.value.general.value.index') }}" class="sb-link">{{ __('messages.Update products') }}</a>
                         </li>
 
                         <li class="sb-item">
@@ -115,7 +116,21 @@
                 </li>
 
                 <li class="si-item">
-                    <a href="{{ url('/usuarios') }}" class="si-link">
+                    <a href="{{route('direct.distributor.quotation.index')}}" class="si-link">
+                        <div class="si-icon">
+                            <svg viewBox="0 0 16 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M1 5C5.18741 7.99101 10.8126 7.99101 15 5V15C10.6624 17.4786 5.33755 17.4786 1 15V5Z" fill="#7E869E" fill-opacity="0.25"/>
+                                <ellipse cx="8" cy="4" rx="7" ry="3" stroke-width="1.2"/>
+                                <path d="M1 10C1 10 1 12.3431 1 14C1 15.6569 4.13401 17 8 17C11.866 17 15 15.6569 15 14C15 13.173 15 10 15 10"  stroke-width="1.2" stroke-linecap="square"/>
+                                <path d="M1 4C1 4 1 7.34315 1 9C1 10.6569 4.13401 12 8 12C11.866 12 15 10.6569 15 9C15 8.17299 15 4 15 4" stroke-width="1.2"/>
+                            </svg>
+                        </div>
+                        <span>{{ __('messages.Quotations') }}</span>
+                    </a>
+                </li>
+
+                <li class="si-item">
+                    <a href="{{ route('direct.distributor.user.index') }}" class="si-link">
                         <div class="si-icon">
                             <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
                                 <circle cx="7" cy="4" r="4" fill="#c1c1c1"/>
@@ -126,7 +141,7 @@
                     </a>
                 </li>
 
-                @if (Auth::user()->type === 'A')
+                @if (Auth::guard('distributor')->user()->type === 'A')
                     <li class="si-item">
                         <a href="{{ url('/distribuidor') }}" class="si-link">
                             <div class="si-icon">
@@ -209,7 +224,7 @@
                     <input type="hidden" name="id_delete" id="id_delete">
                     
                     <div class="modal-header">
-                        <button type="button" data-modal="close" ></button>
+                        <button type="button" data-modal="close"></button>
                     </div>
     
                     <div class="modal-body">
@@ -235,6 +250,8 @@
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.form/4.2.2/jquery.form.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
     
     <script defer src="{{ asset('js/main.js') }}"> </script>
 

@@ -22,14 +22,14 @@ class Distributor extends Model
         'profit_margin_value'
     ];
 
-    public function ProductValueDistributor()
+    public function ProductValue()
     {
-        return $this->hasMany(ProductValueDistributor::class, 'id_distributor', 'id');
+        return $this->hasMany(ProductValue::class, 'distributor_id', 'id');
     }
 
     public function UserDistributor()
     {
-        return $this->hasMany(UserDistributor::class, 'id_distributor', 'id');
+        return $this->hasMany(UserDistributor::class, 'distributor_id', 'id');
     }
 
     protected static function booted()

@@ -2,28 +2,32 @@
 
 namespace App\Http\Middleware;
 
+use App\Providers\RouteServiceProvider;
 use Closure;
-use GuzzleHttp\Psr7\Request;
+use Illuminate\Http\Request;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 
 class Authenticate extends Middleware
 {
-    /**
-     * Get the path the user should be redirected to when they are not authenticated.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return string|null
-     */
-    public function redirectTo($request, $guards)
-    {
+    public function handle($request, Closure $next, ...$guards)
+    {   
         foreach($guards as $guard){
-            if ($guard === 'distributor') {
-                return route('distributor.login');
+            if(Auth::guard("distributor")->check()) 
+            {
+                return $next($request);
+            } else {
+                return to_route('distributor.login');
             }
-            if ($guard === 'admin') {
-                return route('admin.login');
+            if(Auth::guard("admin")->check()) 
+            {
+                return $next($request);
+            } else {
+                return to_route('admin.login');
             }
         }
+
+        return $next($request);
     }
 }

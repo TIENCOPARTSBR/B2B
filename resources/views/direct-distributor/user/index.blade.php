@@ -18,15 +18,15 @@
                     <!-- header -->
                     <div class="tab-header">
                         <!-- search -->
-                        <form method="POST" action="{{ url('/usuarios') }}/" class="form-search" >
+                        <form method="POST" action="{{ route('direct.distributor.user.show') }}" class="form-search">
                             @csrf @method('POST')
-                            <input type="text" name="name" placeholder="{{ __('messages.Search') }}" class="form-control" >
+                            <input type="text" name="name" placeholder="{{ __('messages.Search') }}" class="form-control">
         
                             <button type="submit"></button>
                         </form>
                         
                         <!-- add row -->
-                        <a href="{{url('/usuarios/novo')}}" class="button-yellow-1 button-small" >
+                        <a href="{{ route('direct.distributor.user.create')}}" class="button-yellow-1 button-small">
                             {{__('messages.Add')}}
                         </a>
                     </div>
@@ -42,24 +42,24 @@
 
                         <!-- list -->
                         @foreach ($user as $user)
-                            <form method="POST" action="{{url('/produto/valor/unitario/atualizar')}}" class="tbody">
+                            <div class="tbody">
                                 @csrf @method('POST')
 
                                 <div class="td">
-                                    <input type="text" value="{{trim($user->name)}}" class="form-input" readonly >
+                                    <input type="text" value="{{trim($user->name)}}" class="form-input" readonly>
                                 </div>
 
                                 <div class="td">
-                                    <input type="text" value="{{trim($user->is_active)}}" class="form-input" readonly >
+                                    <input type="text" value="{{$user->is_active == 1 ? __('messages.Active') : __('messages.Inactive')}}" class="form-input" readonly>
                                 </div>
 
                                 <div class="td">
                                     <div class="table-button">
-                                        <a href="{{ url('/usuarios/editar') }}/{{ $user->id }}/" data-button="edit" ></a>
-                                        <button type="button" data-trigger="delete" onclick="triggerModal('/usuarios/excluir', {{$user->id}})" ></button>
+                                        <a href="{{ route('direct.distributor.user.edit', $user->id) }}" data-button="edit"></a>
+                                        <button type="button" data-trigger="delete" onclick="triggerModal('{{route('direct.distributor.user.destroy')}}', {{$user->id}})"></button>
                                     </div>
                                 </div>
-                            </form>
+                            </div>
                         @endforeach
                     </div>
                 </div>

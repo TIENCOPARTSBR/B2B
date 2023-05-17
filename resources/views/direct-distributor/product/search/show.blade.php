@@ -32,18 +32,18 @@
                             <li><strong>{{__('messages.Weight')}}:</strong> {{$product->peso}} kg</li>
                             <li><strong>NCM:</strong> {{$product->ncm}} | <strong>HS Code:</strong> {{$product->hscode}}</li>
                             <li><strong>{{__('messages.Supply location')}}:</strong></li>
-                            <li><strong>BR</strong>  | Quantidade em estoque: {{$product->saldo_br}} | Lead time: {{$product->lead_time_br}}</li>
-                            <li><strong>EUA</strong>  | Quantidade em estoque: {{$product->saldo_eua}} | Lead time: {{$product->lead_time_eua}}</li>
+                            <li><strong>&nbsp &nbsp &nbsp &nbsp • BR</strong>  | Quantidade em estoque: {{$product->saldo_br}} | Lead time: {{$product->lead_time_br}}</li>
+                            <li><strong>&nbsp &nbsp &nbsp &nbsp • EUA</strong>  | Quantidade em estoque: {{$product->saldo_eua}} | Lead time: {{$product->lead_time_eua}}</li>
                         </ul>
                     </div>
 
                     <div class="column">
                         <div class="image">
                             @empty ($product->product_photo)
-                                <img src="{{Storage::url('images/'.$product->product_photo[0]->filename)}}" alt="">
+                                <img src="https://b2b.encoparts.com//app-assets/images/logo/encoparts_c.png" alt="">
                             @endempty
                             @isset ($product->product_photo)
-                                <img src="https://b2b.encoparts.com//app-assets/images/logo/encoparts_c.png" alt="">
+                                <img src="{{Storage::url('images/'.$product->product_photo[0]->filename)}}" alt="">
                             @endisset
                         </div>
                     </div>
