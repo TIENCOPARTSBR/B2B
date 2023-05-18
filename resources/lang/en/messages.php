@@ -557,7 +557,7 @@ return [
   "Advance" => "Advance",
   "Download" => "Download",
   "Not found" => "Not found",
-  "" => "",
+  "Distributor Price" => "Distributor Price",
   "" => "",
   "" => "",
   "" => "",

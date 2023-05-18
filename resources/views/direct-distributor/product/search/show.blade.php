@@ -40,7 +40,7 @@
                     <div class="column">
                         <div class="image">
                             @empty ($product->product_photo)
-                                <img src="https://b2b.encoparts.com//app-assets/images/logo/encoparts_c.png" alt="">
+                                <img src="https://b2b.encoparts.com/app-assets/images/logo/encoparts_c.png" alt="">
                             @endempty
                             @isset ($product->product_photo)
                                 <img src="{{Storage::url('images/'.$product->product_photo[0]->filename)}}" alt="">

@@ -553,7 +553,7 @@ return [
     "Advance" => "Avançar",
     "Download" => "Baixar",
     "Not found" => "Não encontrado",
-    "" => "",
+    "Distributor Price" => "Preço do Distribuidor",
     "" => "",
     "" => "",
     "" => ""

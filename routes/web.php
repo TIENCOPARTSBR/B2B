@@ -116,7 +116,7 @@ Route::group(['middleware' => 'Language'], function() {
             Route::post('/cotacao/updated','updated')->name('direct.distributor.quotation.updated');
             Route::post('/cotacao/novo','store')->name('direct.distributor.quotation.store');
             Route::get('/cotacao/novo','create')->name('direct.distributor.quotation.create');
-            Route::get('/cotacao/datatable/{id}','datatable')->name('direct.distributor.quotation.datatable');
+            Route::get('/cotacao/product/{id}','get_product')->name('direct.distributor.quotation.product');
             Route::get('/cotacao/{id}','show')->name('direct.distributor.quotation.show');
         });
 

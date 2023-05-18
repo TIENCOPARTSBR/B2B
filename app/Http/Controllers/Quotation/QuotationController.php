@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Quotation;
 
 use App\Http\Controllers\Controller;
+use App\Http\Helper;
 use App\Models\ProductSisrev;
 use App\Models\Quotation;
 use App\Models\QuotationItem;
@@ -65,20 +66,94 @@ class QuotationController extends Controller
         foreach($quotationItem as $key => $quotationItem){
             $productSisrev[$key] = ProductSisrev::where('part_number', $quotationItem['product_sisrev_id'])->get();
         }
-        /* 
-        return view('direct-distributor.quotation.item')
-            ->with('productSisrev', $productSisrev)
-            ->with('id', $id); */
+
         return view('direct-distributor.quotation.item')
             ->with('id', $id);
+    }
+
+    public function get_product(Request $request, $id)
+    {
+        
     }
 
     public function datatable(Quotation $quotation, $id)
     {   
         // get item quotations
-        $quotation_item = $quotation->with('QuotationItem', 'QuotationItem.ProductSisrev')->findOrFail($id);
+        $quotation_item = $quotation->with('QuotationItem', 'QuotationItem.ProductSisrev', 'QuotationItem.ProductSisrev.product_photo')->findOrFail($id);
+
+        $product = [];
+
+        foreach($quotation_item['QuotationItem'] as $key => $item)
+        {
+            $country = strtoupper(trim($item['country']));
+            
+            if (!empty($item['ProductSisrev'][0])){
+                if (str_contains($country, 'EUA'))
+                {
+                    $custo_liquido_name = 'custo_liquido_eua';
+                    $saldo = 'saldo_br';
+                    $local = 'local_fornecimento_eua';
+                    $lead_time = 'lead_time_eua';
+                }
+
+                if (str_contains($country, 'BR'))
+                {
+                    $custo_liquido_name = 'custo_liquido_br';
+                    $saldo = 'saldo_br';
+                    $local = 'local_fornecimento_br';
+                    $lead_time = 'lead_time_br';
+                }
+                
+                // custo liquido
+                if (!empty($custo_liquido_name))
+                {
+                    $option_general_value = Helper::getDirectDistributorLogged()->option_general_value;
+                    $general_value = Helper::getDirectDistributorLogged()->general_value;
+                    $custo_liquido_original = $item['ProductSisrev'][0][$custo_liquido_name];
+
+                    if($option_general_value === 'PERCENTAGE')
+                        $custo_liquido = $custo_liquido_original + ( $custo_liquido_original / 100 * $general_value) ;
+
+                    if($option_general_value === 'UNIT_PRICE')
+                        $custo_liquido = ( $custo_liquido_original + $general_value );
+
+                    $total = ($custo_liquido * $item['quantity']);
+                }
+
+                $product[$key]['country']         = $custo_liquido_original;
+                $product[$key]['part_number']         = $item['ProductSisrev'][0]['part_number'];
+                $product[$key]['description']         = $item['ProductSisrev'][0]['descricao_br'];
+                $product[$key]['custo_liquido_original']       = (!empty($custo_liquido_original)) ? '$ '.number_format((float) $custo_liquido_original, 2, '.', ',') : '';
+                $product[$key]['custo_liquido']       = (!empty($custo_liquido)) ? '$ '.number_format((float) $custo_liquido, 2, '.', ',') : '';
+                $product[$key]['quantity']            = $item['quantity'];
+                $product[$key]['total']               = (!empty($total)) ? '$ '.number_format((float) $total, 2, '.', ',') : '-----';
+                $product[$key]['weight']              = (!empty($item['ProductSisrev'][0]['peso'])) ? $item['ProductSisrev'][0]['peso'] : '-----';
+                $product[$key]['ncm']                 = (!empty($item['ProductSisrev'][0]['ncm'])) ? $item['ProductSisrev'][0]['ncm'] : '-----';
+                $product[$key]['hscode']              = (!empty($item['ProductSisrev'][0]['hscode'])) ? $item['ProductSisrev'][0]['hscode'] : '-----';
+                $product[$key]['local_fornecimento']  = (!empty($item['ProductSisrev'][0]['local_fornecimento'])) ? $item['ProductSisrev'][0][$local] : '-----';
+                $product[$key]['saldo']              = (!empty($item['ProductSisrev'][0]['saldo'])) ? $item['ProductSisrev'][0][$saldo] : '-----';
+                $product[$key]['lead_time']              = (!empty($item['ProductSisrev'][0]['lead_time'])) ? $item['ProductSisrev'][0][$lead_time] : '-----';
+                $product[$key]['photo']              = (!empty($item['ProductSisrev'][0]['product_photo'][0]['filename'] )) ? '/storage/images/'.$item['ProductSisrev'][0]['product_photo'][0]['filename'] : 'https://b2b.encoparts.com/app-assets/images/logo/encoparts_c.png';
+            }  
+            else{
+                $product[$key]['part_number']         = $item['product_sisrev_id'];
+                $product[$key]['description']         = '-----';
+                $product[$key]['custo_liquido_original']       = '-----';
+                $product[$key]['custo_liquido']       = '-----';
+                $product[$key]['quantity']            = '-----';
+                $product[$key]['total']               = '-----';
+                $product[$key]['weight']              = '-----';
+                $product[$key]['ncm']                 = '-----';
+                $product[$key]['hscode']              = '-----';
+                $product[$key]['status_color']        = '-----';
+                $product[$key]['local_fornecimento']  = '-----';
+                $product[$key]['saldo']               = '-----';
+                $product[$key]['lead_time']           = '-----';
+                $product[$key]['photo']               = 'https://b2b.encoparts.com/app-assets/images/logo/encoparts_c.png';
+            } 
+        } 
 
         // return data
-        return datatables()->of($quotation_item['QuotationItem'])->toJson();
+        return datatables()->of($product)->toJson();
     }
 }
