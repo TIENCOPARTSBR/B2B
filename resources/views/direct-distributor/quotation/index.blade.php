@@ -2,6 +2,12 @@
 
 @section('content')
     <section class="page">
+        <!-- breadcrumb -->
+        <ul class="breadcrumb">
+            <li><a href="/">{{ __('messages.Home') }}</a> &nbsp/</li>
+            <li class="active">&nbsp {{ __('messages.Quotations') }}</li>
+        </ul>
+
         <h1 class="title">{{ __('messages.Quotations') }}</h1>
 
         <div class="card">

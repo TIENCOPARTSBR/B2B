@@ -1,8 +1,8 @@
 // select language
-$('.si-language').on('click', function(){
-    $('.si-language .list').toggleClass('active');
+$('.language').on('click', function(){
+    $('.language .list').toggleClass('active');
 
-    $('.si-language .list a').on('click', function(){
+    $('.language .list a').on('click', function(){
         $('.select').html('<img src='+$(this).data('src')+'>');
     });
 });
@@ -16,7 +16,7 @@ $('.validate-mail').on('input', function(){
     if($(this).val().length < 3) console.log('-3');
 });
 
-$('.si-item').on('click', function(){
+$(".item-menu").on('click', function(){
     $(this).toggleClass('active');
     var data = $(this).data('submenu');
     $('#'+data).toggleClass('active');

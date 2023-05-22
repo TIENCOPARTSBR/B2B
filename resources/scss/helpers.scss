@@ -11,27 +11,20 @@ body{
 {
     width: 100%;
     height: 100%;
-    min-height: 100vh;
+    min-height: auto;
     margin: 0;
     padding: 0;
     display: flex;
     flex-flow: wrap;
-    //background-color: #f8f9fa;
     position: relative;
 }
 
 .main
 {
-    width: calc(100% - 280px);
-    height: 100vh;
+    width: 100%;
+    height: 100%;
     border-radius: 15px;
-    padding: 3rem;
-    overflow-y: scroll;
-    overflow-x: hidden;
-    position: fixed;
-    top: 0;
-    right: 0;
-    z-index: 0;
+    padding: 7rem 0 3rem;
 }
 
 :root {
@@ -94,6 +87,10 @@ body{
   @media (min-width: 1400px) {
 	max-width: 1320px;
   }
+
+  @media (min-width: 1600px) {
+	max-width: calc(100% - 6rem);
+  }
 }
 
 /* br */
@@ -135,12 +132,13 @@ ol{
 	position: fixed;
 	transition: all ease-in 200ms;
 	right: 2rem;
-	top: 1.5rem;
+	top: 100px;
 	animation: notification 300ms normal;
 	border-width: 1px;
 	border-style: solid;
 	font-size: 14px;
 	line-height: 24px;
+	z-index: 1010;
 
 	svg{
 		margin: 0 10px 0 0;
@@ -464,7 +462,7 @@ hr{
 		transform: scale(0.4);
 	}
 	100%{
-		top: 1rem;
+		top: 100px;
 		transform: scale(1);
 	}
 }
@@ -745,6 +743,17 @@ form.d-table-row{
 	}
 }
 
+.tab-link {
+	&.quotation{
+		padding: 0;
+		margin: 0 2rem 0 0;
+	}
+}
+
+.px-0{
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+}
 
 ///////////////////////////////////////
 ///////////////////////////////////////

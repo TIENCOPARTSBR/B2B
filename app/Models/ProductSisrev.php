@@ -10,6 +10,7 @@ class ProductSisrev extends Model
     use HasFactory;
 
     protected $table = 'product_sisrev';
+    //protected $primaryKey = 'part_number';
 
     public function product_photo()
     {

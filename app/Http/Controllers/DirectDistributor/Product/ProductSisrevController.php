@@ -26,9 +26,9 @@ class ProductSisrevController extends Controller
         $product = $product->with('product_photo')->whereIn('part_number', array_unique($part_number))->get();
 
         // remove languages
-        if(app()->getLocale() == 'PT') unset($product['descricao_en'], $product['descricao_es']);
-        if(app()->getLocale() == 'EN') unset($product['descricao_br'], $product['descricao_es']);
-        if(app()->getLocale() == 'ES') unset($product['descricao_en'], $product['descricao_br']);
+        if(app()->getLocale() == 'pt') unset($product['descricao_en'], $product['descricao_es']);
+        if(app()->getLocale() == 'en') unset($product['descricao_br'], $product['descricao_es']);
+        if(app()->getLocale() == 'es') unset($product['descricao_en'], $product['descricao_br']);
 
         return view('direct-distributor.product.search.show', ['product' => $product]);
     }

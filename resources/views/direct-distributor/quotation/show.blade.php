@@ -2,17 +2,19 @@
 
 @section('content')
     <section class="page">
+        <!-- breadcrumb -->
+        <ul class="breadcrumb">
+            <li><a href="/">{{ __('messages.Home') }}</a> &nbsp/</li>
+            <li>&nbsp <a href="{{route('direct.distributor.quotation.index')}}">{{ __('messages.Quotations') }}</a></li>
+            <li class="active">&nbsp / &nbsp{{$quotation->customer_name}}</li>
+        </ul>
+
         <h1 class="title">{{ __('messages.Quotations') }}</h1>
 
         <div class="steps">
             <div class="box">
                 <div class="box-number active">1</div>
                 <p class="box-text active">{{__('messages.Register quotation')}}</p>
-            </div>
-
-            <div class="box">
-                <div class="box-number">2</div>
-                <p class="box-text">{{__('messages.Add products to quotation')}}</p>
             </div>
         </div>
 

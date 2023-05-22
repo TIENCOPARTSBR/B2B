@@ -11,7 +11,10 @@ use App\Http\Controllers\DirectDistributor\Auth\UserController as UserDirectDist
 use App\Http\Controllers\DirectDistributor\Product\UpdateGeneralValueController;
 use App\Http\Controllers\DirectDistributor\Product\UpdateProductValueSpreadsheetController;
 use App\Http\Controllers\DirectDistributor\Product\UpdateUnitaryValueController;
+use App\Http\Controllers\Quotation\QuotationItemController;
+use App\Http\Controllers\Quotation\ImportForQuotationController;
 use App\Http\Controllers\Quotation\QuotationController;
+use App\Http\Controllers\Quotation\QuotationDatatableController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -110,17 +113,32 @@ Route::group(['middleware' => 'Language'], function() {
         });
 
         /////////////////////// ROUTES QUOATATION ///////////////////////
-        Route::controller(QuotationController::class)->group(function(){
+        Route::controller(QuotationController::class)->group(function() {
             Route::get('/cotacao','index')->name('direct.distributor.quotation.index');
             Route::get('/cotacao/item/{id}','item')->name('direct.distributor.quotation.item');
             Route::post('/cotacao/updated','updated')->name('direct.distributor.quotation.updated');
             Route::post('/cotacao/novo','store')->name('direct.distributor.quotation.store');
             Route::get('/cotacao/novo','create')->name('direct.distributor.quotation.create');
-            Route::get('/cotacao/product/{id}','get_product')->name('direct.distributor.quotation.product');
             Route::get('/cotacao/{id}','show')->name('direct.distributor.quotation.show');
+            Route::post('/cotacao/product/destroy','deleteProductTheQuotation')->name('direct.distributor.quotation.product.destroy');
         });
 
-        // logout
+        Route::controller(QuotationDatatableController::class)->group(function() {
+            Route::get('/cotacao/datatable/{id}','datatable')->name('direct.distributor.quotation.datatable');
+        });
+
+        // Adicionar produtos na cotação
+        Route::controller(QuotationItemController::class)->group(function() {
+            Route::post('/cotacao/product','show')->name('direct.distributor.quotation.product');
+            Route::post('/cotacao/product/add','store')->name('direct.distributor.quotation.product.add');
+        });
+
+        // importar produtos cotação
+        Route::controller(ImportForQuotationController::class)->group(function() {
+            Route::post('/cotacao/product/import', 'index')->name('direct.distributor.quotation.product.import');
+        });
+
+        // Sair
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     });
 });
