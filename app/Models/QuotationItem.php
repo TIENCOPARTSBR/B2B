@@ -17,7 +17,8 @@ class QuotationItem extends Model
         "country",
         "quantity",
         "status",
-        "product_exists"
+        "product_exists",
+        "description"
     ];
 
     public function Quotation()

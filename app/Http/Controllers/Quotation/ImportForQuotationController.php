@@ -24,14 +24,17 @@ class ImportForQuotationController extends Controller
         // loop de todos os part numbers
         foreach($excel_imported[0] as $excel)
         {
+            // se não existir quantidade definir como zero
+            if(empty($excel[1])) $excel[1] = 0;
+
             // Pegar todos os produtos e seus relacionamentos conforme o part_number
             $product = $product_sisrev->with('product_photo')->where('part_number', trim($excel[0]))->first();
 
             // Se existir o part_number na base da dados
             if(isset($product)){
                 // Se não houver imagem no banco de dados definir a variavel com o logo da encoparts
+                $product['image'] = "https://b2b.encoparts.com/app-assets/images/logo/encoparts_c.png";
                 if(!empty($product['product_photo'][0]['filename'])) $product['image'] = Storage::url('images/'.$product['product_photo'][0]['filename']);
-                if(empty($product['product_photo'][0]['filename'])) $product['image'] = "https://b2b.encoparts.com/app-assets/images/logo/encoparts_c.png";
         
                 // Mudar a descrição conforme o idioma usado no sistema.
                 if(app()->getLocale() == 'pt')  $descricao = $product['descricao_br'];
@@ -39,9 +42,9 @@ class ImportForQuotationController extends Controller
                 if(app()->getLocale() == 'es')  $descricao = $product['descricao_es'];
         
                 // Se houver entrega para dois locais exibir um card para o cliente escolher. 
-                if(strtoupper($product['local_fornecimento_br']) == 'BR'  && strtoupper($product['local_fornecimento_usa']) == 'USA')
+                if(strtoupper($product['local_fornecimento_br']) === 'BR'  && strtoupper($product['local_fornecimento_usa']) === 'USA')
                 {
-                    if(strtoupper($product['local_fornecimento_br']) == 'BR') 
+                    if(strtoupper($product['local_fornecimento_br']) === 'BR') 
                     {
                         $html[] = 
                         '<form class="card-product">
@@ -57,7 +60,6 @@ class ImportForQuotationController extends Controller
                                 <ul>
                                     <li> <h2>'.$product['part_number'].' - '.$descricao.' </h2> </li>
                                     <li><strong>'.__("messages.Price Encoparts BR").':</strong>    '.$product['custo_liquido_br'].'</li>
-                                    <li><strong>'.__("messages.Encoparts USA Price").':</strong>   '.$product['custo_liquido_eua'].'</li>
                                     <li><strong>'.__("messages.Weight").':</strong>                '.$product['peso'].' kg</li>
                                     <li><strong>NCM:</strong>                                      '.$product['ncm'].'</li>
                                     <li><strong>HS Code:</strong>                                  '.$product['hscode'].'</li>
@@ -77,7 +79,7 @@ class ImportForQuotationController extends Controller
                         </form>';
                     }
 
-                    if(strtoupper($product['local_fornecimento_usa']) == 'USA') 
+                    if(strtoupper($product['local_fornecimento_usa']) === 'USA') 
                     {
                         $html[] = 
                         '<form class="card-product">
@@ -92,7 +94,6 @@ class ImportForQuotationController extends Controller
                             <div class="col-12">
                                 <ul>
                                     <li> <h2>'.$product['part_number'].' - '.$descricao.' </h2> </li>
-                                    <li><strong>'.__("messages.Price Encoparts BR").':</strong>    '.$product['custo_liquido_br'].'</li>
                                     <li><strong>'.__("messages.Encoparts USA Price").':</strong>   '.$product['custo_liquido_eua'].'</li>
                                     <li><strong>'.__("messages.Weight").':</strong>                '.$product['peso'].' kg</li>
                                     <li><strong>NCM:</strong>                                      '.$product['ncm'].'</li>
@@ -115,27 +116,20 @@ class ImportForQuotationController extends Controller
                 } 
                 else 
                 {
-                    // definir país
-                    if($product['local_fornecimento_br'])
-                    {
-                        $country = 'BR';
-                    }
+                    if($product['local_fornecimento_br']) $country = 'BR';
+                    if($product['local_fornecimento_usa']) $country = 'USA';
+                    if(empty($product['local_fornecimento_br']) || $product['local_fornecimento_usa']) $country = '';
 
-                    if($product['local_fornecimento_usa'])
-                    {
-                        $country = 'USA';
-                    }
-                    
-                    $product = [
+                    $prod = [
                         'quotation_id' => $request['quotation_id'],
                         'product_sisrev_id' => $product['part_number'],
-                        'country' => 'USA',
+                        'country' => $country,
                         'quantity' => $excel['1'],
                         'status' => 'A',
                         'product_exists' => 'X',
                     ];
-            
-                    $quotation_item::create($product);
+                    
+                    $quotation_item::create($prod);
                 }
             }
             else

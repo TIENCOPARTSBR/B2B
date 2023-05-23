@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Quotation;
 use App\Http\Helper;
 use App\Models\ProductValue;
 use App\Models\Quotation;
+use App\Models\QuotationItem;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -14,18 +15,19 @@ class QuotationDatatableController extends Controller
     public function datatable(Quotation $quotation, $id)
     {   
         // Todos os items da cotação
-        $quotation = $quotation->with('QuotationItem', 'QuotationItem.ProductSisrev', 'QuotationItem.ProductSisrev.product_photo')->findOrFail($id);
+        $quotation = QuotationItem::with('ProductSisrev', 'ProductSisrev.product_photo')
+            ->where('quotation_id', $id)->get();
 
         // Array de produtos
         $product = [];
 
         // Loop dos produtos
-        foreach($quotation['QuotationItem'] as $key => $item)
+        foreach($quotation as $key => $item)
         {
             if ($item['ProductSisrev'][0])
             {
                 // Eua
-                if (str_contains(strtoupper(trim($item['country'])), 'USA'))
+                if (strtoupper(trim($item['country'])) == 'USA' || strtoupper(trim($item['country'])) == 'EUA')
                 {
                     $custo_liquido_name = 'custo_liquido_eua';
                     $saldo = 'saldo_eua';
@@ -34,7 +36,16 @@ class QuotationDatatableController extends Controller
                 }
 
                 // Brasil
-                if (str_contains(strtoupper(trim($item['country'])), 'BR'))
+                if (strtoupper(trim($item['country'])) == 'BR')
+                {
+                    $custo_liquido_name = 'custo_liquido_br';
+                    $saldo = 'saldo_br';
+                    $local = 'local_fornecimento_br';
+                    $lead_time = 'lead_time_br';
+                }
+
+                // defualt
+                if (empty(trim($item['country'])))
                 {
                     $custo_liquido_name = 'custo_liquido_br';
                     $saldo = 'saldo_br';
@@ -95,8 +106,8 @@ class QuotationDatatableController extends Controller
                 $product[$key]['id']                           = $item['id'];
                 $product[$key]['part_number']                  = $item['ProductSisrev'][0]['part_number'];
                 $product[$key]['description']                  = $item['ProductSisrev'][0]['descricao_br'];
-                $product[$key]['custo_liquido_original']       = (!empty($custo_liquido_original)) ? '$ '.number_format((float) $custo_liquido_original, 2, '.', ',') : '';
-                $product[$key]['custo_liquido']                = (!empty($custo_liquido)) ? '$ '.number_format((float) $custo_liquido, 2, '.', ',') : '';
+                $product[$key]['custo_liquido_original']       = (!empty($custo_liquido_original)) ? '$ '.number_format((float) $custo_liquido_original, 2, '.', ',') : '-----';
+                $product[$key]['custo_liquido']                = (!empty($custo_liquido)) ? '$ '.number_format((float) $custo_liquido, 2, '.', ',') : '-----';
                 $product[$key]['quantity']                     = $item['quantity'];
                 $product[$key]['total']                        = (!empty($total)) ? '$ '.number_format((float) $total, 2, '.', ',') : '-----';
                 $product[$key]['weight']                       = (!empty($item['ProductSisrev'][0]['peso'])) ? $item['ProductSisrev'][0]['peso'] : '-----';

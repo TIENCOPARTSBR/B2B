@@ -1,6 +1,10 @@
 @extends('layouts.DirectDistributor')
 
 @section('content')
+    <div id="spinner">
+        <span class="throbber-loader">Loading&#8230;</span>
+    </div>
+
     <section class="page">
         <h1 class="title">{{ __('messages.Quotations') }}</h1>
 
@@ -164,6 +168,8 @@
             });
         }
 
+        $("#spinner").hide();
+
         $('#form_import').submit(function(event) {
             // Evita que o formulário faça seu envio padrão
             event.preventDefault();
@@ -185,7 +191,12 @@
                 headers: {
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
+                beforeSend: function() {
+                    $("#spinner").show();
+                },
                 success: function (response) {
+                    $("#spinner").hide();
+
                     $('#tableQuotation').DataTable().ajax.reload();
 
                     $('.listing-product').append(JSON.parse(response));
@@ -215,6 +226,12 @@
                     $("[data-modal=close]").on('click', function(){
                         $(this).parent().remove();
                     });
+
+                    $('.app').append('<div class="alert alert-success" onshow="alert()"> <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg"> <circle cx="8" cy="8" r="8" fill="#3fbd63c4"/> <path d="M4.5 7L7.39393 9.89393C7.45251 9.95251 7.54749 9.95251 7.60607 9.89393L15.5 2" stroke="#fff" stroke-width="1.2"/> <path d="M15.3578 6.54654C15.6899 8.22773 15.4363 9.97195 14.6391 11.4889C13.8419 13.0059 12.5493 14.2041 10.9763 14.8842C9.40333 15.5642 7.64492 15.6851 5.99369 15.2267C4.34247 14.7682 2.89803 13.7582 1.90077 12.3646C0.903508 10.9709 0.413576 9.27783 0.512509 7.56701C0.611442 5.85619 1.29327 4.23085 2.44453 2.96147C3.59578 1.6921 5.14703 0.855265 6.84009 0.590236C8.53315 0.325207 10.2659 0.64797 11.75 1.50481" stroke="#3fbd63c4" stroke-linecap="round"/> </svg> Produtos importados! <div class="close" id="close-alert"> <svg width="30" height="30" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"> <path d="M6.00009 11.9997L12.0001 5.99966" stroke="#5d6672" stroke-width="1.2"/> <path d="M12 12L6 6" stroke="#5d6672" stroke-width="1.2"/> </svg> </div></div>');
+
+                    setTimeout(() => {
+                            $('.alert.alert-success').remove();
+                    }, "1500");
                 },
                 error: function (error) {
                     console.log(error.responseText);
