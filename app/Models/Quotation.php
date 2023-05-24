@@ -36,5 +36,11 @@ class Quotation extends Model
         self::addGlobalScope('ordered', function (Builder $queryBuilder) {
             $queryBuilder->orderBy('id', 'DESC');
         });
+
+        // this is a recommended way to declare event handlers
+        static::deleting(function(Quotation $quotation) { // before delete() method call this
+             $quotation->QuotationItem()->delete();
+             // do the rest of the cleanup...
+        });
     }
 }

@@ -9,7 +9,12 @@ use App\Models\QuotationItem;
 
 class QuotationItemController extends Controller
 {
-    /* Está função retorna o html com o produto, se esse produto estiver com a condição de entrega para ambos os paises de fornecimento, vai voltar dois html. */
+    public function index($id)
+    {   
+        return view('direct-distributor.quotation.item')
+            ->with('id', $id);
+    }
+
     public function show(ProductSisrev $product_sisrev, Request $request)
     {
         /* Pegar todos os produtos e seus relacionamentos conforme o part_number */
@@ -140,7 +145,6 @@ class QuotationItemController extends Controller
         return response()->json(json_encode($html),200);
     }
 
-    /* Adiconar item na cotação */
     public function store(QuotationItem $quotation_item, Request $request)
     {
         $item = [
@@ -155,5 +159,11 @@ class QuotationItemController extends Controller
         $quotation_item::create($item);
 
         return response()->json(json_encode('Successfully'),200);
+    }
+    
+    public function destroy(QuotationItem $quotationItem, Request $request)
+    {
+        $quotationItem::findOrFail($request['id'])->delete();
+        return response()->json(json_encode(__('messages.Product successfully deleted')),200);
     }
 }

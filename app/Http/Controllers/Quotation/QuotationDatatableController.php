@@ -103,9 +103,15 @@ class QuotationDatatableController extends Controller
                     $total = ($custo_liquido * $item['quantity']);
                 }
 
+                // Mudar a descrição conforme o idioma usado no sistema.
+                if(app()->getLocale() == 'pt')  $product['descricao'] = $item['ProductSisrev'][0]['descricao_br'];
+                if(app()->getLocale() == 'en')  $product['descricao'] = $item['ProductSisrev'][0]['descricao_en'];
+                if(app()->getLocale() == 'es')  $product['descricao'] = $item['ProductSisrev'][0]['descricao_es'];
+                if($item['description']) $product['descricao'] = $item['description'];
+
                 $product[$key]['id']                           = $item['id'];
                 $product[$key]['part_number']                  = $item['ProductSisrev'][0]['part_number'];
-                $product[$key]['description']                  = $item['ProductSisrev'][0]['descricao_br'];
+                $product[$key]['description']                  = $product['descricao'];
                 $product[$key]['custo_liquido_original']       = (!empty($custo_liquido_original)) ? '$ '.number_format((float) $custo_liquido_original, 2, '.', ',') : '-----';
                 $product[$key]['custo_liquido']                = (!empty($custo_liquido)) ? '$ '.number_format((float) $custo_liquido, 2, '.', ',') : '-----';
                 $product[$key]['quantity']                     = $item['quantity'];
@@ -122,7 +128,7 @@ class QuotationDatatableController extends Controller
             {
                 $product[$key]['id']                       = $item['id'];
                 $product[$key]['part_number']              = $item['product_sisrev_id'];
-                $product[$key]['description']              = '-----';
+                $product[$key]['description']              = $product['descricao'];
                 $product[$key]['custo_liquido_original']   = '-----';
                 $product[$key]['custo_liquido']            = '-----';
                 $product[$key]['quantity']                 = '-----';
@@ -141,19 +147,6 @@ class QuotationDatatableController extends Controller
         // return
         return datatables()::of($product)
             ->addIndexColumn()
-            ->addColumn('action', function($row){
-                $actionBtn = '
-                    <div class="row-button"> 
-                        <a href="javascript:void(0)" data-button="edit"> 
-                            <span class="tooltip">'.__("messages.Edit").'</span> 
-                        </a> 
-                        <button type="button" data-trigger="delete" onclick="deleteQuotation(\''.route('direct.distributor.quotation.product.destroy').'\', \''.trim($row["id"]).'\')">
-                            <span class="tooltip">'.__("messages.Delete").'</span>
-                        </button>
-                    </div>';
-                return $actionBtn;
-            })
-            ->rawColumns(['action'])
             ->make(true);
     }
 }

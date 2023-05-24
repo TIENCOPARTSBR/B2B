@@ -153,6 +153,7 @@ return [
     "Allow quotation" => "Allow quotation",
     "Allow partner" => "Allow partner",
     "Customer name" => "Customer name",
+    "Quotation deleted" => "Quotation deleted",
     "Requester for quotation" => "Requester for quotation",
     "Quotation type" => "Quotation type",
     "Contract" => "Contract",

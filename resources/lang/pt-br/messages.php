@@ -152,6 +152,7 @@ return [
     "Allow partner" => "Permitir parceiro",
     "Customer name" => "Nome cliente",
     "Requester for quotation" => "Solicitante cotação",
+    "Quotation deleted" => "Cotação excluída",
     "Quotation type" => "Tipo de cotação",
     "Contract" => "Contract",
     "General observations" => "Observações gerais",

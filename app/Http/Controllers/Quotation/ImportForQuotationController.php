@@ -119,10 +119,12 @@ class ImportForQuotationController extends Controller
                     if($product['local_fornecimento_br']) $country = 'BR';
                     if($product['local_fornecimento_usa']) $country = 'USA';
                     if(empty($product['local_fornecimento_br']) || $product['local_fornecimento_usa']) $country = '';
+                    if(empty($excel['2'])) $excel['2'] = "";
 
                     $prod = [
                         'quotation_id' => $request['quotation_id'],
                         'product_sisrev_id' => $product['part_number'],
+                        'description' => $excel['2'],
                         'country' => $country,
                         'quantity' => $excel['1'],
                         'status' => 'A',

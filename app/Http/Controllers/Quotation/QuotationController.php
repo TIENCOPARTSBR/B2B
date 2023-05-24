@@ -3,11 +3,10 @@
 namespace App\Http\Controllers\Quotation;
 
 use App\Http\Controllers\Controller;
-use App\Http\Helper;
 use App\Models\Quotation;
-use App\Models\QuotationItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class QuotationController extends Controller
 {
@@ -39,33 +38,40 @@ class QuotationController extends Controller
 
         $result = $quotation::create($create);
 
-        return to_route('direct.distributor.quotation.item', $result['id']);
+        return to_route('direct.distributor.quotation.product.index', $result['id']);
     }
 
     public function show(Quotation $quotation, Request $request)
     {
+        return view('direct-distributor.quotation.index')
+            ->with('quotation', $quotation::where('customer_name', 'LIKE', '%'.$request->name.'%')->paginate(10));
+    }
+
+    public function edit(Quotation $quotation, Request $request)
+    {
         return view('direct-distributor.quotation.show')
             ->with('quotation', $quotation::findOrFail($request['id']));
     }
-     
+
     public function updated(Quotation $quotation, Request $request)
     {
         $request['urgent'] = ($request->urgent == "on")? 1 : 0;
 
         $quotation::findOrFail($request->id)->update($request->all());
 
-        return to_route('direct.distributor.quotation.item', $request->id);
+        return to_route('direct.distributor.quotation.product.index', $request->id);
     }
 
-    public function item($id)
-    {   
-        return view('direct-distributor.quotation.item')
-            ->with('id', $id);
-    }
-
-    public function deleteProductTheQuotation(QuotationItem $quotationItem, Request $request)
+    public function destroy(Quotation $quotation, Request $request)
     {
-        $quotationItem::findOrFail($request['id'])->delete();
-        return response()->json(json_encode(__('messages.Product successfully deleted')),200);
+        $quotation::findOrFail($request->id_delete)->delete();
+
+        return to_route('direct.distributor.quotation.product.index')
+            ->with('successfully', __('messages.Quotation deleted'));
+    }
+
+    public function export($id) 
+    {
+        return Excel::download(new ExportForQuotationController($id), 'quotation.xlsx');
     }
 }

@@ -5,7 +5,6 @@ use App\Http\Controllers\DirectDistributor\Auth\LoginController;
 use App\Http\Controllers\DirectDistributor\Distributor\DistributorController as DistributorForDirectDistributor;
 use App\Http\Controllers\DirectDistributor\Product\ProductSisrevController;
 use App\Http\Controllers\DirectDistributor\Product\ProductValueController;
-use App\Http\Controllers\DirectDistributor\ProductValueDistributorController;
 use App\Http\Controllers\Distributor\UserController as UserDistributorForDirectDistributor;
 use App\Http\Controllers\DirectDistributor\Auth\UserController as UserDirectDistributor;
 use App\Http\Controllers\DirectDistributor\Product\UpdateGeneralValueController;
@@ -72,14 +71,6 @@ Route::group(['middleware' => 'Language'], function() {
             Route::post('/produto/valor/importar/store','store')->name('direct.distributor.product.value.import.store');
         });
 
-        // route, the distributors update products
-        Route::get('/distribuidor/produto/valor', [ProductValueDistributorController::class, 'index'])->name('direct.distributor.distributor.value');
-        Route::post('/distribuidor/produto/valor', [ProductValueDistributorController::class, 'show']);
-        Route::post('/distribuidor/produto/valor/unitario/adicionar', [ProductValueDistributorController::class, 'store']);
-        Route::post('/distribuidor/produto/valor/unitario/atualizar', [ProductValueDistributorController::class, 'updated']);
-        Route::get('/distribuidor/produto/valor/unitario/excluir/{id}', [ProductValueDistributorController::class, 'destroy']);
-
-
         /////////////////////// ROUTES DISTRIBUTOR FOR DIRECT DISTRIBUTOR ///////////////////////
         Route::controller(DistributorForDirectDistributor::class)->group(function() {
             Route::get('/distribuidor','index')->name('direct.distributor.distributor.index');
@@ -115,30 +106,31 @@ Route::group(['middleware' => 'Language'], function() {
         /////////////////////// ROUTES QUOATATION ///////////////////////
         Route::controller(QuotationController::class)->group(function() {
             Route::get('/cotacao','index')->name('direct.distributor.quotation.index');
-            Route::get('/cotacao/item/{id}','item')->name('direct.distributor.quotation.item');
+            Route::get('/cotacao/create','create')->name('direct.distributor.quotation.create');
+            Route::post('/cotacao/store','store')->name('direct.distributor.quotation.store');
+            Route::post('/cotacao','show')->name('direct.distributor.quotation.show');
+            Route::get('/cotacao/{id}','edit')->name('direct.distributor.quotation.edit');
             Route::post('/cotacao/updated','updated')->name('direct.distributor.quotation.updated');
-            Route::post('/cotacao/novo','store')->name('direct.distributor.quotation.store');
-            Route::get('/cotacao/novo','create')->name('direct.distributor.quotation.create');
-            Route::get('/cotacao/{id}','show')->name('direct.distributor.quotation.show');
-            Route::post('/cotacao/product/destroy','deleteProductTheQuotation')->name('direct.distributor.quotation.product.destroy');
+            Route::post('/cotacao/destroy','destroy')->name('direct.distributor.quotation.destroy');
+            Route::get('/cotacao/export/{id}', 'export')->name('direct.distributor.quotation.export.export');
         });
 
         Route::controller(QuotationDatatableController::class)->group(function() {
             Route::get('/cotacao/datatable/{id}','datatable')->name('direct.distributor.quotation.datatable');
         });
 
-        // Adicionar produtos na cotação
         Route::controller(QuotationItemController::class)->group(function() {
-            Route::post('/cotacao/product','show')->name('direct.distributor.quotation.product');
-            Route::post('/cotacao/product/add','store')->name('direct.distributor.quotation.product.add');
+            Route::get('/cotacao/produto/{id}','index')->name('direct.distributor.quotation.product.index');
+            Route::post('/cotacao/produto/destroy','destroy')->name('direct.distributor.quotation.product.destroy');
+            Route::post('/cotacao/produto','show')->name('direct.distributor.quotation.product');
+            Route::post('/cotacao/produto/add','store')->name('direct.distributor.quotation.product.add');
         });
 
-        // importar produtos cotação
         Route::controller(ImportForQuotationController::class)->group(function() {
             Route::post('/cotacao/product/import', 'index')->name('direct.distributor.quotation.product.import');
         });
 
-        // Sair
+        /////////////////////// LOGOUT ///////////////////////
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     });
 });

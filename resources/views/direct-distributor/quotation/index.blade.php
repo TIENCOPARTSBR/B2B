@@ -13,7 +13,7 @@
         <div class="card">
             <div class="tab-content"> 
                 <div class="tab-header">
-                    <form method="POST" action="{{ url('/distribuidor') }}/" class="form-search" >
+                    <form method="POST" action="{{ route('direct.distributor.quotation.show') }}" class="form-search" >
                         @csrf @method('POST')
                         <input type="text" name="name" placeholder="{{ __('messages.Search') }}" class="form-control" >
     
@@ -75,16 +75,16 @@
 
                             <div class="td">
                                 <div class="table-button">
-                                    <a href="{{route('direct.distributor.quotation.show', $index->id)}}" data-button="view">
+                                    <a href="{{route('direct.distributor.quotation.edit', $index->id)}}" data-button="view">
                                         <span class="tooltip">{{__('messages.View')}}</span>
                                     </a>
 
-                                    <a href="" data-button="download">
+                                    <a href="{{route('direct.distributor.quotation.export.export', $index->id)}}" data-button="download">
                                         <span class="tooltip">{{__('messages.Download')}}</span>
                                     </a>
 
                                     @if ($index->status != 'S')
-                                        <button type="button" data-trigger="delete" onclick="">
+                                        <button type="button" data-trigger="delete" onclick="triggerModal('{{route('direct.distributor.quotation.destroy')}}', '{{$index->id}}')">
                                             <span class="tooltip">{{__('messages.Delete')}}</span>
                                         </button>  
                                     @endif

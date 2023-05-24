@@ -74,7 +74,6 @@
                     <th>{{__('messages.Quantity in stock')}}</th>
                     <th>{{__('messages.Lead time')}}</th>
                     <th>{{__('messages.Photo')}}</th>
-                    <th>Action</th>
                 </tr>
             </thead>
             <tbody align="left" width="100%"></tbody>
@@ -109,12 +108,6 @@
                     render: function( data, type, full, meta ) {
                         return '<a href="'+ data +'" target="blank" data-fslightbox="gallery"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M0 8C0 4.22876 0 2.34315 1.17157 1.17157C2.34315 0 4.22876 0 8 0H10C13.7712 0 15.6569 0 16.8284 1.17157C18 2.34315 18 4.22876 18 8V10C18 13.7712 18 15.6569 16.8284 16.8284C15.6569 18 13.7712 18 10 18H8C4.22876 18 2.34315 18 1.17157 16.8284C0 15.6569 0 13.7712 0 10V8Z" fill="#7E869E" fill-opacity="0.25"/><circle cx="14" cy="4" r="1" fill="#222222"/><circle cx="9" cy="9" r="3" fill="#222222"/></svg></a>';
                     }
-                },
-                {
-                    data: 'action', 
-                    name: 'action', 
-                    orderable: true, 
-                    searchable: true
                 },
             ]
         });
