@@ -29,10 +29,8 @@ class DistributorController extends Controller
 		$request->validate([
 			'name' => 'required',
 			'cif_freight' => 'required',
-			'profit_margin_value' => 'required'
 		],[
 			'cif_freight' => __('messages.Field CIF freight is required'),
-			'profit_margin_value' => __('messages.Value field is required'),
 		]);
 
 		Distributor::create($request->all());
@@ -52,10 +50,8 @@ class DistributorController extends Controller
 		$request->validate([
 			'name' => 'required',
 			'cif_freight' => 'required',
-			'profit_margin_value' => 'required'
 		],[
 			'cif_freight' => __('messages.Field CIF freight is required'),
-			'profit_margin_value' => __('messages.Value field is required'),
 		]);
 
 		Distributor::findOrFail($request->id)

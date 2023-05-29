@@ -2,18 +2,27 @@
 
 use App\Http\Controllers\LanguageController;
 use App\Http\Controllers\DirectDistributor\Auth\LoginController;
-use App\Http\Controllers\DirectDistributor\Distributor\DistributorController as DistributorForDirectDistributor;
+
 use App\Http\Controllers\DirectDistributor\Product\ProductSisrevController;
 use App\Http\Controllers\DirectDistributor\Product\ProductValueController;
-use App\Http\Controllers\Distributor\UserController as UserDistributorForDirectDistributor;
-use App\Http\Controllers\DirectDistributor\Auth\UserController as UserDirectDistributor;
 use App\Http\Controllers\DirectDistributor\Product\UpdateGeneralValueController;
 use App\Http\Controllers\DirectDistributor\Product\UpdateProductValueSpreadsheetController;
 use App\Http\Controllers\DirectDistributor\Product\UpdateUnitaryValueController;
+
+use App\Http\Controllers\DirectDistributor\Distributor\Product\UpdateGeneralValueController as UpdateGeneralValueDistributorController;
+use App\Http\Controllers\DirectDistributor\Distributor\Product\UpdateUnitaryValueController as UpdateUnitaryValueDistributorController;
+use App\Http\Controllers\DirectDistributor\Distributor\Product\UpdateProductValueSpreadsheetController as UpdateProductValueSpreadsheetDistributorController;
+
+use App\Http\Controllers\DirectDistributor\Auth\UserController as UserDirectDistributor;
+use App\Http\Controllers\Distributor\UserController as UserDistributorForDirectDistributor;
+
+use App\Http\Controllers\DirectDistributor\Distributor\DistributorController as DistributorForDirectDistributor;
+
 use App\Http\Controllers\Quotation\QuotationItemController;
 use App\Http\Controllers\Quotation\ImportForQuotationController;
 use App\Http\Controllers\Quotation\QuotationController;
 use App\Http\Controllers\Quotation\QuotationDatatableController;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -92,6 +101,25 @@ Route::group(['middleware' => 'Language'], function() {
             Route::get('/distribuidor/usuario/editar/{id}','edit')->name('direct.distributor.distributor.user.edit');
             Route::post('/distribuidor/usuario/updated/','updated')->name('direct.distributor.distributor.user.updated');
             Route::get('/distribuidor/usuario/destroy/{id}','destroy')->name('direct.distributor.distributor.user.destroy');
+        });
+
+        Route::controller(UpdateGeneralValueDistributorController::class)->group(function() {
+            Route::get('/distribuidor/{id}/produto/valor/geral/','index')->name('direct.distributor.distributor.product.value.general.value.index');
+            Route::post('/distribuidor/produto/valor/geral','store')->name('direct.distributor.distributor.product.value.general.value.store');
+        });
+
+        Route::controller(UpdateUnitaryValueDistributorController::class)->group(function() {
+            Route::get('/distribuidor/{id}/produto/valor/unitario','index')->name('direct.distributor.distributor.product.value.unitary.index');
+            Route::post('/distribuidor/{id}/produto/valor/unitario','show')->name('direct.distributor.distributor.product.value.unitary.show');
+            Route::post('/distribuidor/produto/valor/unitario/adicionar','store')->name('direct.distributor.distributor.product.value.unitary.store');
+            Route::post('/distribuidor/produto/valor/unitario/atualizar','updated')->name('direct.distributor.distributor.product.value.unitary.updated');
+            Route::post('/distribuidor/produto/valor/unitario/deletar','destroy')->name('direct.distributor.distributor.product.value.unitary.destroy');
+        });
+
+        Route::controller(UpdateProductValueSpreadsheetDistributorController::class)->group(function() {
+            Route::get('distribuidor/{id}/produto/valor/importar','index')->name('direct.distributor.distributor.product.value.import.index');
+            Route::post('distribuidor/produto/valor/importar','import')->name('direct.distributor.distributor.product.value.import.import');
+            Route::post('distribuidor/produto/valor/importar/store','store')->name('direct.distributor.distributor.product.value.import.store');
         });
 
         /////////////////////// ROUTES USER DIRECT DISTRIBUTOR ///////////////////////

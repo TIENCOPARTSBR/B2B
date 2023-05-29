@@ -74,6 +74,7 @@
                     <th>{{__('messages.Quantity in stock')}}</th>
                     <th>{{__('messages.Lead time')}}</th>
                     <th>{{__('messages.Photo')}}</th>
+                    <th>{{__('messages.Edit')}}</th>
                 </tr>
             </thead>
             <tbody align="left" width="100%"></tbody>

@@ -13,7 +13,7 @@
             <div class="card tab-content">
                 <form   class="tab-header mb-0" 
                         method="POST" 
-                        action="{{ route('distributor.updated') }}">
+                        action="{{ route('direct.distributor.distributor.updated') }}">
 
                         @csrf @method('POST')
 
@@ -21,7 +21,7 @@
                             name="id" 
                             value="{{ $distributor->id }}">
                     
-                    <div class="group col-12">
+                    <div class="group col-lg-6">
                         <label  for="name" 
                                 class="form-label" >{{ __('messages.Name') }}</label>
 
@@ -31,8 +31,8 @@
                                 class="form-input">
                     </div>
                     
-                    <div class="group col-lg-4 mb-1">
-                        <label for="is_active">Status</label>
+                    <div class="group col-lg-6 mb-1">
+                        <label for="is_active" class="form-label">Status</label>
     
                         <div class="form-select">
                             <select name="is_active">
@@ -71,28 +71,6 @@
                                 class="form-label" >{{ __('messages.CIF freight') }}</label>
 
                         <input type="text" name="cif_freight" value="{{ !empty(old('cif_freight')) ? old('cif_freight') : $distributor->cif_freight }}" class="form-input" >
-                    </div>
-                    
-                    <div class="group col-lg-4 mb-1">
-                        <label  for="name" 
-                                class="form-label" >{{ __('messages.General update') }}</label>
-
-                        <div class="form-select">
-                            <select name="profit_margin_option" >
-                                <option value="PERCENTAGE" {{ $distributor->profit_margin_option == 'PERCENTAGE' ? 'selected' : '' }}>{{ __('messages.Percentage') }}</option>
-                                <option value="UNIT_PRICE" {{ $distributor->profit_margin_option == 'UNIT_PRICE' ? 'selected' : '' }}>{{ __('messages.Unit price') }}</option>
-                            </select>
-                        </div>
-                    </div>
-    
-                    <div class="group col-lg-4">
-                        <label  for="name" 
-                                class="form-label" >{{ __('messages.Value') }}</label>
-
-                        <input  type="text" 
-                                name="profit_margin_value" 
-                                value="{{ !empty(old('profit_margin_value')) ? old('profit_margin_value') : $distributor->profit_margin_value }}" 
-                                class="form-input" >
                     </div>
                     
                     <input type="submit" class="button-yellow-1 button-small" value="{{ __('messages.Update') }}">

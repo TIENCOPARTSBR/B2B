@@ -10,11 +10,12 @@
             </ul>
 
             <!-- Title -->
-            <h1 class="title">{{__('messages.Distributors')}} -> {{ Helper::getDirectDistributorLogged()->name; }}</h1>
+            <h1 class="title">{{ Helper::getDirectDistributorLogged()->name }} | {{__('messages.Distributors')}}</h1>
 
             <!-- Card -->        
             <div class="card">
-                <div class="tab-content">                    <!-- header -->
+                <div class="tab-content">                    
+                    <!-- header -->
                     <div class="tab-header">
                         <!-- search -->
                         <form method="POST" action="{{ url('/distribuidor') }}/" class="form-search" >
@@ -52,7 +53,7 @@
 
                                 <div class="td">
                                     <div class="table-button">
-                                        <a href="{{ route('direct.distributor.distributor.value', $distributor->id) }}" data-button="product" >
+                                        <a href="{{ route('direct.distributor.distributor.product.value.general.value.index', $distributor->id) }}" data-button="product" >
                                             <span class="tooltip">{{__('messages.Update products')}}</span>
                                         </a>
 

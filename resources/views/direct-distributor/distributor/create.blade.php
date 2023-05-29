@@ -12,11 +12,12 @@
         <div class="card tab-content">
             <form   class="tab-header mb-0" 
                     method="POST" 
-                    action="{{route('distributor.store')}}">
+                    action="{{route('direct.distributor.distributor.store')}}">
                 
                     @csrf @method('POST')
+                <input type="hidden" name="direct_distributor_id" value="{{Auth::guard('distributor')->user()->id}}">
 
-                <div class="group col-12">
+                <div class="group col-lg-6">
                     <label  for="name" 
                             class="form-label" >{{ __('messages.Name') }}</label>
 
@@ -27,8 +28,9 @@
                             value="{{old('name')}}">
                 </div>
                 
-                <div class="group col-lg-4">
-                    <label for="is_active">Status</label>
+                <div class="group col-lg-6">
+                    <label for="is_active" 
+                            class="form-label">Status</label>
 
                     <div class="form-select">
                         <select name="is_active">
@@ -72,32 +74,9 @@
                             class="form-input" 
                             value="{{ !empty(old('cif_freight')) ? old('cif_freight') : '0'}}">
                 </div>
-                
-                <div class="group col-lg-4">
-                    <label  for="name" 
-                            class="form-label" >{{ __('messages.General update') }}</label>
-
-                    <div class="form-select">
-                        <select name="profit_margin_option" >
-                            <option value="PERCENTAGE">{{ __('messages.Percentage') }}</option>
-                            <option value="UNIT_PRICE">{{ __('messages.Unit price') }}</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="group col-lg-4">
-                    <label  for="name" 
-                            class="form-label" >{{ __('messages.Value') }}</label>
-
-                    <input  type="text" 
-                            name="profit_margin_value" 
-                            placeholder="{{ __('messages.Value') }}" 
-                            class="form-input" 
-                            value="{{ !empty(old('profit_margin_value')) ? old('profit_margin_value') : '0'}}">
-                </div>
-                
+         
                 <input  type="submit" 
-                        class="button-yellow-1 button-small mt-1" 
+                        class="button-yellow-1 button-small" 
                         value="{{ __('messages.Save') }}">
             </form>
         </div>

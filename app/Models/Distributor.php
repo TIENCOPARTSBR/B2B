@@ -19,7 +19,8 @@ class Distributor extends Model
         'allow_quotation',
         'cif_freight',
         'profit_margin_option',
-        'profit_margin_value'
+        'profit_margin_value',
+        'direct_distributor_id'
     ];
 
     public function ProductValue()
