@@ -1,21 +1,20 @@
 @extends('layouts.admin')
 @section('content')
-    <section class="groupCompany">
-        <h1 class="titleClient">{{ __('messages.Distributors') }}</h1>
-
+    <section class="page">
         <ul class="breadcrumb">
-            <li><a href="{{ url('/admin') }}">{{ __('messages.Home') }}</a> &nbsp/</li>
-            <li><a href="{{ url('/admin/distribuidor') }}">&nbsp {{ __('messages.Distributors') }}</a></li>
+            <li><a href="{{route('admin.index')}}">{{ __('messages.Home') }}</a> &nbsp/</li>
+            <li><a href="{{route('admin.direct.distributor.index')}}">&nbsp {{ __('messages.Distributors') }}</a></li>
             <li class="active">&nbsp/ {{ __('messages.New') }}</li>
         </ul>
 
-        <form class="card-form" method="POST" action="{{ url('/admin/distribuidor/novo') }}">
+        <h1 class="title">{{ __('messages.Distributors') }}</h1>
+
+        <form class="card-form" method="POST" action="{{route('admin.direct.distributor.store')}}">
             @csrf
             @method('POST')
-
             <div class="group">
                 <label class="form-label" for="name">{{ __('messages.Name') }}</label>
-                <input class="form-control" type="text" name="name" required placeholder="{{ __('messages.Name') }}">
+                <input class="form-input" type="text" name="name" required placeholder="{{ __('messages.Name') }}">
             </div>
             
             <div class="group">
@@ -31,7 +30,7 @@
 
             <div class="group">
                 <label class="form-label" for="cif_freight">{{ __('messages.CIF freight') }}&nbsp(%)</label>
-                <input class="form-control" type="text" name="cif_freight" value="0">
+                <input class="form-input" type="text" name="cif_freight" value="0">
             </div>
 
             <div class="group">
@@ -39,17 +38,6 @@
 
                 <div class="form-select">
                     <select name="allow_quotation">
-                        <option value="N">{{ __('messages.No') }}</option>
-                        <option value="Y">{{ __('messages.Yes') }}</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="group">
-                <label class="form-label" for="allow_partner">{{ __('messages.Allow partner') }}?</label>
-                
-                <div class="form-select">
-                    <select name="allow_partner">
                         <option value="N">{{ __('messages.No') }}</option>
                         <option value="Y">{{ __('messages.Yes') }}</option>
                     </select>

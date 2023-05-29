@@ -8,60 +8,47 @@ use Illuminate\Support\Facades\Redirect;
 
 class DirectDistributorController
 {
-    // index
     public function index()
     {
-        return view('admin.directDistributor.show', ['distributor' => DirectDistributor::get()]);
+        return view('admin.direct-distributor.index', ['distributor' => DirectDistributor::all()]);
     }
 
-    // show
-    public function show(Request $r)
+    public function show(Request $request)
     {
-        return view('admin.directDistributor.show', ['distributor' => DirectDistributor::show($r->name)]);
+        return view('admin.direct-distributor.index')
+            ->with('distributor', DirectDistributor::where('name','like', '%'.$request->name.'%')->get());
     }
 
-    // create
     public function create(){
-        return view('admin.directDistributor.create');
+        return view('admin.direct-distributor.create');
     }
 
-    // store
-    public function store(Request $r)
+    public function store(Request $request)
     {
-        DirectDistributor::store(
-            $r->only('name','is_active','cif_freight','allow_quotation','allow_partner', 'allow_product_report')
-        );
+        DirectDistributor::create($request->all());
         
-        return Redirect::to('/admin/distribuidor')->with('successfully', __('messages.Distributor successfully registered'));
+        return to_route('admin.direct.distributor.index')
+            ->with('successfully', __('messages.Distributor successfully registered'));
     }
 
-    // edit
     public function edit($id)
     {
-        return view('admin.directDistributor.edit', ['distributor' => DirectDistributor::findOrFail($id)]);
+        return view('admin.direct-distributor.edit')
+            ->with('distributor', DirectDistributor::findOrFail($id));
     }
     
-    // updated
     public function updated(Request $request)
     {
-        DirectDistributor::updated(
-            $request->only('id','name','is_active','cif_freight', 'allow_quotation','allow_partner','allow_product_report')
-        );
+        DirectDistributor::findOrFail($request->id)->update($request->all());
         
-        return Redirect::to('/admin/distribuidor')->with('successfully', __('messages.Distributor changed successfully'));
+        return to_route('admin.direct.distributor.index')
+            ->with('successfully', __('messages.Distributor changed successfully'));
     }
 
-    // destroy
-    public function destroy($id)
+    public function destroy(Request $request)
     {
-        DirectDistributor::destroy($id);
-        return Redirect::to('/admin/distribuidor')->with('successfully', __('messages.Distributor successfully deleted'));
-    }
-
-    // general value
-    public function setGeneralValue(Request $r)
-    {
-        DirectDistributor::setGeneralValue($r->only('option_general_value', 'general_value'));
-        return Redirect::to('/produto/valor')->with('successfully', __('messages.General value of products has been updated'));
+        DirectDistributor::findOrFail($request->id_delete)->delete();
+        return to_route('admin.direct.distributor.index')
+            ->with('successfully', __('messages.Distributor successfully deleted'));
     }
 }

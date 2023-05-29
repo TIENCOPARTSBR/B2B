@@ -42,7 +42,7 @@ return [
     "Saving" => "Salvando",
     "An error has occurred" => "Ocorreu algum erro",
     "Password not match" => "Senha não coincide",
-    "Distributor successfully registered" => "Distributor cadastrado com sucesso",
+    "Distributor successfully registered" => "Distribuidor cadastrado com sucesso",
     "Error registering company" => "Erro ao cadastrar empresa",
     "Distributor changed successfully" => "Distribuidor alterado com sucesso",
     "Error changing company" => "Erro ao alterar a empresa",
@@ -526,6 +526,7 @@ return [
     "Type the value" => "Digite o valor",
     "Distributors" => "Distribuidores",
     "Distributor" => "Distribuidor",
+    "Direct Distributor" => "Distribuidor direto",
     "Add Distributor" => "Adicionar distribuidor",
     "View" => "Visualizar",
     "Email Address" => "Endereço de email",
@@ -555,7 +556,7 @@ return [
     "Download" => "Baixar",
     "Not found" => "Não encontrado",
     "Distributor Price" => "Preço do Distribuidor",
-    "" => "",
+    "Passwords do not match" => "As senhas não correspondem",
     "" => "",
     "" => ""
 ];

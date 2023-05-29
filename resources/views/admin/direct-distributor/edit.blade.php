@@ -1,17 +1,18 @@
 @extends('layouts.admin')
 @section('content')
-    <section class="distributors">
-        <h1 class="titleClient">{{ __('messages.Distributors') }}</h1>
+    <section class="page">
 
         <ul class="breadcrumb">
-            <li><a href="{{ url('/admin') }}">{{ __('messages.Home') }}</a> &nbsp/</li>
-            <li><a href="{{ url('/admin/distribuidor') }}">&nbsp {{ __('messages.Distributors') }}</a></li>
+            <li><a href="{{route('admin.index')}}">{{ __('messages.Home') }}</a> &nbsp/</li>
+            <li><a href="{{route('admin.direct.distributor.index')}}">&nbsp {{ __('messages.Distributors') }}</a></li>
             <li class="active"> &nbsp / {{ __('messages.New') }}</li>
         </ul>
 
+        <h1 class="title">{{ __('messages.Distributors') }}</h1>
+
         @if($distributor)
-            <form class="card-form" method="POST" action="{{ url('/admin/distribuidor/editar') }}">
-                @csrf
+            <form class="card-form" method="POST" action="{{route('admin.direct.distributor.updated')}}">
+                @csrf   
                 @method('POST')
 
                 <input type="hidden" name="id" value="{{ $distributor->id }}">
@@ -43,17 +44,6 @@
                         <select name="allow_quotation">
                             <option value="N" {{ $distributor->allow_quotation == 'N' ? 'Selected' : '' }}>{{ __('messages.No') }}</option>
                             <option value="Y" {{ $distributor->allow_quotation == 'Y' ? 'Selected' : '' }}>{{ __('messages.Yes') }}</option>
-                        </select>
-                    </div>
-                </div>
-
-                <div class="group">
-                    <label for="allow_partner" class="form-label">{{ __('messages.Allow partner') }}?</label>
-                    
-                    <div class="form-select">
-                        <select name="allow_partner">
-                            <option value="N" {{ $distributor->allow_partner == 'N' ? 'Selected' : '' }}>{{ __('messages.No') }}</option>
-                            <option value="Y" {{ $distributor->allow_partner == 'Y' ? 'Selected' : '' }}>{{ __('messages.Yes') }}</option>
                         </select>
                     </div>
                 </div>

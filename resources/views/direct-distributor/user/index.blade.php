@@ -1,4 +1,4 @@
-@extends('layouts.DirectDistributor')
+@extends('layouts.direct-distributor')
 
 @section('content')
     @if($user)

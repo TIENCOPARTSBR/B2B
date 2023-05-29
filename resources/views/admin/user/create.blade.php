@@ -1,30 +1,30 @@
 @extends('layouts.admin')
 
 @section('content')
-    <section class="users">
-        <h1 class="titleClient">{{ __('messages.Add user') }}</h1>
+    <section class="page">
+        <h1 class="title">{{ __('messages.Add user') }}</h1>
             
-        <form class="card-form" method="POST" action="{{ url('/admin/usuarios/novo') }}">
+        <form class="card-form" method="POST" action="{{ route('admin.user.store') }}">
             @csrf
             @method('POST')
             <div class="group">
                 <label for="name" class="form-label" >{{ __('messages.Name') }}</label>
-                <input type="text" name="name" placeholder="{{ __('messages.Name') }}" class="form-control" required >
+                <input required type="text" name="name" placeholder="{{ __('messages.Name') }}" class="form-control" value="{{old('name')}}">
             </div>
 
             <div class="group">
                 <label for="mail" class="form-label" >E-mail</label>
-                <input type="text" name="mail" placeholder="E-mail" class="form-control" required >
+                <input required type="mail" name="mail" placeholder="E-mail" class="form-control" value="{{old('mail')}}">
             </div>
 
             <div class="group">
                 <label for="password" class="form-label" >Password</label>
-                <input type="password" name="password" placeholder="{{ __('messages.Password') }}" class="form-control" required >
+                <input required type="password" name="password" placeholder="{{ __('messages.Password') }}" class="form-control" minlength="8">
             </div>
 
             <div class="group">
                 <label for="password" class="form-label">Confirmed password</label>
-                <input type="password" name="password" placeholder="{{ __('messages.Password') }}" class="form-control">
+                <input required type="password" name="password_confirmation" placeholder="{{ __('messages.Password') }}" class="form-control" minlength="8">
             </div>
 
             <div class="group">

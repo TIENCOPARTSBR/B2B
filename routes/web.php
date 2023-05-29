@@ -31,8 +31,10 @@ Route::group(['middleware' => 'Language'], function() {
 
     // login
     Route::middleware('guest:distributor')->group(function() {
-        Route::get('/login', [LoginController::class, 'index'])->name('distributor.login');
-        Route::post('/login',[LoginController::class, 'store'])->name('distributor.login.store');
+        Route::controller(LoginController::class)->group(function() {
+            Route::get('/login','index')->name('direct.distributor.login');
+            Route::post('/login','store')->name('direct.distributor.login.store');
+        });
     });
 
     // distributor authenticate

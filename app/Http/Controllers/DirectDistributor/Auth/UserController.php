@@ -21,13 +21,11 @@ class UserController extends Controller
             ->with('user', UserDirectDistributor::where('name', 'LIKE', $request->only('name')));
     }
 
-    // create
     public function create()
     {
         return view('direct-distributor.user.create');
     }
 
-    // store
     public function store(UserDirectDistributor $user, Request $request)
     {
         $user->create($request->all());
@@ -59,7 +57,7 @@ class UserController extends Controller
 
     public function destroy(UserDirectDistributor $user, Request $request)
     {
-        $user::findOrFail(str_replace(['.', '/','.'], '', trim($request->id_delete)))->delete();
+        $user::findOrFail($request->id_delete)->delete();
 
 		return to_route('direct.distributor.user.index')
             ->with('successfully', __('messages.User deleted successfully'));

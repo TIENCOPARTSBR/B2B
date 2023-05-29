@@ -1,4 +1,4 @@
-@extends('layouts.DirectDistributor')
+@extends('layouts.direct-distributor')
 @section('content')
     <section class="page">
         <h1 class="title">{{ __('messages.Product report') }}</h1>

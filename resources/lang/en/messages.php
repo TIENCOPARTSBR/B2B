@@ -559,6 +559,7 @@ return [
   "Download" => "Download",
   "Not found" => "Not found",
   "Distributor Price" => "Distributor Price",
+  "Passwords do not match" => "Passwords do not match",
   "" => "",
   "" => "",
   "" => "",

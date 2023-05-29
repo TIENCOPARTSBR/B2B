@@ -14,17 +14,24 @@ class Authenticate extends Middleware
     public function handle($request, Closure $next, ...$guards)
     {   
         foreach($guards as $guard){
-            if(Auth::guard("distributor")->check()) 
+            if($guard === "distributor")
             {
-                return $next($request);
-            } else {
-                return to_route('distributor.login');
+                if(Auth::guard($guard)->check()) 
+                {
+                    return $next($request);
+                } else {
+                    return to_route('direct.distributor.login');
+                }
             }
-            if(Auth::guard("admin")->check()) 
+
+            if($guard === "admin")
             {
-                return $next($request);
-            } else {
-                return to_route('admin.login');
+                if(Auth::guard($guard)->check()) 
+                {
+                    return $next($request);
+                } else {
+                    return to_route('admin.login');
+                }
             }
         }
 

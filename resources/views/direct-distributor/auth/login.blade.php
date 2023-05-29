@@ -8,7 +8,7 @@
         <div class="container">
             <div class="card">
                 <div class="group">
-                    <h1 class="title mb-1"> {{__('messages.Administrative area')}}  </h1>
+                    <h1 class="title mb-1"> {{__('messages.Administrative area')}} | {{__('messages.Distributor')}} </h1>
 
                     <div class="select-language">
                         <button class="select">
@@ -35,7 +35,7 @@
                     </div>
                 </div>
 
-                <form action="{{ route('distributor.login.store') }}" method="POST">
+                <form action="{{route('direct.distributor.login.store')}}" method="POST">
                     @csrf
                     @method('POST')      
 

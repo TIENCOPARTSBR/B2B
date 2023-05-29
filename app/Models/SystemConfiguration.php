@@ -16,26 +16,6 @@ class SystemConfiguration extends Model
         'key_name',
         'key_value'
     ];
-    
-    // store
-    public static function store($r)
-    {
-        $config = [
-            'name' => 'Receipt quotation e-mail',
-            'key_name' => 'receipt_quotation_email',
-            'key_value' => $r['receipt_quotation_email']
-        ];
-
-        SystemConfiguration::create($config);
-    }
-
-    // updated
-    public static function updated($r)
-    {
-        $config = SystemConfiguration::findOrFail('1');
-        $config->key_value = $r;
-        $config->update();
-    }
 
     // quotation receipt email 
     public static function getSystemKeyName($r)
