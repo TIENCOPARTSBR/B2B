@@ -38,6 +38,6 @@ class ProductSisrevController extends Controller
 
     public function export()
     {
-        return Excel::download(new ProductSisrevExport, 'product.xlsx');
+        return Excel::store(new ProductSisrevExport, 'product.xlsx', 's3');
     }
 }

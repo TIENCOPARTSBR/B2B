@@ -3,9 +3,11 @@
 namespace App\Http\Controllers\Quotation;
 
 use App\Http\Controllers\Controller;
+use App\Mail\SendQuotation;
 use App\Models\Quotation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Maatwebsite\Excel\Facades\Excel;
 
 class QuotationController extends Controller
@@ -73,5 +75,13 @@ class QuotationController extends Controller
     public function export($id) 
     {
         return Excel::download(new ExportForQuotationController($id), 'quotation.xlsx');
+    }
+
+    public function send($id)
+    {
+        $mail = new SendQuotation($id);
+        Mail::to('daniel.ismael@encoparts.com')->send($mail);
+        return to_route('direct.distributor.quotation.index')
+            ->with('successfully', __('messages.Quotation sent'));
     }
 }

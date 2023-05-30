@@ -79,6 +79,8 @@
             </thead>
             <tbody align="left" width="100%"></tbody>
         </table>
+
+        <a href="{{route('direct.distributor.quotation.send', $id)}}" class="button-yellow-1 button-small">Enviar cotação</a>
     </section>
 @endsection
 

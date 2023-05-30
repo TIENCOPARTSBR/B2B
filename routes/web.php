@@ -143,6 +143,7 @@ Route::group(['middleware' => 'Language'], function() {
             Route::post('/cotacao/updated','updated')->name('direct.distributor.quotation.updated');
             Route::post('/cotacao/destroy','destroy')->name('direct.distributor.quotation.destroy');
             Route::get('/cotacao/export/{id}', 'export')->name('direct.distributor.quotation.export.export');
+            Route::get('/cotacao/send/{id}','send')->name('direct.distributor.quotation.send');
         });
 
         Route::controller(QuotationDatatableController::class)->group(function() {
