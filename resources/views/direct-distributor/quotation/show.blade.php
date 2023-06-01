@@ -23,27 +23,27 @@
             @method('POST')
             <div class="group mb-1">
                 <input type="hidden" name="id" value="{{$quotation->id}}">
-                <input type="hidden" name="status" value="{{$quotation->status}}">
+                <input type="hidden" name="status" value="{{$quotation->status}}" {{ $quotation->status === 'S' ? 'readonly' : '' }}>
                 <label for="name" class="form-label">{{__('messages.Urgent quotation')}}:</label>
                 <div class="check-box">
-                    <input type="checkbox" name="urgent" {{ $quotation->urgent == 1 ? 'checked' : '' }}>
+                    <input type="checkbox" name="urgent" {{ $quotation->urgent == 1 ? 'checked' : '' }} {{ $quotation->status === 'S' ? 'disabled' : '' }}>
                 </div>
             </div>
 
             <div class="group mb-1">
                 <label for="name" class="form-label">{{__('messages.Customer name')}}:</label>
-                <input type="text" name="customer_name" class="form-input" value="{{$quotation->customer_name}}">
+                <input type="text" name="customer_name" class="form-input" value="{{$quotation->customer_name}}" {{ $quotation->status === 'S' ? 'readonly' : '' }}>
             </div>
 
             <div class="group mb-1">
                 <label for="name" class="form-label">{{__('messages.Requester for quotation')}}:</label>
-                <input type="text" name="requester_quotation" class="form-input" value="{{$quotation->requester_quotation}}">
+                <input type="text" name="requester_quotation" class="form-input" value="{{$quotation->requester_quotation}}" {{ $quotation->status === 'S' ? 'readonly' : '' }} >
             </div>
 
             <div class="group mb-1">
                 <label for="name" class="form-label">{{__('messages.Quotation type')}}:</label>
                 <div class="form-select">
-                    <select name="quotation_type">
+                    <select name="quotation_type"  {{ $quotation->status === 'S' ? 'disabled' : '' }}>
                         <option value="S" {{ $quotation->urgent == "S" ? 'checked' : '' }}>SPOT</option>
                         <option value="C" {{ $quotation->urgent == "C" ? 'checked' : '' }}>Contrato</option>
                     </select>
@@ -52,12 +52,12 @@
             
             <div class="group mb-1">
                 <label for="name" class="form-label">{{__('messages.Reply date')}}:</label>
-                <input type="date" name="reply_date" class="form-input" value="">
+                <input type="date" name="reply_date" class="form-input" value="" {{ $quotation->status === 'S' ? 'readonly' : '' }}>
             </div>
 
             <div class="group" mb-1">
                 <label for="name" class="form-label">{{__('messages.General observations')}}:</label>
-                <textarea type="text" name="general_observation" class="form-input" style="height: 100px">{{$quotation->general_observation}}</textarea>
+                <textarea type="text" name="general_observation" {{ $quotation->status === 'S' ? 'readonly' : '' }} class="form-input" style="height: 100px" value="{{ $quotation->general_observation }}">{{ $quotation->general_observation }}</textarea>
             </div>
 
             <div class="col-12">

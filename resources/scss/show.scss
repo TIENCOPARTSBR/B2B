@@ -1171,12 +1171,12 @@ table.dataTable.no-footer{
     }
 
     .input-number{
-        width: 70px;
+        width: 80px;
         margin: 0 1rem 0 0;
     }
 
     .input-submit{
-        width: 250px;
+        width: calc(100% - 96px);
         padding: .8rem 1.5rem;
         background-color: var(--yellow-2);
         font-size: 1rem;
@@ -1210,5 +1210,39 @@ table.dataTable.no-footer{
         position: absolute;
         top: 25px;
         right: 20px;
+    }
+}
+
+.table-quotation{
+	width: 100%;
+	display: flex;	
+    flex-flow: wrap;
+	border-collapse: collapse;
+	border: 1px solid var(--border-card-color);
+	color: var(--title-page-color);
+    overflow-x: scroll;
+
+    .thead{
+        width: 100%;
+        display: flex;
+        align-items: center;
+    }
+
+    .tbody{
+        display: flex;
+    }
+
+    .th{
+        width: max-content;
+        display: flex;
+        align-items: center;
+        padding: .8rem 1rem;
+    }
+
+    .td{
+        width: max-content;
+        display: flex;
+        align-items: center;
+        vertical-align: middle;
     }
 }

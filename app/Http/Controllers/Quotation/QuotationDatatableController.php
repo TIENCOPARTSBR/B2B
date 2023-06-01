@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Quotation;
 
 use App\Http\Helper;
+use App\Models\ProductSisrev;
 use App\Models\ProductValue;
 use App\Models\Quotation;
 use App\Models\QuotationItem;
@@ -12,11 +13,34 @@ use Illuminate\Support\Facades\Auth;
 
 class QuotationDatatableController extends Controller
 {
-    public function datatable(Quotation $quotation, $id)
+    public function datatable(Quotation $quotation, ProductSisrev $product_sisrev, $id, Request $request)
     {   
+        $draw = $request->get('draw');
+        $start = $request->get("start");
+        $rowperpage = $request->get("length"); 
+        $search_arr = $request->get('search');
+        $searchValue = $search_arr['value']; 
+
         // Todos os items da cotação
         $quotation = QuotationItem::with('ProductSisrev', 'ProductSisrev.product_photo')
-            ->where('quotation_id', $id)->get();
+            ->where('quotation_id', $id)
+            ->where('product_sisrev_id', 'like', '%'.$searchValue.'%')
+            ->skip($start)
+            ->take($rowperpage)
+            ->get();
+
+        // total records
+        $totalRecords = QuotationItem::with('ProductSisrev', 'ProductSisrev.product_photo')
+            ->select('count(*) as allcount')
+            ->where('quotation_id', $id)
+            ->count();
+        
+        // total records for search
+        $totalRecordswithFilter = QuotationItem::with('ProductSisrev', 'ProductSisrev.product_photo')
+            ->select('count(*) as allcount')
+            ->where('quotation_id', $id)
+            //->where('product_sisrev_id', 'like', '%'.$searchValue.'%')
+            ->count();
 
         // Array de produtos
         $product = [];
@@ -24,9 +48,11 @@ class QuotationDatatableController extends Controller
         // Loop dos produtos
         foreach($quotation as $key => $item)
         {
-            if ($item['ProductSisrev'][0])
+            if ($item['product_exists'] === 'X')
             {
                 // Eua
+                if($item['country'] == null) $item['country'] = '';
+
                 if (strtoupper(trim($item['country'])) == 'USA' || strtoupper(trim($item['country'])) == 'EUA')
                 {
                     $custo_liquido_name = 'custo_liquido_eua';
@@ -104,14 +130,14 @@ class QuotationDatatableController extends Controller
                 }
 
                 // Mudar a descrição conforme o idioma usado no sistema.
-                if(app()->getLocale() == 'pt')  $product['descricao'] = $item['ProductSisrev'][0]['descricao_br'];
-                if(app()->getLocale() == 'en')  $product['descricao'] = $item['ProductSisrev'][0]['descricao_en'];
-                if(app()->getLocale() == 'es')  $product['descricao'] = $item['ProductSisrev'][0]['descricao_es'];
-                if($item['description']) $product['descricao'] = $item['description'];
+                if(app()->getLocale() == 'pt')  $description = $item['ProductSisrev'][0]['descricao_br'];
+                if(app()->getLocale() == 'en')  $description = $item['ProductSisrev'][0]['descricao_en'];
+                if(app()->getLocale() == 'es')  $description = $item['ProductSisrev'][0]['descricao_es'];
+                if($item['description']) $description = $item['description'];
 
                 $product[$key]['id']                           = $item['id'];
                 $product[$key]['part_number']                  = $item['ProductSisrev'][0]['part_number'];
-                $product[$key]['description']                  = $product['descricao'];
+                $product[$key]['description']                  = ($description) ? $description : '-----';
                 $product[$key]['custo_liquido_original']       = (!empty($custo_liquido_original)) ? '$ '.number_format((float) $custo_liquido_original, 2, '.', ',') : '-----';
                 $product[$key]['custo_liquido']                = (!empty($custo_liquido)) ? '$ '.number_format((float) $custo_liquido, 2, '.', ',') : '-----';
                 $product[$key]['quantity']                     = $item['quantity'];
@@ -128,10 +154,10 @@ class QuotationDatatableController extends Controller
             {
                 $product[$key]['id']                       = $item['id'];
                 $product[$key]['part_number']              = $item['product_sisrev_id'];
-                $product[$key]['description']              = $product['descricao'];
+                $product[$key]['description']              = $item['descricao'];
                 $product[$key]['custo_liquido_original']   = '-----';
                 $product[$key]['custo_liquido']            = '-----';
-                $product[$key]['quantity']                 = '-----';
+                $product[$key]['quantity']                 = $item['quantity'];
                 $product[$key]['total']                    = '-----';
                 $product[$key]['weight']                   = '-----';
                 $product[$key]['ncm']                      = '-----';
@@ -145,8 +171,13 @@ class QuotationDatatableController extends Controller
         } 
 
         // return
-        return datatables()::of($product)
-            ->addIndexColumn()
-            ->make(true);
+        $response = [
+            "draw" => intval($draw),
+            "iTotalRecords" => $totalRecords,
+            "iTotalDisplayRecords" => $totalRecordswithFilter,
+            "aaData" => $product
+        ];
+
+        return json_encode($response);
     }
 }

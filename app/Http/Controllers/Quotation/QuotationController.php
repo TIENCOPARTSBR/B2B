@@ -77,10 +77,17 @@ class QuotationController extends Controller
         return Excel::download(new ExportForQuotationController($id), 'quotation.xlsx');
     }
 
-    public function send($id)
+    public function send(Quotation $quotation, $id)
     {
         $mail = new SendQuotation($id);
         Mail::to('daniel.ismael@encoparts.com')->send($mail);
+
+        $item = [
+            'status' => 'S'
+        ];
+
+        $quotation::findOrFail($id)->update($item);
+
         return to_route('direct.distributor.quotation.index')
             ->with('successfully', __('messages.Quotation sent'));
     }

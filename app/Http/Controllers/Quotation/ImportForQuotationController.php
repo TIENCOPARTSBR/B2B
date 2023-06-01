@@ -24,8 +24,26 @@ class ImportForQuotationController extends Controller
         // loop de todos os part numbers
         foreach($excel_imported[0] as $excel)
         {
-            // se não existir quantidade definir como zero
-            if(empty($excel[1])) $excel[1] = 0;
+            // se não existir quantidade definir como 1
+            if(empty($excel[1])) $excel[1] = 1;
+
+            // verificar existencia do part number na cotacao
+            $check = $quotation_item
+                ->where('quotation_id', $request['quotation_id'])
+                ->where('product_sisrev_id', $excel[0])
+                ->first();
+
+            // verificar existencia do part number na cotacao
+            if($check) {
+                $item = [
+                    'quantity' => ($excel[1] + $check['quantity'])
+                ];
+
+                $quotation_item::findOrFail($check['id'])
+                    ->update($item);
+
+                continue;
+            }
 
             // Pegar todos os produtos e seus relacionamentos conforme o part_number
             $product = $product_sisrev->with('product_photo')->where('part_number', trim($excel[0]))->first();
@@ -80,7 +98,7 @@ class ImportForQuotationController extends Controller
                     }
 
                     if(strtoupper($product['local_fornecimento_usa']) === 'USA') 
-                    {
+                        {
                         $html[] = 
                         '<form class="card-product">
                             <div type="button" data-modal="close"></div>
@@ -133,10 +151,6 @@ class ImportForQuotationController extends Controller
                     
                     $quotation_item::create($prod);
                 }
-            }
-            else
-            {
-
             }
         }
 
