@@ -351,6 +351,10 @@
     background-image: url(/images/delete.svg);
 }
 
+[data-button="user"]{
+    background-image: url(/images/user.svg);
+}
+
 [data-button="edit"]{
     background-image: url(/images/edit.svg);
 }

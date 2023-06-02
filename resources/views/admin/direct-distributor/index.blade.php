@@ -37,6 +37,10 @@
 
                                     <div class="td">
                                         <div class="table-button">
+                                            <a href="{{route('admin.direct.distributor.user.index', $distributor->id)}}" data-button="user" >
+                                                <span class="tooltip">{{__('messages.User')}}</span>
+                                            </a>
+
                                             <a href="{{route('admin.direct.distributor.edit', $distributor->id)}}" data-button="edit" >
                                                 <span class="tooltip">{{__('messages.Edit')}}</span>
                                             </a>
