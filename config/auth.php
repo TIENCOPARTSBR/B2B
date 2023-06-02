@@ -40,9 +40,9 @@ return [
             'driver' => 'session',
             'provider' => 'admin',
         ],
-        'distributor' => [
+        'direct-distributor' => [
             'driver' => 'session',
-            'provider' => 'distributor',
+            'provider' => 'direct-distributor',
         ],
     ],
 
@@ -69,7 +69,7 @@ return [
             'model' => App\Models\UserAdmin::class,
         ],
 
-        'distributor' => [
+        'direct-distributor' => [
             'driver' => 'eloquent',
             'model' => App\Models\UserDirectDistributor::class,
         ],

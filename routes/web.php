@@ -18,10 +18,10 @@ use App\Http\Controllers\Distributor\UserController as UserDistributorForDirectD
 
 use App\Http\Controllers\DirectDistributor\Distributor\DistributorController as DistributorForDirectDistributor;
 
-use App\Http\Controllers\Quotation\QuotationItemController;
-use App\Http\Controllers\Quotation\ImportForQuotationController;
-use App\Http\Controllers\Quotation\QuotationController;
-use App\Http\Controllers\Quotation\QuotationDatatableController;
+use App\Http\Controllers\DirectDistributor\Quotation\QuotationItemController;
+use App\Http\Controllers\DirectDistributor\Quotation\ImportForQuotationController;
+use App\Http\Controllers\DirectDistributor\Quotation\QuotationController;
+use App\Http\Controllers\DirectDistributor\Quotation\QuotationDatatableController;
 
 use Illuminate\Support\Facades\Route;
 

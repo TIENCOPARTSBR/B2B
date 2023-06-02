@@ -5,20 +5,26 @@ namespace App\Http\Controllers\DirectDistributor\Auth;
 use App\Http\Controllers\Controller;
 use App\Models\UserDirectDistributor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(UserDirectDistributor $user)
     {
         return view('direct-distributor.user.index')
-            ->with('user', UserDirectDistributor::all());
+            ->with('user', $user
+                            ->where('direct_distributor_id', Auth::guard('distributor')->user()->direct_distributor_id)
+                            ->paginate(10));
     }
 
-    public function show(Request $request)
+    public function show(UserDirectDistributor $user, Request $request)
     {
         return view('direct-distributor.user.index')
-            ->with('user', UserDirectDistributor::where('name', 'LIKE', $request->only('name')));
+            ->with('user', $user
+                            ->where('name', 'LIKE', $request->only('name'))
+                            ->where('direct_distributor_id', Auth::guard('distributor')->user()->direct_distributor_id)
+                            ->paginate(10));
     }
 
     public function create()
