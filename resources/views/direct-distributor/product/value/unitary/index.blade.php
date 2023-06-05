@@ -30,7 +30,7 @@
                             <!-- search -->
                             <form method="POST" action="{{ route('direct.distributor.product.value.unitary.show') }}" class="form-search">
                                 @csrf @method('POST')
-                                <input type="text" name="part_number" placeholder="{{ __('messages.Type the code') }}" class="form-control">
+                                <input type="text" name="part_number" placeholder="{{ __('messages.Enter code') }}" class="form-control">
             
                                 <button type="submit"></button>
                             </form>
@@ -60,7 +60,7 @@
                                 </div>
 
                                 <div class="td">
-                                    <input type="text" name="product_value" placeholder="{{__('messages.Type the value')}}" class="form-input" value="{{old('product_value')}}">
+                                    <input type="text" name="product_value" placeholder="{{__('messages.Enter value')}}" class="form-input" value="{{old('product_value')}}">
                                 </div>
 
                                 <div class="td">

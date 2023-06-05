@@ -25,7 +25,7 @@ class LoginController extends Controller
 
         return redirect()
                 ->action([LoginController::class,'index'])
-                ->with('login', __('messages.Wrong email or password'));
+                ->with('login', __('messages.Incorrect email or password'));
     }
 
     public function logout(Request $request)

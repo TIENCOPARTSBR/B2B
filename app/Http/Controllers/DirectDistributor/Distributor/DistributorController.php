@@ -30,7 +30,7 @@ class DistributorController extends Controller
 			'name' => 'required',
 			'cif_freight' => 'required',
 		],[
-			'cif_freight' => __('messages.Field CIF freight is required'),
+			'cif_freight' => __('messages.CIF freight field is mandatory'),
 		]);
 
 		Distributor::create($request->all());
@@ -51,14 +51,14 @@ class DistributorController extends Controller
 			'name' => 'required',
 			'cif_freight' => 'required',
 		],[
-			'cif_freight' => __('messages.Field CIF freight is required'),
+			'cif_freight' => __('messages.CIF freight field is mandatory'),
 		]);
 
 		Distributor::findOrFail($request->id)
 			->update($request->all());
 
 		return to_route('direct.distributor.distributor.index')
-			->with('successfully', __('messages.Distributor changed successfully'));
+			->with('successfully', __('messages.Distributor successfully modified'));
 	}
 
 	public function destroy(Request $request)

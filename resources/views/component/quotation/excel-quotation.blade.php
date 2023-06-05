@@ -6,17 +6,17 @@
     </tr>
 
     <tr>
-        <td style="border: 1px solid #000;" width="20"><strong>{{__('messages.Requester for quotation')}}</strong></td>
+        <td style="border: 1px solid #000;" width="20"><strong>{{__('messages.Quote requester')}}</strong></td>
         <td style="border: 1px solid #000;" width="25">{{ $quotation->requester_quotation }}</td>
     </tr>
 
     <tr>
-        <td style="border: 1px solid #000;" width="20"><strong>{{__('messages.Quotation type')}}</strong></td>
+        <td style="border: 1px solid #000;" width="20"><strong>{{__('messages.Quote type')}}</strong></td>
         <td style="border: 1px solid #000;" width="25">{{ $quotation->urgent == "S" ? "SPOT" : "Contrato" }}</td>
     </tr>
 
     <tr>
-        <td style="border: 1px solid #000;" width="20"><strong>{{__('messages.General observations')}}</strong></td>
+        <td style="border: 1px solid #000;" width="20"><strong>{{__('messages.General remarks')}}</strong></td>
         <td style="border: 1px solid #000;" width="25">{{ $quotation->general_observation }}</td>
     </tr>
     

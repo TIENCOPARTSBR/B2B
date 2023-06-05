@@ -5,10 +5,10 @@
         <!-- breadcrumb -->
         <ul class="breadcrumb">
             <li><a href="/">{{ __('messages.Home') }}</a> &nbsp/</li>
-            <li class="active">&nbsp {{ __('messages.Quotations') }}</li>
+            <li class="active">&nbsp {{ __('messages.Quotes') }}</li>
         </ul>
 
-        <h1 class="title">{{ __('messages.Quotations') }}</h1>
+        <h1 class="title">{{ __('messages.Quotes') }}</h1>
 
         <div class="card">
             <div class="tab-content"> 
@@ -22,7 +22,7 @@
                     
                     <!-- add row -->
                     <a href="{{route('distributor.quotation.create')}}" class="button-yellow-1 button-add" >
-                        {{ __('messages.Add quotation') }}
+                        {{ __('messages.Add quote') }}
                     </a>
                 </div>
 
@@ -32,7 +32,7 @@
                     <div class="thead">
                         <div class="th">ID &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
                         <div class="th">{{__('messages.Customer name')}}</div>
-                        <div class="th">{{__('messages.Requester for quotation')}}</div>
+                        <div class="th">{{__('messages.Quote requester')}}</div>
                         <div class="th">{{__('messages.Date')}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
                         <div class="th">Status &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
                         <div class="th"></div>

@@ -26,6 +26,6 @@ class UpdateGeneralValueController extends Controller
             ->update($request->all());
 
         return back()
-            ->with('successfully', __('messages.General value of products has been updated'));
+            ->with('successfully', __('messages.General product values updated'));
     }
 }

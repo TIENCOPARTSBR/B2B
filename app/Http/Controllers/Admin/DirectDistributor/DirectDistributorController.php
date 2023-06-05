@@ -42,7 +42,7 @@ class DirectDistributorController
         DirectDistributor::findOrFail($request->id)->update($request->all());
         
         return to_route('admin.direct.distributor.index')
-            ->with('successfully', __('messages.Distributor changed successfully'));
+            ->with('successfully', __('messages.Distributor successfully modified'));
     }
 
     public function destroy(Request $request)

@@ -6,7 +6,7 @@
         <form action="{{ route('direct.distributor.product.show') }}" method="POST" class="form-product">
             @csrf
             @method('POST')
-            <input type="text" name="part_number" required min="3" placeholder="{{__('messages.Type the code')}}">
+            <input type="text" name="part_number" required min="3" placeholder="{{__('messages.Enter code')}}">
 
             <button type="submit">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -28,13 +28,13 @@
                                         {{ $product->description }}
                                     </h2>
                                 </li>
-                                <li><strong>{{__('messages.Price Encoparts BR')}}:</strong> {{$product->custo_liquido_br}}</li>
+                                <li><strong>{{__('messages.Encoparts BR price')}}:</strong> {{$product->custo_liquido_br}}</li>
                                 <li><strong>{{__('messages.Encoparts USA Price')}}:</strong> {{$product->custo_liquido_eua}}</li>
                                 <li><strong>{{__('messages.Weight')}}:</strong> {{$product->peso}} kg</li>
                                 <li><strong>NCM:</strong> {{$product->ncm}} | <strong>HS Code:</strong> {{$product->hscode}}</li>
                                 <li><strong>{{__('messages.Supply location')}}:</strong></li>
-                                <li><strong>&nbsp &nbsp &nbsp &nbsp • BR</strong>  | {{__('messages.Quantity in stock')}}: {{$product->saldo_br}} | Lead time: {{$product->lead_time_br}}</li>
-                                <li><strong>&nbsp &nbsp &nbsp &nbsp • EUA</strong>  | {{__('messages.Quantity in stock')}}: {{$product->saldo_eua}} | Lead time: {{$product->lead_time_eua}}</li>
+                                <li><strong>&nbsp &nbsp &nbsp &nbsp • BR</strong>  | {{__('messages.Stock quantity')}}: {{$product->saldo_br}} | Lead time: {{$product->lead_time_br}}</li>
+                                <li><strong>&nbsp &nbsp &nbsp &nbsp • EUA</strong>  | {{__('messages.Stock quantity')}}: {{$product->saldo_eua}} | Lead time: {{$product->lead_time_eua}}</li>
                             </ul>
                         </div>
 

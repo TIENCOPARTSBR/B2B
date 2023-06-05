@@ -44,7 +44,7 @@
     
                     <div class="group col-lg-4 mb-1">
                         <label  for="name" 
-                                class="form-label" >{{ __('messages.Allow product reporting') }}</label>
+                                class="form-label" >{{ __('messages.Allow product report') }}</label>
 
                         <div class="form-select">
                             <select name="allow_product_report">
@@ -56,7 +56,7 @@
     
                     <div class="group col-lg-4 mb-1">
                         <label  for="name" 
-                                class="form-label" >{{ __('messages.Allow quotation') }}</label>
+                                class="form-label" >{{ __('messages.Allow quote') }}</label>
 
                         <div class="form-select">
                             <select name="allow_quotation">

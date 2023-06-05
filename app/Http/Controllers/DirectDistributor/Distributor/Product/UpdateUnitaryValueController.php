@@ -65,6 +65,6 @@ class UpdateUnitaryValueController extends Controller
         $productValue::findOrFail($request->id_delete)->delete();
 
         return back()
-            ->with('successfully', __('messages.Deleted product value'));
+            ->with('successfully', __('messages.Product value deleted'));
     }
 }

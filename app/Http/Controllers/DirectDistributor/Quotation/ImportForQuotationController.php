@@ -77,7 +77,7 @@ class ImportForQuotationController extends Controller
                             <div class="col-12">
                                 <ul>
                                     <li> <h2>'.$product['part_number'].' - '.$descricao.' </h2> </li>
-                                    <li><strong>'.__("messages.Price Encoparts BR").':</strong>    '.$product['custo_liquido_br'].'</li>
+                                    <li><strong>'.__("messages.Encoparts BR price").':</strong>    '.$product['custo_liquido_br'].'</li>
                                     <li><strong>'.__("messages.Weight").':</strong>                '.$product['peso'].' kg</li>
                                     <li><strong>NCM:</strong>                                      '.$product['ncm'].'</li>
                                     <li><strong>HS Code:</strong>                                  '.$product['hscode'].'</li>
@@ -85,14 +85,14 @@ class ImportForQuotationController extends Controller
                                         <img src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png">
                                         <strong>'.__("messages.Supply location").':</strong>       '.$product['local_fornecimento_br'].'
                                     </li>
-                                    <li><strong>'.__('messages.Quantity in stock').':</strong>     '.$product['saldo_br'].'</li>
+                                    <li><strong>'.__('messages.Stock quantity').':</strong>     '.$product['saldo_br'].'</li>
                                     <li><strong>'.__('messages.Lead time').':</strong>             '.$product['lead_time_br'].'</li>
                                 </ul>
                             </div>
                         
                             <div class="row justify-end mt-2">
                                 <input type="number" class="input-number" name="quantity" placeholder="0" min="1" value="'.$excel[1].'">
-                                <input type="submit" class="input-submit" value="'.__('messages.Add to quotation').'">
+                                <input type="submit" class="input-submit" value="'.__('messages.Add to quote').'">
                             </div>
                         </form>';
                     }
@@ -120,14 +120,14 @@ class ImportForQuotationController extends Controller
                                         <img src="https://encoparts.com/wp-content/uploads/flags/us.png">
                                         <strong>'.__("messages.Supply location").':</strong>       '.$product['local_fornecimento_usa'].'
                                     </li>
-                                    <li><strong>'.__('messages.Quantity in stock').':</strong>     '.$product['saldo_eua'].'</li>
+                                    <li><strong>'.__('messages.Stock quantity').':</strong>     '.$product['saldo_eua'].'</li>
                                     <li><strong>'.__('messages.Lead time').':</strong>             '.$product['lead_time_eua'].'</li>
                                 </ul>
                             </div>
                         
                             <div class="row justify-end mt-2">
                                 <input type="number" class="input-number" name="quantity" placeholder="0" min="1" value="'.$excel[1].'">
-                                <input type="submit" class="input-submit" value="'.__('messages.Add to quotation').'">
+                                <input type="submit" class="input-submit" value="'.__('messages.Add to quote').'">
                             </div>
                         </form>';
                     }

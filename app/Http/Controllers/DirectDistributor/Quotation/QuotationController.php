@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\DirectDistributor\Quotation;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Quotation\ExportForQuotationController;
+use App\Http\Controllers\DirectDistributor\Quotation\ExportForQuotationController;
 use App\Mail\DirectDistributor\SendQuotation;
 use App\Models\Quotation;
 use Illuminate\Http\Request;
@@ -49,7 +49,10 @@ class QuotationController extends Controller
     public function show(Quotation $quotation, Request $request)
     {
         return view('direct-distributor.quotation.index')
-            ->with('quotation', $quotation::where('customer_name', 'LIKE', '%'.$request->name.'%')->paginate(10));
+            ->with('quotation', $quotation
+                ->where('customer_name', 'LIKE', '%'.$request->name.'%')
+                ->where('direct_distributor_id', Auth::guard('direct-distributor')->user()->direct_distributor_id)
+                ->paginate(10));
     }
 
     public function edit(Quotation $quotation, Request $request)
@@ -72,7 +75,7 @@ class QuotationController extends Controller
         $quotation::findOrFail($request->id_delete)->delete();
 
         return to_route('direct.distributor.quotation.product.index')
-            ->with('successfully', __('messages.Quotation deleted'));
+            ->with('successfully', __('messages.Quote deleted'));
     }
 
     public function export($id) 

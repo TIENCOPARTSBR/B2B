@@ -6,12 +6,12 @@
     </div>
 
     <section class="page">
-        <h1 class="title">{{ __('messages.Quotations') }}</h1>
+        <h1 class="title">{{ __('messages.Quotes') }}</h1>
 
         <div class="steps">
             <div class="box">
                 <div class="box-number active">2</div>
-                <p class="box-text active">{{__('messages.Add products to quotation')}}</p>
+                <p class="box-text active">{{__('messages.Add products to quote')}}</p>
             </div>
         </div>
 
@@ -72,7 +72,7 @@
                     <th>NCM</th>
                     <th>Hs code</th>
                     <th>{{__('messages.Supply location')}}</th>
-                    <th>{{__('messages.Quantity in stock')}}</th>
+                    <th>{{__('messages.Stock quantity')}}</th>
                     <th>{{__('messages.Lead time')}}</th>
                     <th>{{__('messages.Photo')}}</th>
                     <th>{{__('messages.Edit')}}</th>
@@ -246,7 +246,7 @@
                 $('.warning').html("{{__('messages.Search one part number at a time')}}");
                 $('.warning').css('color', 'black');
             } else {
-                $('.warning').html("{{__('messages.Enter at least 3 characters')}}");
+                $('.warning').html("{{__('messages.Please enter at least 3 characters')}}");
                 $('.warning').css('color', 'red');
             }
         });

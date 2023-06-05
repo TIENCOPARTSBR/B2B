@@ -26,7 +26,7 @@
                             <!-- search -->
                             <form action="{{ url('/produto/valor') }}/" class="form-search" >
                                 @csrf @method('POST')
-                                <input type="text" name="part_number" placeholder="{{ __('messages.Type the code') }}" class="form-control" >
+                                <input type="text" name="part_number" placeholder="{{ __('messages.Enter code') }}" class="form-control" >
 
                                 <button type="submit"></button>
                             </form>

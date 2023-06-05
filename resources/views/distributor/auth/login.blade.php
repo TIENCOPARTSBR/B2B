@@ -13,22 +13,30 @@
                     <div class="select-language">
                         <button class="select">
                             @if (app()->getLocale() == 'pt')
-                                <img src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png" alt="eua">
+                                <img src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png" alt="BR">
                             @elseif(app()->getLocale() == 'en')
-                                <img src="https://encoparts.com/wp-content/uploads/flags/us.png" alt="bandeira eua">
+                                <img src="https://encoparts.com/wp-content/uploads/flags/us.png" alt="bandeira EN">
+                            @elseif(app()->getLocale() == 'es')
+                                <img src="{{asset('images/es.svg')}}" alt="ES">
                             @endif
                         </button>
                     
                         <div class="list">
                             @if (app()->getLocale() !== 'en')
                                 <a href="http://127.0.0.1:8000/change-language/en" data-src="https://encoparts.com/wp-content/uploads/flags/us.png">
-                                    <img src="https://encoparts.com/wp-content/uploads/flags/us.png" alt="bandeira brasil">
+                                    <img src="https://encoparts.com/wp-content/uploads/flags/us.png" alt="EN">
                                 </a>
                             @endif
 
                             @if (app()->getLocale() !== 'pt')
                                 <a href="http://127.0.0.1:8000/change-language/pt" type="submit" data-src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png">
-                                    <img src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png" alt="">
+                                    <img src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png" alt="BR">
+                                </a>
+                            @endif
+
+                            @if (app()->getLocale() !== 'es')
+                                <a href="http://127.0.0.1:8000/change-language/es" type="submit" data-src="{{asset('images/es.svg')}}">
+                                    <img src="{{asset('images/es.svg')}}" alt="ES">
                                 </a>
                             @endif
                         </div>
@@ -63,7 +71,7 @@
                         </div>
                     </div>
     
-                    <input type="submit" class="form-submit" value="{{ __('messages.Login') }}">
+                    <input type="submit" class="form-submit" value="{{ __('messages.Sign in') }}">
                 </form>
             </div>
         </div>

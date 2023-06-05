@@ -21,7 +21,7 @@ class ProductValueController extends Controller
     public function show(Request $r)
     {
         $r->validate([ 'part_number' => 'required||min:3' ],
-        [ 'part_number' => __('messages.Part number is required') ]);
+        [ 'part_number' => __('messages.Part number is mandatory') ]);
 
         return view('distributor.value.index', ['type' => ProductValue::show($r->only('part_number')), 
                                                 'general' => DirectDistributor::getGeneralValue()]);
@@ -31,7 +31,7 @@ class ProductValueController extends Controller
     public function store(Request $r)
     {
         $r->validate([ 'part_number' => 'required||max:10', 'product_value' => 'required', 'value_type' => 'required'], 
-                    [ 'part_number' => __('messages.Part number is required'), 'product_value' => __('messages.Value is required') ]);
+                    [ 'part_number' => __('messages.Part number is mandatory'), 'product_value' => __('messages.Value is mandatory') ]);
 
         ProductValue::store(
             $r->only('part_number', 'product_value', 'value_type')
@@ -44,13 +44,13 @@ class ProductValueController extends Controller
     public function updated(Request $r)
     {
         $r->validate([ 'part_number' => 'required||max:10', 'product_value' => 'required', 'value_type' => 'required'], 
-                     [ 'part_number' => __('messages.Part number is required'), 'product_value' => __('messages.Value is required') ]);
+                     [ 'part_number' => __('messages.Part number is mandatory'), 'product_value' => __('messages.Value is mandatory') ]);
 
         ProductValue::updated(
             $r->only('id','part_number', 'product_value', 'value_type')
         );
 
-        return Redirect::to('/produto/valor')->with('successfully', __('messages.Updated product value'));
+        return Redirect::to('/produto/valor')->with('successfully', __('messages.Product value updated'));
     }
 
     // destroy
@@ -58,6 +58,6 @@ class ProductValueController extends Controller
     {
         ProductValue::destroy($id);
 
-        return Redirect::to('/produto/valor')->with('successfully', __('messages.Deleted product value'));
+        return Redirect::to('/produto/valor')->with('successfully', __('messages.Product value deleted'));
     }
 }

@@ -114,7 +114,7 @@
                                         <path d="M1 4C1 4 1 7.34315 1 9C1 10.6569 4.13401 12 8 12C11.866 12 15 10.6569 15 9C15 8.17299 15 4 15 4" stroke-width="1.2"/>
                                     </svg>
                                 </div>
-                                <span>{{ __('messages.Quotations') }}</span>
+                                <span>{{ __('messages.Quotes') }}</span>
                             </a>
                         </li>
         
@@ -150,20 +150,32 @@
                         <div class="language">
                             <button class="select">
                                 @if (app()->getLocale() == 'pt')
-                                    <img src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png" alt="eua">
+                                    <img src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png" alt="BR">
                                 @elseif(app()->getLocale() == 'en')
-                                    <img src="https://encoparts.com/wp-content/uploads/flags/us.png" alt="bandeira eua">
+                                    <img src="https://encoparts.com/wp-content/uploads/flags/us.png" alt="EN">
+                                @elseif(app()->getLocale() == 'es')
+                                    <img src="{{asset('images/es.svg')}}" alt="ES">
                                 @endif
                             </button>
                         
                             <div class="list">
-                                <a href="{{url('/change-language/en')}}" data-src="https://encoparts.com/wp-content/uploads/flags/us.png">
-                                    <img src="https://encoparts.com/wp-content/uploads/flags/us.png" alt="bandeira brasil">
-                                </a>
-                
-                                <a href="{{url('/change-language/pt')}}" type="submit" data-src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png">
-                                    <img src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png" alt="">
-                                </a>
+                                @if (app()->getLocale() != 'en')
+                                    <a href="{{url('/change-language/en')}}" data-src="https://encoparts.com/wp-content/uploads/flags/us.png">
+                                        <img src="https://encoparts.com/wp-content/uploads/flags/us.png" alt="EN">
+                                    </a>
+                                @endif
+
+                                @if (app()->getLocale() != 'pt')
+                                    <a href="{{url('/change-language/pt')}}" type="submit" data-src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png">
+                                        <img src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png" alt="BR">
+                                    </a>                                
+                                @endif
+
+                                @if (app()->getLocale() != 'es')
+                                    <a href="{{url('/change-language/es')}}" type="submit" data-src="{{asset('images/es.svg')}}">
+                                        <img src="{{asset('images/es.svg')}}" alt="ES">
+                                    </a>
+                                @endif
                             </div>
                         </div>
         
@@ -177,7 +189,7 @@
                                         <path d="M8.5 5.5L11 8M11 8L8.5 10.5M11 8H1" stroke="#222222" stroke-linecap="round"/>
                                     </svg>
                                 </div>
-                                {{ __('messages.Logout') }}
+                                {{ __('messages.Sign out') }}
                             </button>
                         </form> 
                     </div>

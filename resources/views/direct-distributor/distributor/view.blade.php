@@ -40,7 +40,7 @@
                             </div>
 
                             <div class="col-lg-6 mb-1">
-                                <label class="form-label" >{{ __('messages.Allow product reporting') }}</label>
+                                <label class="form-label" >{{ __('messages.Allow product report') }}</label>
 
                                 <div class="form-select">
                                     <select name="allow_product_report">
@@ -51,7 +51,7 @@
                             </div>
                             
                             <div class="col-lg-6 mb-1">
-                                <label class="form-label" >{{ __('messages.Allow quotation') }}</label>
+                                <label class="form-label" >{{ __('messages.Allow quote') }}</label>
 
                                 <div class="form-select">
                                     <select name="allow_quotation">

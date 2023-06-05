@@ -6,7 +6,7 @@
         <form action="{{route('distributor.product.show')}}" method="POST" class="form-product">
             @csrf
             @method('POST')
-            <input type="text" name="part_number" placeholder="{{__('messages.Type the code')}}">
+            <input type="text" name="part_number" placeholder="{{__('messages.Enter code')}}">
 
             <button type="submit">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
