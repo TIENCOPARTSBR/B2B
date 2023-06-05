@@ -1,4 +1,4 @@
-@extends('layouts.direct-distributor')
+@extends('layouts.distributor')
 
 @section('content')
     <div id="spinner">
@@ -34,7 +34,7 @@
             </div>
 
             <div class="tab-pane" id="nav-excel">
-                <form action="{{ route('direct.distributor.quotation.product.import') }}" class="tab-header" id="form_import" enctype="multipart/form-data">
+                <form action="{{ route('distributor.quotation.product.import') }}" class="tab-header" id="form_import" enctype="multipart/form-data">
                     @csrf @method('POST')
                     <div class="col-12 mb-1">
                         <div class="file-drop-area">
@@ -83,7 +83,7 @@
             <tbody align="left" width="100%"></tbody>
         </table>
         @if (str_contains(strtoupper($status['status']), 'A'))
-            <a href="{{route('direct.distributor.quotation.send', $id)}}" class="button-yellow-1 button-small button-send">Enviar cotação</a>
+            <a href="{{route('distributor.quotation.send', $id)}}" class="button-yellow-1 button-small button-send">Enviar cotação</a>
         @endif
     </section>
 @endsection
@@ -96,7 +96,7 @@
             processing: true,
             serverSide: true,
             deferRender: true,
-            ajax: "{{route('direct.distributor.quotation.datatable', $id)}}",
+            ajax: "{{route('distributor.quotation.datatable', $id)}}",
             columns: [
                 {name: 'part_number', data: 'part_number'},
                 {name: 'description', data: 'description'},
@@ -159,7 +159,7 @@
                         var formData = new FormData($('.card-product')[0]);
 
                         $.ajax({
-                            url: "{{route('direct.distributor.quotation.product.add')}}",
+                            url: "{{route('distributor.quotation.product.add')}}",
                             type: "POST",
                             data: formData,
                             dataType: 'json',
@@ -201,7 +201,7 @@
                 var formData = new FormData(formulario);
 
                 $.ajax({
-                    url: "{{route('direct.distributor.quotation.product')}}",
+                    url: "{{route('distributor.quotation.product')}}",
                     type: "POST",
                     data: formData,
                     dataType: 'json',
@@ -219,7 +219,7 @@
                             event.preventDefault();
                             var formData = new FormData($('.card-product')[0]);
                             $.ajax({
-                                url: "{{route('direct.distributor.quotation.product.add')}}",
+                                url: "{{route('distributor.quotation.product.add')}}",
                                 type: "POST",
                                 data: formData,
                                 dataType: 'json',

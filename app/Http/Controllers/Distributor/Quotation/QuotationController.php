@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Http\Controllers\Quotation;
+namespace App\Http\Controllers\Distributor\Quotation;
 
 use App\Http\Controllers\Controller;
-use App\Mail\SendQuotation;
+use App\Http\Controllers\Quotation\ExportForQuotationController;
+use App\Mail\Distributor\SendQuotation;
 use App\Models\Quotation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -14,20 +15,22 @@ class QuotationController extends Controller
 {
     public function index(Quotation $quotation)
     {
-        return view('direct-distributor.quotation.index')
-            ->with('quotation', $quotation::where('direct_distributor_id', Auth::guard('direct-distributor')->user()->id)->paginate(10));
+        return view('distributor.quotation.index')
+            ->with('quotation', $quotation
+                                    ->where('distributor_id', Auth::guard('distributor')->user()->distributor_id)
+                                    ->paginate(10));
     }
     
     public function create()
     {
-        return view('direct-distributor.quotation.create');
+        return view('distributor.quotation.create');
     }
     
     public function store(Quotation $quotation, Request $request)
     {
         $create = [
-            'direct_distributor_id' => Auth::guard('direct-distributor')->user()->direct_distributor_id,
-            'distributor_id' => NULL,
+            'direct_distributor_id' => NULL,
+            'distributor_id' => Auth::guard('distributor')->user()->distributor_id,
             'urgent' => ($request->urgent == "on")? 1 : 0,
             'name' => $request->name,
             'status' => $request->status,
@@ -40,18 +43,18 @@ class QuotationController extends Controller
 
         $result = $quotation::create($create);
 
-        return to_route('direct.distributor.quotation.product.index', $result['id']);
+        return to_route('distributor.quotation.product.index', $result['id']);
     }
 
     public function show(Quotation $quotation, Request $request)
     {
-        return view('direct-distributor.quotation.index')
+        return view('distributor.quotation.index')
             ->with('quotation', $quotation::where('customer_name', 'LIKE', '%'.$request->name.'%')->paginate(10));
     }
 
     public function edit(Quotation $quotation, Request $request)
     {
-        return view('direct-distributor.quotation.show')
+        return view('distributor.quotation.show')
             ->with('quotation', $quotation::findOrFail($request['id']));
     }
 
@@ -61,14 +64,14 @@ class QuotationController extends Controller
 
         $quotation::findOrFail($request->id)->update($request->all());
 
-        return to_route('direct.distributor.quotation.product.index', $request->id);
+        return to_route('distributor.quotation.product.index', $request->id);
     }
 
     public function destroy(Quotation $quotation, Request $request)
     {
         $quotation::findOrFail($request->id_delete)->delete();
 
-        return to_route('direct.distributor.quotation.product.index')
+        return to_route('distributor.quotation.product.index')
             ->with('successfully', __('messages.Quotation deleted'));
     }
 
@@ -80,15 +83,14 @@ class QuotationController extends Controller
     public function send(Quotation $quotation, $id)
     {
         $mail = new SendQuotation($id);
+
         Mail::to('daniel.ismael@encoparts.com')->send($mail);
 
-        $item = [
-            'status' => 'S'
-        ];
+        $item = [ 'status' => 'S' ];
 
         $quotation::findOrFail($id)->update($item);
 
-        return to_route('direct.distributor.quotation.index')
+        return to_route('distributor.quotation.index')
             ->with('successfully', __('messages.Quotation sent'));
     }
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Mail;
+namespace App\Mail\DirectDistributor;
 
-use App\Http\Controllers\Quotation\ExportForQuotationController;
+use App\Http\Controllers\DirectDistributor\Quotation\ExportForQuotationController;
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;

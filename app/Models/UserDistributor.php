@@ -3,10 +3,9 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 
-class UserDistributor extends Model
+class UserDistributor extends Authenticatable
 {
     use HasFactory;
 
@@ -17,7 +16,7 @@ class UserDistributor extends Model
         'mail',
         'password',
         'is_active',
-        'id_distributor'
+        'distributor_id'
     ];
 
     public function Distributor()

@@ -1,48 +1,72 @@
 <?php
 
-namespace App\Http\Controllers\Distributor;
+namespace App\Http\Controllers\DirectDistributor\Distributor;
 
 use App\Http\Controllers\Controller;
+use App\Models\Distributor;
 use App\Models\UserDistributor;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(UserDistributor $user, Distributor $distributor, $id) 
     {
         return view('direct-distributor.distributor.user.index')
-            ->with('user_distributor', UserDistributor::all());
-    }
-    
-    // show
-    public function show($id){
-        return view('distributor.distributors.users.create', ['idDirectDistributor' => $id]);
+             ->with('distributor', $distributor::findOrFail($id))
+             ->with('user', $user->where('distributor_id', $id)->paginate(10));
     }
 
-    // store
-    public function store(Request $r){
-        UserDistributor::store(
-            $r->only('id_distributor', 'name', 'mail', 'password', 'is_active')
-        );
+    public function create($id)
+    {
+        return view('direct-distributor.distributor.user.create')
+            ->with('id', $id);
+    }
+
+    public function store(UserDistributor $user, Request $request)
+    {
+        if(!empty($request['password'])) {
+            $request['password'] = Hash::make($request['password']);
+        }
+        else {
+            unset($request['password']);
+        }
         
-        return Redirect::to('/distribuidor/visualizar/'.$r->id_distributor)->with('successfully', __('messages.User created successfully'));
+        $user->create($request->all());
+
+        return to_route('direct.distributor.distributor.user.index', $request['distributor_id'])
+            ->with('successfully', __('messages.User created successfully'));
     }
 
-    // edit
-    public function edit($id){
-        return view('distributor.distributors.users.edit', ['user' => UserDistributor::findOrFail($id)]);
+    public function edit(UserDistributor $user, $id)
+    {
+        return view('direct-distributor.distributor.user.edit')
+            ->with('id', $id)
+            ->with('user', $user->findOrFail($id));
     }
 
-    // update
-    public function updated(Request $request){
-        UserDistributor::updated($request->only('id', 'name', 'mail', 'password', 'is_active'));
-        return Redirect::to('/distribuidor/visualizar/'.$request->id_distributor)->with('successfully', __('messages.User changed successfully'));
+    public function updated(UserDistributor $user, Request $request)
+    {
+        if(!empty($request['password'])) {
+            $request['password'] = Hash::make($request['password']);
+        }
+        else {
+            unset($request['password']);
+        }
+        
+        $user = $user->findOrFail($request['id']);
+        $user->update($request->all());
+
+        return to_route('direct.distributor.distributor.user.index', $user['distributor_id'])
+            ->with('successfully', __('messages.User changed successfully'));
     }
 
-    // delete
-    public function destroy($id){
-        UserDistributor::destroy($id);
-        return redirect()->back()->with('successfully', __('messages.User deleted successfully'));
+    public function destroy(UserDistributor $user, Request $request)
+    {
+        $user::findOrFail($request['id_delete'])->delete();
+
+		return back()
+            ->with('successfully', __('messages.User deleted successfully'));
     }
 }

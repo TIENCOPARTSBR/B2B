@@ -16,8 +16,14 @@ class RedirectIfAuthenticated
         foreach ($guards as $guard) {
             if(Auth::guard("direct-distributor")->check()) 
             {
+                return redirect(RouteServiceProvider::DIRECTDISTRIBUTOR);
+            }
+
+            if(Auth::guard("distributor")->check()) 
+            {
                 return redirect(RouteServiceProvider::DISTRIBUTOR);
             }
+
             if(Auth::guard("admin")->check()) 
             {
                 return redirect(RouteServiceProvider::ADMIN);

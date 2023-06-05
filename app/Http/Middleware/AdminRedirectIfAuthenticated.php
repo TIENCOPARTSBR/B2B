@@ -21,20 +21,24 @@ class AdminRedirectIfAuthenticated
     public function handle(Request $request, Closure $next, ...$guards)
     {
         foreach ($guards as $guard) {
-            if($guard === "direct-distributor")
-            {
-                if(Auth::guard($guard)->check()) 
-                {
+            if($guard === "direct-distributor") {
+                if(Auth::guard($guard)->check()) {
                     return $next($request);
                 } else {
                     return redirect('/');
                 }
             }
 
-            if($guard === "admin")
-            {
-                if(Auth::guard($guard)->check()) 
-                {
+            if($guard === "distributor") {
+                if(Auth::guard($guard)->check()) {
+                    return $next($request);
+                } else {
+                    return redirect('/distribuidor');
+                }
+            }
+
+            if($guard === "admin") {
+                if(Auth::guard($guard)->check()) {
                     return $next($request);
                 } else {
                     return redirect('/admin');

@@ -3,6 +3,7 @@
 namespace App\Http;
 
 use App\Models\DirectDistributor;
+use App\Models\Distributor;
 use App\Models\SystemConfiguration;
 use App\Models\UserDirectDistributor;
 use Illuminate\Support\Facades\Auth;
@@ -22,6 +23,11 @@ class Helper
     public static function getSystemConfigurationKeyName($r)
     {
         return SystemConfiguration::getSystemKeyName($r);
+    }
+
+    public static function getDistributorLogged()
+    {
+        return Distributor::findOrFail(Auth::guard('distributor')->user()->distributor_id);
     }
 }
     

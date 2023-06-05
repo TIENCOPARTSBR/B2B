@@ -1,73 +1,74 @@
 @extends('layouts.direct-distributor')
 
 @section('content')
-    <section class="page">
-        <!-- Title -->
-        <h1 class="title">{{ __('messages.Distributor') }} | {{ Auth::guard('direct-distributor')->user()->name; }}</h1>
+    @if($distributor)
+        <section class="page">
+            <!-- Title -->
+            <h1 class="title">{{ __('messages.Distributor') }} | {{ $distributor->name }}</h1>
 
-        <!-- Card -->            
-        <div class="card">
-            <div class="tab-nav">
-                <a href="" class="tab-link"> {{__('messages.Profile')}} </a>
-                <a href="" class="tab-link active"> {{__('messages.Users')}} </a>
-                <a href="" class="tab-link"> {{__('messages.Update products')}} </a>
-            </div>
+            <!-- Card -->            
+            <div class="card">
+                <div class="tab-nav">
+                    <a href="{{route('direct.distributor.distributor.view', $distributor->id)}}" class="tab-link" data-tab="#nav-profile" type="button">
+                        {{__('messages.Profile')}}
+                    </a>
 
-            <div class="tab-content">
-                <!-- user -->
-                <div class="tab-pane show" id="nav-user">
-                    <!-- header -->
-                    <div class="tab-header">
-                        <!-- search -->
-                        <form action="{{route('direct.distributor.distributor.user.create')}}" class="form-search" >
-                            @csrf
-                            @method('POST')
-                            <input type="text" name="part_number" placeholder="{{ __('messages.Type the code') }}" class="form-control" >
+                    <button class="tab-link active" data-tab="#nav-user" type="button">
+                        {{__('messages.Users')}}
+                    </button>
+                </div>
 
-                            <button type="submit"></button>
-                        </form>
-                        
-                        <!-- add row -->
-                        <a href="{{url('/distribuidor/usuarios/novo')}}" class="button-yellow-1 button-small" >
-                            {{__('messages.Add')}}
-                        </a>
-                    </div>
+                <div class="tab-content">
+                    <!-- user -->
+                    <div class="tab-pane show" id="nav-user">
+                        <!-- header -->
+                        <div class="tab-header">
+                            <!-- search -->
+                            <form action="{{ url('/produto/valor') }}/" class="form-search" >
+                                @csrf @method('POST')
+                                <input type="text" name="part_number" placeholder="{{ __('messages.Type the code') }}" class="form-control" >
 
-                    <!-- table -->
-                    <div class="table">
-                        <!-- thead -->
-                        <div class="thead">
-                            <div class="th">{{__('messages.Name')}}</div>
-                            <div class="th">{{__('messages.Email')}}</div>
-                            <div class="th"></div>
+                                <button type="submit"></button>
+                            </form>
+                            
+                            <!-- add row -->
+                            <a href="{{route('direct.distributor.distributor.user.create', $distributor->id)}}" class="button-yellow-1 button-small" >
+                                {{__('messages.Add')}}
+                            </a>
                         </div>
-                        
-                        <!-- list -->
-                        @foreach ($user_distributor as $user_distributor)
-                            <div class="tbody">
-                                <div class="td">
-                                    <input type="text" name="name" value="{{trim($user_distributor->name)}}" class="form-input" readonly >
-                                </div>
 
-                                <div class="td">
-                                    <input type="text" name="mail" value="{{trim($user_distributor->mail)}}" class="form-input on-change" disabled >
-                                </div>
-
-                                <div class="td">
-                                    <div class="table-button">
-                                        <form method="get" action="{{url('/distribuidor/usuarios/editar')}}/{{$user_distributor->id}}">
-                                            @csrf
-                                            <button type="button" data-button="edit"></button>
-                                        </form>
-                                        <button type="button" data-trigger="delete" onclick="triggerModal('/distribuidor/usuarios/excluir', {{$user_distributor->id}})" ></button>
+                        <!-- table -->
+                        <div class="table">
+                            <!-- thead -->
+                            <div class="thead">
+                                <div class="th">{{__('messages.Name')}}</div>
+                                <div class="th">{{__('messages.Email')}}</div>
+                                <div class="th"></div>
+                            </div>
+                           
+                            <!-- list -->
+                            @foreach ($user as $user)
+                                <div class="tbody">
+                                    <div class="td">
+                                        <input type="text" name="name" value="{{trim($user->name)}}" class="form-input" readonly >
+                                    </div>
+    
+                                    <div class="td">
+                                        <input type="text" name="mail" value="{{trim($user->mail)}}" class="form-input on-change" disabled >
+                                    </div>
+    
+                                    <div class="td">
+                                        <div class="table-button">
+                                            <a href="{{route('direct.distributor.distributor.user.edit', $user->id)}}" type="button" data-button="edit"></a>
+                                            <button type="button" data-trigger="delete" onclick="triggerModal('{{route('direct.distributor.distributor.user.destroy')}}', {{$user->id}})" ></button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
+                        </div>
                     </div>
-                    {{-- $user->links() --}}
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
+    @endif
 @endsection

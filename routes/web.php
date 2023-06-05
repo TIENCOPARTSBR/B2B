@@ -14,7 +14,7 @@ use App\Http\Controllers\DirectDistributor\Distributor\Product\UpdateUnitaryValu
 use App\Http\Controllers\DirectDistributor\Distributor\Product\UpdateProductValueSpreadsheetController as UpdateProductValueSpreadsheetDistributorController;
 
 use App\Http\Controllers\DirectDistributor\Auth\UserController as UserDirectDistributor;
-use App\Http\Controllers\Distributor\UserController as UserDistributorForDirectDistributor;
+use App\Http\Controllers\DirectDistributor\Distributor\UserController as UserDistributorForDirectDistributor;
 
 use App\Http\Controllers\DirectDistributor\Distributor\DistributorController as DistributorForDirectDistributor;
 
@@ -95,12 +95,12 @@ Route::group(['middleware' => 'Language'], function() {
         });
 
         Route::controller(UserDistributorForDirectDistributor::class)->group(function(){
-            Route::get('/distribuidor/usuario','index')->name('direct.distributor.distributor.user.index');
-            Route::get('/distribuidor/usuario/novo/{id}','create')->name('direct.distributor.distributor.user.create');
+            Route::get('/distribuidor/usuario/{id}','index')->name('direct.distributor.distributor.user.index');
+            Route::get('/distribuidor/usuario/new/{id}','create')->name('direct.distributor.distributor.user.create');
             Route::post('/distribuidor/usuario/new','store')->name('direct.distributor.distributor.user.store');
-            Route::get('/distribuidor/usuario/editar/{id}','edit')->name('direct.distributor.distributor.user.edit');
-            Route::post('/distribuidor/usuario/updated/','updated')->name('direct.distributor.distributor.user.updated');
-            Route::get('/distribuidor/usuario/destroy/{id}','destroy')->name('direct.distributor.distributor.user.destroy');
+            Route::get('/distribuidor/usuario/edit/{id}','edit')->name('direct.distributor.distributor.user.edit');
+            Route::post('/distribuidor/usuario/updated','updated')->name('direct.distributor.distributor.user.updated');
+            Route::post('/distribuidor/usuario/destroy','destroy')->name('direct.distributor.distributor.user.destroy');
         });
 
         Route::controller(UpdateGeneralValueDistributorController::class)->group(function() {
@@ -164,4 +164,6 @@ Route::group(['middleware' => 'Language'], function() {
         /////////////////////// LOGOUT ///////////////////////
         Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
     });
+
+    include('distributor.php');
 });

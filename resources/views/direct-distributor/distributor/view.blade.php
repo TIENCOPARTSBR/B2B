@@ -13,9 +13,9 @@
                         {{__('messages.Profile')}}
                     </button>
 
-                    <button class="tab-link" data-tab="#nav-user" type="button">
+                    <a href="{{route('direct.distributor.distributor.user.index', $distributor->id)}}" class="tab-link" data-tab="#nav-user" type="button">
                         {{__('messages.Users')}}
-                    </button>
+                    </a>
                 </div>
 
                 <div class="tab-content">
@@ -88,59 +88,6 @@
                                 <input type="submit" class="button-yellow-1 button-small mb-0" value="{{__('messages.Edit')}}">
                             </div>
                         </form>
-                    </div>
-
-                    <!-- user -->
-                    <div class="tab-pane {{ session('selected') == 'product' ? show : ''  }}" id="nav-user">
-                        <!-- header -->
-                        <div class="tab-header">
-                            <!-- search -->
-                            <form action="{{ url('/produto/valor') }}/" class="form-search" >
-                                @csrf @method('POST')
-                                <input type="text" name="part_number" placeholder="{{ __('messages.Type the code') }}" class="form-control" >
-
-                                <button type="submit"></button>
-                            </form>
-                            
-                            <!-- add row -->
-                            <a href="{{ url('/distribuidor/usuarios/novo') }}/{{$distributor->id}}" class="button-yellow-1 button-small" >
-                                {{__('messages.Add')}}
-                            </a>
-                        </div>
-
-                        <!-- table -->
-                        <div class="table">
-                            <!-- thead -->
-                            <div class="thead">
-                                <div class="th">{{__('messages.Name')}}</div>
-                                <div class="th">{{__('messages.Email')}}</div>
-                                <div class="th"></div>
-                            </div>
-                           
-                            <!-- list -->
-                            @foreach ($user as $user)
-                                <div class="tbody">
-                                    <div class="td">
-                                        <input type="text" name="name" value="{{trim($user->name)}}" class="form-input" readonly >
-                                    </div>
-    
-                                    <div class="td">
-                                        <input type="text" name="mail" value="{{trim($user->mail)}}" class="form-input on-change" disabled >
-                                    </div>
-    
-                                    <div class="td">
-                                        <div class="table-button">
-                                            <form method="get" action="{{url('/distribuidor/usuarios/editar')}}/{{$user->id}}">
-                                                @csrf
-                                                <button type="button" data-button="edit"></button>
-                                            </form>
-                                            <button type="button" data-trigger="delete" onclick="triggerModal('/distribuidor/usuarios/excluir', {{$user->id}})" ></button>
-                                        </div>
-                                    </div>
-                                </div>
-                            @endforeach
-                        </div>
-                        {{-- $user->links() --}}
                     </div>
                 </div>
             </div>

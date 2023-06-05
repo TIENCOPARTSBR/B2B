@@ -44,6 +44,10 @@ return [
             'driver' => 'session',
             'provider' => 'direct-distributor',
         ],
+        'distributor' => [
+            'driver' => 'session',
+            'provider' => 'distributor',
+        ],
     ],
 
     /*
@@ -68,10 +72,13 @@ return [
             'driver' => 'eloquent',
             'model' => App\Models\UserAdmin::class,
         ],
-
         'direct-distributor' => [
             'driver' => 'eloquent',
             'model' => App\Models\UserDirectDistributor::class,
+        ],
+        'distributor' => [
+            'driver' => 'eloquent',
+            'model' => App\Models\UserDistributor::class,
         ],
     ],
 

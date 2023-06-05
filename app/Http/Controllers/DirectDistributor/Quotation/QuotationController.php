@@ -4,7 +4,7 @@ namespace App\Http\Controllers\DirectDistributor\Quotation;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Quotation\ExportForQuotationController;
-use App\Mail\SendQuotation;
+use App\Mail\DirectDistributor\SendQuotation;
 use App\Models\Quotation;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
