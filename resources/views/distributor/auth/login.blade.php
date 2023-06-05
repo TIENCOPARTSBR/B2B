@@ -1,4 +1,4 @@
-@extends('layouts.simple')
+@extends('layouts.login')
 @section('content')
     <section class="login">
         <div class="image">

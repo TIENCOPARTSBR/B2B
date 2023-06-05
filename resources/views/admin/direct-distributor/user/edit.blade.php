@@ -2,9 +2,14 @@
 
 @section('content')
     <section class="page">
+        <ul class="breadcrumb">
+            <li><a href="/admin">{{ __('messages.Home') }}</a> &nbsp/</li>
+            <li> &nbsp &nbsp<a href="{{route('admin.direct.distributor.user.index', $user->direct_distributor_id)}}">{{ __('messages.Users') }}</a></li>
+        </ul>
+
         <h1 class="title">{{ __('messages.User') }}</h1>
 
-        <form class="card-form" method="POST" action="{{ route('admin.direct.distributor.user.updated') }}">
+        <form class="card tab-content" method="POST" action="{{ route('admin.direct.distributor.user.updated') }}">
             @csrf
             @method('POST')
             <input type="hidden" name="id" value="{{ $user->id }}">

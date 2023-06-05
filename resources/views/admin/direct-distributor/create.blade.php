@@ -9,7 +9,7 @@
 
         <h1 class="title">{{ __('messages.Distributors') }}</h1>
 
-        <form class="card-form" method="POST" action="{{route('admin.direct.distributor.store')}}">
+        <form class="tab-form" method="POST" action="{{route('admin.direct.distributor.store')}}">
             @csrf
             @method('POST')
             <div class="group">

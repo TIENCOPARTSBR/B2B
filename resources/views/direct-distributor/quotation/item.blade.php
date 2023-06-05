@@ -75,15 +75,13 @@
                     <th>{{__('messages.Quantity in stock')}}</th>
                     <th>{{__('messages.Lead time')}}</th>
                     <th>{{__('messages.Photo')}}</th>
-                    @if (str_contains(strtoupper($status['status']), 'A'))
-                        <th>{{__('messages.Edit')}}</th>
-                    @endif
+                    <th>{{__('messages.Edit')}}</th>
                 </tr>
             </thead>
             <tbody align="left" width="100%"></tbody>
         </table>
         @if (str_contains(strtoupper($status['status']), 'A'))
-            <a href="{{route('direct.distributor.quotation.send', $id)}}" class="button-yellow-1 button-small button-send">Enviar cotação</a>
+            <a href="{{route('direct.distributor.quotation.send', $id)}}" class="button-yellow-1 button-send">Enviar cotação</a>
         @endif
     </section>
 @endsection
@@ -91,6 +89,8 @@
 @section('endBody')
     <script async>
         // datatable
+        $("#spinner").hide();
+
         $('#tableQuotation').DataTable({
             autoWidth: true,
             processing: true,
@@ -118,8 +118,6 @@
                 {name: 'edit', data: 'edit'},
             ]
         });
-
-        $("#spinner").hide();
 
         $('#form_import').submit(function(event) 
         {

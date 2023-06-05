@@ -26,7 +26,7 @@
                         </form>
                         
                         <!-- add row -->
-                        <a href="{{ route('direct.distributor.distributor.create') }}" class="button-yellow-1" >
+                        <a href="{{ route('direct.distributor.distributor.create') }}" class="button-yellow-1 button-add" >
                             {{ __('messages.Add Distributor') }}
                         </a>
                     </div>
@@ -35,8 +35,8 @@
                     <div class="table">
                         <!-- thead -->
                         <div class="thead">
-                            <div class="th">{{__('messages.Name')}}</div>
-                            <div class="th">Status</div>
+                            <div class="th">{{__('messages.Name')}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
+                            <div class="th">Status &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
                             <div class="th"></div>
                         </div>
 

@@ -27,10 +27,13 @@ class ProductController extends Controller
 
         // get products
         $product = $product->with('product_photo')
-                            ->select('*', $description.' as description')
-                            ->whereIn('part_number', array_unique($part_number))
-                            ->get();
+            ->select('*', $description.' as description')
+            ->whereIn('part_number', array_unique($part_number))
+            ->get();
 
-        return view('admin.product.search.show', ['product' => $product]);
+        if(empty($product[0])) $product = false;
+
+        return view('admin.product.search.show')
+            ->with('product', $product);
     }
 }

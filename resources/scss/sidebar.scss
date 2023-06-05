@@ -8,9 +8,12 @@
     display: flex;
     flex-flow: wrap;
     align-items: center;
-    //justify-content: space-between;
     background-color: var(--white);
     border-bottom: 1px dashed #bec8d0;
+
+    @media screen and (max-width: 992px) {
+        justify-content: space-between;
+    }
 }
 
 .logo{
@@ -61,12 +64,17 @@
             padding: 15px 50px 15px 20px;
         }
 
-        &:hover{
-            .submenu{
-                padding: .8rem;
-                max-height: unset;
-                border: 1px solid var(--border-card-color);
-            }   
+        @media screen and (max-width: 992px) {
+            &:hover{
+                padding: 0 0 0 0.4rem;
+    
+                .submenu{
+                    position: relative;
+                    top: unset;
+                    padding: 0 0 0 0.4rem;
+                    max-height: unset;
+                }   
+            }
         }
     }
 
@@ -138,6 +146,16 @@
             max-height: unset;
         }
 
+        @media screen and (max-width: 992px) {
+            padding: 0 0 0 0.4rem;
+
+            &.active{
+                position: relative;
+                top: unset;
+                max-height: unset;
+            }
+        }
+
         &:hover{
             padding: .8rem;
             max-height: unset;
@@ -178,6 +196,7 @@
         align-items: flex-start;
         justify-content: space-between;
         transition: all ease-in 400ms;
+        padding: 0.5rem;
 
         .d-flex{
             padding: 1.5rem;
@@ -314,9 +333,6 @@
 .hamburguer{
     width: 30px;
     height: 30px;
-    position: absolute;
-    top: 1.5rem;;
-    right:  1.5rem;
     z-index: 1002;
     background-image: url(/images/menu.svg);
     background-repeat: no-repeat;
@@ -326,6 +342,9 @@
 
     &.active{
         background-image: url(/images/closeMenu.svg);
+        position: absolute;
+        top: 1.5rem;;
+        right:  1.5rem;
     }
 
     @media screen and (min-width: 992px) {

@@ -2,9 +2,14 @@
 
 @section('content')
     <section class="page">
+        <ul class="breadcrumb">
+            <li><a href="{{route('admin.index')}}">{{ __('messages.Home') }}</a> &nbsp/</li>
+            <li><a href="{{route('admin.user.index')}}">&nbsp {{ __('messages.Users') }}</a></li>
+        </ul>
+
         <h1 class="title">{{ __('messages.Add user') }}</h1>
             
-        <form class="card-form" method="POST" action="{{ route('admin.user.store') }}">
+        <form class="card tab-content" method="POST" action="{{ route('admin.user.store') }}">
             @csrf
             @method('POST')
             <div class="group">

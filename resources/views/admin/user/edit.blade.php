@@ -1,10 +1,15 @@
 @extends('layouts.admin')
 
 @section('content')
-    <section class="users">
-        <h1 class="titleClient">{{ __('messages.User') }}</h1>
+    <section class="page">
+        <ul class="breadcrumb">
+            <li><a href="{{route('admin.index')}}">{{ __('messages.Home') }}</a> &nbsp/</li>
+            <li><a href="{{route('admin.user.index')}}">&nbsp {{ __('messages.Users') }}</a></li>
+        </ul>
 
-        <form class="card-form" method="POST" action="{{ url('/admin/usuarios/editar') }}">
+        <h1 class="title">{{ __('messages.User') }}</h1>
+
+        <form class="card tab-content" method="POST" action="{{ url('/admin/usuarios/editar') }}">
             @csrf
             @method('POST')
             <input type="hidden" name="id" value="{{ $user->id }}">

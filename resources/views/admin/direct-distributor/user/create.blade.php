@@ -4,12 +4,12 @@
     <section class="page">
         <ul class="breadcrumb">
             <li><a href="/admin">{{ __('messages.Home') }}</a> &nbsp/</li>
-            <li> &nbsp/<a href="{{route('admin.direct.distributor.user.index', $distributor['id'])}}">{{ __('messages.Users') }}</a></li>
+            <li> &nbsp &nbsp<a href="{{route('admin.direct.distributor.user.index', $distributor['id'])}}">{{ __('messages.Users') }}</a></li>
         </ul>
 
         <h1 class="title">{{ __('messages.User') }} | {{$distributor['name']}}</h1>
             
-        <form class="card-form" method="POST" action="{{ route('admin.direct.distributor.user.store') }}">
+        <form class="card tab-content" method="POST" action="{{ route('admin.direct.distributor.user.store') }}">
             @csrf
             @method('POST')
             <input type="hidden" name="direct_distributor_id" value="{{$distributor['id']}}">

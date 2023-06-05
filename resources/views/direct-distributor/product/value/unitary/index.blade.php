@@ -36,13 +36,13 @@
                             </form>
                             
                             <!-- add row -->
-                            <button type="button" class="button-yellow-1 button-small" data-form="add">
+                            <button type="button" class="button-yellow-1 button-add" data-form="add">
                                 {{__('messages.Add')}}
                             </button>
                         </div>
 
                         <!-- table -->
-                        <div class="table">
+                        <div class="table table-small">
                             <!-- thead -->
                             <div class="thead">
                                 <div class="th">{{__('messages.Part number')}}</div>

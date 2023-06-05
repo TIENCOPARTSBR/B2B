@@ -21,7 +21,7 @@
                     </form>
                     
                     <!-- add row -->
-                    <a href="{{route('direct.distributor.quotation.create')}}" class="button-yellow-1" >
+                    <a href="{{route('direct.distributor.quotation.create')}}" class="button-yellow-1 button-add">
                         {{ __('messages.Add quotation') }}
                     </a>
                 </div>
@@ -30,11 +30,11 @@
                 <div class="table">
                     <!-- thead -->
                     <div class="thead">
-                        <div class="th" style="width:10%;">ID</div>
-                        <div class="th">{{__('messages.Customer name')}}</div>
-                        <div class="th">{{__('messages.Requester for quotation')}}</div>
-                        <div class="th">{{__('messages.Date')}}</div>
-                        <div class="th">Status</div>
+                        <div class="th" style="width:10%;">ID &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
+                        <div class="th">{{__('messages.Customer name')}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
+                        <div class="th">{{__('messages.Requester for quotation')}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
+                        <div class="th">{{__('messages.Date')}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
+                        <div class="th">Status &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
                         <div class="th"></div>
                     </div>
 

@@ -11,7 +11,7 @@
         <h1 class="title">{{ __('messages.Distributors') }}</h1>
 
         @if($distributor)
-            <form class="card-form" method="POST" action="{{route('admin.direct.distributor.updated')}}">
+            <form class="card tab-content" method="POST" action="{{route('admin.direct.distributor.updated')}}">
                 @csrf   
                 @method('POST')
 

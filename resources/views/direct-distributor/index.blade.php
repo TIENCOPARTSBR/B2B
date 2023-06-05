@@ -1,7 +1,7 @@
 @extends('layouts.direct-distributor')
 
 @section('content')
-    <section class="home">
-        <h1>{{ Helper::getDirectDistributorLogged()->name; }}<br></h1>
+    <section class="page">
+        <h1 class="title">{{ __('messages.Welcome').', '.Helper::getDirectDistributorLogged()->name; }}!<br></h1>
     </section>
 @endsection

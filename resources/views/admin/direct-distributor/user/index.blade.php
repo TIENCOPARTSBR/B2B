@@ -20,15 +20,15 @@
                         <button type="submit"></button>
                     </form>
 
-                    <a href="{{route('admin.direct.distributor.user.create', $distributor['id']) }}" class="button-yellow-1">{{ __('messages.Add user')}}</a>
+                    <a href="{{route('admin.direct.distributor.user.create', $distributor['id']) }}" class="button-yellow-1 button-add">{{ __('messages.Add user')}}</a>
                 </div>
 
                 <div class="card-body">
-                    <div class="table">
+                    <div class="table table-small">
                         <div class="thead">
-                            <div class="th">{{ __('messages.Name') }}</div>
-                            <div class="th">{{ __('messages.Email') }}</div>
-                            <div class="th">{{ __('messages.Action') }}</div>
+                            <div class="th">{{ __('messages.Name') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <div class="th">{{ __('messages.Email') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <div class="th">{{ __('messages.Action') }}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                         </div>
                         @if($user)
                         @foreach ($user as $user)

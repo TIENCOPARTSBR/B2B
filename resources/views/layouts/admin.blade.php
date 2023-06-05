@@ -49,11 +49,13 @@
     <div class="app">
         <header class="header">
             <div class="container">
-                <nav class="menu">
-                    <a href="{{ url('/') }}" class="logo">
-                        <img src="{{ url('https://encoparts.com/wp-content/uploads/2023/02/enco-site.png') }}" alt="Logo encoparts">
-                    </a>
+                <a href="{{ url('/') }}" class="logo">
+                    <img src="{{ url('https://encoparts.com/wp-content/uploads/2023/02/enco-site.png') }}" alt="Logo encoparts">
+                </a>
 
+                <div class="hamburguer"></div>
+
+                <nav class="menu">
                     <ul class="list-menu">
                         <li class="item-menu">
                             <a href="{{ url('/admin') }}" class="link-menu">
@@ -69,8 +71,8 @@
                             </a>
                         </li>
                         
-                        <li class="item-menu dropdown" data-submenu="subMenuProduct">
-                            <button class="link-menu">
+                        <li class="item-menu">
+                            <a href="{{route('direct.distributor.product.index')}}" class="link-menu">
                                 <div class="icon-menu">
                                     <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
                                         <path d="M12 5.21111L12 6L12 17.0657C12 17.477 12 17.6826 11.868 17.7533C11.7359 17.824 11.5648 17.7099 11.2226 17.4818L9.27735 16.1849C9.14291 16.0953 9.07569 16.0505 9 16.0505C8.92431 16.0505 8.85709 16.0953 8.72265 16.1849L6.27735 17.8151C6.14291 17.9047 6.07569 17.9495 6 17.9495C5.92431 17.9495 5.85709 17.9047 5.72265 17.8151L3.27735 16.1849C3.14291 16.0953 3.07569 16.0505 3 16.0505C2.92431 16.0505 2.85709 16.0953 2.72265 16.1849L0.77735 17.4818C0.435164 17.7099 0.264071 17.824 0.132035 17.7533C-1.38729e-08 17.6826 -2.28612e-08 17.477 -4.08378e-08 17.0657L-6.11959e-07 4.00001C-6.94382e-07 2.11439 -7.35594e-07 1.17158 0.585786 0.585794C1.17157 7.57818e-06 2.11438 7.53697e-06 4 7.45455e-06L15 8.88107e-06L14.6718 0.218803C13.3639 1.09073 12.71 1.5267 12.355 2.18998C12 2.85326 12 3.63921 12 5.21111Z" fill="#7E869E" fill-opacity="0.25"/>
@@ -80,17 +82,8 @@
                                         <path d="M2.5 12.5L8.5 12.5" stroke="#c1c1c1" stroke-linecap="round"/>
                                     </svg>
                                 </div>
-        
-                                {{ __('messages.Products') }}
-        
-                                <span class="arrow-menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-chevron-right"><polyline points="9 18 15 12 9 6"></polyline></svg></span>
-                            </button>
-        
-                            <ul class="submenu" id="subMenuProduct">
-                                <li class="sb-item">
-                                    <a href="{{ route('direct.distributor.product.index') }}" class="sb-link">{{ __('messages.Search') }}</a>
-                                </li>
-                            </ul>
+                                <span>{{ __('messages.Products') }}</span>
+                            </a>
                         </li>
         
                         <li class="item-menu">
@@ -131,43 +124,43 @@
                             </a>
                         </li>
                     </ul>
-                </nav>
 
-                <div class="d-flex">
-                    <div class="language">
-                        <button class="select">
-                            @if (app()->getLocale() == 'pt')
-                                <img src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png" alt="eua">
-                            @elseif(app()->getLocale() == 'en')
-                                <img src="https://encoparts.com/wp-content/uploads/flags/us.png" alt="bandeira eua">
-                            @endif
-                        </button>
-                    
-                        <div class="list">
-                            <a href="{{url('/change-language/en')}}" data-src="https://encoparts.com/wp-content/uploads/flags/us.png">
-                                <img src="https://encoparts.com/wp-content/uploads/flags/us.png" alt="bandeira brasil">
-                            </a>
-            
-                            <a href="{{url('/change-language/pt')}}" type="submit" data-src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png">
-                                <img src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png" alt="">
-                            </a>
-                        </div>
-                    </div>
-    
-                    <form action="{{ route('admin.logout') }}" method="POST">
-                        <button type="submit" class="logout">
-                            @csrf
-                            @method('POST')
-                            <div class="icon">
-                                <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M13.6325 2.54415L7.31623 0.438743C6.6687 0.222899 6 0.704869 6 1.38743V14.6126C6 15.2951 6.66869 15.7771 7.31623 15.5613L13.6325 13.4558C14.4491 13.1836 15 12.4193 15 11.5585V4.44152C15 3.58066 14.4491 2.81638 13.6325 2.54415Z" fill="#7E869E" fill-opacity="0.25"/>
-                                    <path d="M8.5 5.5L11 8M11 8L8.5 10.5M11 8H1" stroke="#222222" stroke-linecap="round"/>
-                                </svg>
+                    <div class="d-flex">
+                        <div class="language">
+                            <button class="select">
+                                @if (app()->getLocale() == 'pt')
+                                    <img src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png" alt="eua">
+                                @elseif(app()->getLocale() == 'en')
+                                    <img src="https://encoparts.com/wp-content/uploads/flags/us.png" alt="bandeira eua">
+                                @endif
+                            </button>
+                        
+                            <div class="list">
+                                <a href="{{url('/change-language/en')}}" data-src="https://encoparts.com/wp-content/uploads/flags/us.png">
+                                    <img src="https://encoparts.com/wp-content/uploads/flags/us.png" alt="bandeira brasil">
+                                </a>
+                
+                                <a href="{{url('/change-language/pt')}}" type="submit" data-src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png">
+                                    <img src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png" alt="">
+                                </a>
                             </div>
-                            {{ __('messages.Logout') }}
-                        </button>
-                    </form> 
-                </div>
+                        </div>
+        
+                        <form action="{{ route('admin.logout') }}" method="POST">
+                            <button type="submit" class="logout">
+                                @csrf
+                                @method('POST')
+                                <div class="icon">
+                                    <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13.6325 2.54415L7.31623 0.438743C6.6687 0.222899 6 0.704869 6 1.38743V14.6126C6 15.2951 6.66869 15.7771 7.31623 15.5613L13.6325 13.4558C14.4491 13.1836 15 12.4193 15 11.5585V4.44152C15 3.58066 14.4491 2.81638 13.6325 2.54415Z" fill="#7E869E" fill-opacity="0.25"/>
+                                        <path d="M8.5 5.5L11 8M11 8L8.5 10.5M11 8H1" stroke="#222222" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                {{ __('messages.Logout') }}
+                            </button>
+                        </form> 
+                    </div>
+                </nav>
             </div>
         </header>
 

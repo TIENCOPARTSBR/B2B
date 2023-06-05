@@ -29,11 +29,14 @@ class ProductSisrevController extends Controller
 
         // get products
         $product = $product->with('product_photo')
-                            ->select('*', $description.' as description')
-                            ->whereIn('part_number', array_unique($part_number))
-                            ->get();
+            ->select('*', $description.' as description')
+            ->whereIn('part_number', array_unique($part_number))
+            ->get();
 
-        return view('direct-distributor.product.search.show', ['product' => $product]);
+        if(empty($product[0])) $product = false;
+
+        return view('direct-distributor.product.search.show')
+            ->with('product', $product);
     }
 
     public function report()

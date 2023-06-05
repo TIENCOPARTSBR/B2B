@@ -3,7 +3,7 @@
     <section class="page">
         <ul class="breadcrumb">
             <li><a href="/admin">{{ __('messages.Home') }}</a> &nbsp/</li>
-            <li class="active">&nbsp {{ __('messages.Admin users') }}</li>
+            <li class="active">&nbsp {{ __('messages.Users') }}</li>
         </ul>
 
         <h1 class="title">{{ __('messages.Admin users') }}</h1>
@@ -19,34 +19,34 @@
                         <button type="submit"></button>
                     </form>
 
-                    <a href="{{route('admin.user.create') }}" class="button-yellow-1">{{ __('messages.Add user')}}</a>
+                    <a href="{{route('admin.user.create') }}" class="button-yellow-1 button-add">{{ __('messages.Add user')}}</a>
                 </div>
 
                 <div class="card-body">
-                    <div class="table">
+                    <div class="table table-small">
                         <div class="thead">
                             <div class="th">{{ __('messages.Name') }}</div>
                             <div class="th">{{ __('messages.Email') }}</div>
                             <div class="th">{{ __('messages.Action') }}</div>
                         </div>
                         @if($user)
-                        @foreach ($user as $user)
-                            <div class="tbody">
-                                <div class="td">{{ $user->name }}</div>
-                                <div class="td">{{ $user->mail }}</div>
-                                <div class="td">
-                                    <div class="table-button">
-                                        <a href="{{route('admin.user.edit', $user->id)}}" data-button="edit" >
-                                            <span class="tooltip">{{__('messages.Edit')}}</span>
-                                        </a>
+                            @foreach ($user as $user)
+                                <div class="tbody">
+                                    <div class="td">{{ $user->name }}</div>
+                                    <div class="td">{{ $user->mail }}</div>
+                                    <div class="td">
+                                        <div class="table-button">
+                                            <a href="{{route('admin.user.edit', $user->id)}}" data-button="edit" >
+                                                <span class="tooltip">{{__('messages.Edit')}}</span>
+                                            </a>
 
-                                        <button type="button" data-trigger="delete" onclick="triggerModal('{{route('admin.user.destroy')}}',' {{$user->id}}')" >
-                                            <span class="tooltip">{{__('messages.Delete')}}</span>
-                                        </button>
+                                            <button type="button" data-trigger="delete" onclick="triggerModal('{{route('admin.user.destroy')}}',' {{$user->id}}')" >
+                                                <span class="tooltip">{{__('messages.Delete')}}</span>
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                        @endforeach
+                            @endforeach
                         @endif
                     </div>
                 </div>

@@ -32,17 +32,17 @@
                             </form>
                             
                             <!-- add row -->
-                            <a href="{{route('direct.distributor.distributor.user.create', $distributor->id)}}" class="button-yellow-1 button-small" >
+                            <a href="{{route('direct.distributor.distributor.user.create', $distributor->id)}}" class="button-yellow-1 button-add" >
                                 {{__('messages.Add')}}
                             </a>
                         </div>
 
                         <!-- table -->
-                        <div class="table">
+                        <div class="table table-small">
                             <!-- thead -->
                             <div class="thead">
-                                <div class="th">{{__('messages.Name')}}</div>
-                                <div class="th">{{__('messages.Email')}}</div>
+                                <div class="th">{{__('messages.Name')}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                <div class="th">{{__('messages.Email')}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 <div class="th"></div>
                             </div>
                            

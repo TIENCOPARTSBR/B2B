@@ -36,7 +36,7 @@
                             </form>
                             
                             <!-- add row -->
-                            <button type="button" class="button-yellow-1 button-small" data-form="add">
+                            <button type="button" class="button-yellow-1 button-add" data-form="add">
                                 {{__('messages.Add')}}
                             </button>
                         </div>
@@ -45,9 +45,9 @@
                         <div class="table">
                             <!-- thead -->
                             <div class="thead">
-                                <div class="th">{{__('messages.Part number')}}</div>
-                                <div class="th">{{__('messages.Value')}}</div>
-                                <div class="th">{{__('messages.Option')}}</div>
+                                <div class="th">{{__('messages.Part number')}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                <div class="th">{{__('messages.Value')}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                                <div class="th">{{__('messages.Option')}}&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                                 <div class="th"></div>
                             </div>
 

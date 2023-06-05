@@ -19,14 +19,14 @@
                         <button type="submit"></button>
                     </form>
 
-                    <a href="{{route('admin.direct.distributor.create')}}" class="button-yellow-1">{{ __('messages.Add company') }}</a>
+                    <a href="{{route('admin.direct.distributor.create')}}" class="button-yellow-1 button-add">{{ __('messages.Add company') }}</a>
                 </div>
 
                 <div class="card-body">
                     <div class="table">
                         <div class="thead">
-                            <div class="th">{{__('messages.Distributors')}}</div>
-                            <div class="th">{{__('messages.Action')}}</div>
+                            <div class="th">{{__('messages.Distributors')}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
+                            <div class="th">{{__('messages.Action')}} &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</div>
                         </div>
                         @if($distributor)
                             @foreach ($distributor as $distributor)
