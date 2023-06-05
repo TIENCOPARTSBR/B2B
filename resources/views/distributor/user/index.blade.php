@@ -26,17 +26,17 @@
                         </form>
                         
                         <!-- add row -->
-                        <a href="{{ route('distributor.user.create')}}" class="button-yellow-1 button-small">
+                        <a href="{{ route('distributor.user.create')}}" class="button-yellow-1 button-add">
                             {{__('messages.Add')}}
                         </a>
                     </div>
 
                     <!-- table -->
-                    <div class="table">
+                    <div class="table table-small">
                         <!-- thead -->
                         <div class="thead">
-                            <div class="th">{{__('messages.Users')}}</div>
-                            <div class="th">Status</div>
+                            <div class="th">{{__('messages.Users')}}&nbsp; &nbsp; &nbsp; &nbsp;</div>
+                            <div class="th">Status &nbsp; &nbsp; &nbsp; &nbsp;</div>
                             <div class="th"></div>
                         </div>
 

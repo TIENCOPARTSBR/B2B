@@ -23,6 +23,11 @@ $(".item-menu").on('click', function(){
 });
 
 
+$('.hamburguer').on('click', function() {
+    $('.menu').toggleClass('active');
+    $(this).toggleClass('active');
+});
+
 ///////////////
 // functions //
 ///////////////

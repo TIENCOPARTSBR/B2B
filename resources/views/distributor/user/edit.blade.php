@@ -11,7 +11,7 @@
 
         @if ($user)
             <div class="card tab-content">
-                <form class="row justify-between" method="POST" action="{{ route('direct.distributor.user.updated') }}">
+                <form class="row justify-between" method="POST" action="{{ route('distributor.user.updated') }}">
                     @csrf
                     @method('POST')
                     <input type="hidden" name="id" value="{{ $user->id }}">

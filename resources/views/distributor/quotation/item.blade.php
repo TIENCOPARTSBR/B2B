@@ -59,7 +59,7 @@
             </div>
         @endif
 
-        <table id="tableQuotation" class="display nowrap hover row-borde stripe" style="width: 100%">
+        <table id="tableQuotation" class="display hover row-border stripe dt-left" style="width: 100%">
             <thead width="100%">
                 <tr>
                     <th>Part number</th>
@@ -75,9 +75,7 @@
                     <th>{{__('messages.Quantity in stock')}}</th>
                     <th>{{__('messages.Lead time')}}</th>
                     <th>{{__('messages.Photo')}}</th>
-                    @if (str_contains(strtoupper($status['status']), 'A'))
-                        <th>{{__('messages.Edit')}}</th>
-                    @endif
+                    <th>{{__('messages.Edit')}}</th>
                 </tr>
             </thead>
             <tbody align="left" width="100%"></tbody>
@@ -90,6 +88,8 @@
 
 @section('endBody')
     <script async>
+        $("#spinner").hide();
+
         // datatable
         $('#tableQuotation').DataTable({
             autoWidth: true,
@@ -118,8 +118,6 @@
                 {name: 'edit', data: 'edit'},
             ]
         });
-
-        $("#spinner").hide();
 
         $('#form_import').submit(function(event) 
         {
@@ -187,9 +185,9 @@
             })
         }); 
 
-        $('.button-send').on('click', function() {
+        /* $('.button-send').on('click', function() {
             $("#spinner").show();
-        });
+        }); */
 
         $('#form-quotation').on('submit', function(event) {
             event.preventDefault();

@@ -21,7 +21,7 @@
                     </form>
                     
                     <!-- add row -->
-                    <a href="{{route('distributor.quotation.create')}}" class="button-yellow-1" >
+                    <a href="{{route('distributor.quotation.create')}}" class="button-yellow-1 button-add" >
                         {{ __('messages.Add quotation') }}
                     </a>
                 </div>
@@ -30,18 +30,18 @@
                 <div class="table">
                     <!-- thead -->
                     <div class="thead">
-                        <div class="th" style="width:10%;">ID</div>
+                        <div class="th">ID &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
                         <div class="th">{{__('messages.Customer name')}}</div>
                         <div class="th">{{__('messages.Requester for quotation')}}</div>
-                        <div class="th">{{__('messages.Date')}}</div>
-                        <div class="th">Status</div>
+                        <div class="th">{{__('messages.Date')}} &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
+                        <div class="th">Status &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</div>
                         <div class="th"></div>
                     </div>
 
                     <!-- list -->
                     @foreach ($quotation as $index)
                         <div class="tbody">
-                            <div class="td" style="width:10%;">
+                            <div class="td">
                                 <input type="text" value="{{trim($index->id)}}" class="form-input" readonly>
                             </div>
 

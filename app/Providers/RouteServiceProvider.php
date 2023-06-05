@@ -19,7 +19,7 @@ class RouteServiceProvider extends ServiceProvider
      */
     public const ADMIN = '/admin';
     public const DIRECTDISTRIBUTOR = '/';
-    public const DISTRIBUTOR = '/distributor';
+    public const DISTRIBUTOR = '/parceiro';
 
     /**
      * Define your route model bindings, pattern filters, and other route configuration.

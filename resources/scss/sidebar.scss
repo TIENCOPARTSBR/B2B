@@ -8,7 +8,7 @@
     display: flex;
     flex-flow: wrap;
     align-items: center;
-    justify-content: space-between;
+    //justify-content: space-between;
     background-color: var(--white);
     border-bottom: 1px dashed #bec8d0;
 }
@@ -28,16 +28,16 @@
 }
 
 .menu{
-    width: max-content;
+    width: calc(100% - 150px);
     height: 100%;
     display: flex;
     flex-flow: wrap;
     align-items: center;
+    justify-content: space-between;
     box-sizing: border-box;
-    transition: all ease-out 400ms;
 
     .list-menu{
-        width: inherit;
+        width: max-content;
         display: inherit;
         flex-flow: inherit;
         align-items: inherit;
@@ -167,6 +167,32 @@
         color: #5b6b79;
         font-weight: 400;
     }
+
+    @media screen and (max-width: 1140px) {
+        width: 100%;
+        height: 100%;
+        position: fixed;
+        top: 0; left: -100%;
+        background-color: #fff;
+        flex-flow: column;
+        align-items: flex-start;
+        justify-content: space-between;
+        transition: all ease-in 400ms;
+
+        .d-flex{
+            padding: 1.5rem;
+            flex-flow: column !important;
+            align-items: flex-start !important;
+        }
+
+        .logout{
+            padding: 1rem 0 0 0;
+        }
+
+        &.active{
+            left: 0;
+        }
+    }
 }
 
 .language{
@@ -233,6 +259,12 @@
         &.active{
             transform: scale(1);
         }
+
+        @media screen and (max-width: 992px) {
+            position: absolute;
+            bottom: 0;
+            right: -150%;
+        }
     }
 }
 
@@ -277,4 +309,26 @@
     display: flex;
     flex-flow: wrap;
     align-items: center;
+}
+
+.hamburguer{
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    top: 1.5rem;;
+    right:  1.5rem;
+    z-index: 1002;
+    background-image: url(/images/menu.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    transition: all ease 200ms;
+
+    &.active{
+        background-image: url(/images/closeMenu.svg);
+    }
+
+    @media screen and (min-width: 992px) {
+        display: none;
+    }
 }

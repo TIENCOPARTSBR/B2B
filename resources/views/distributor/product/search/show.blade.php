@@ -6,7 +6,7 @@
         <form action="{{ route('distributor.product.show') }}" method="POST" class="form-product">
             @csrf
             @method('POST')
-            <input type="text" name="part_number" placeholder="{{__('messages.Type the code')}}">
+            <input type="text" name="part_number" min="6" required placeholder="{{__('messages.Type the code')}}">
 
             <button type="submit">
                 <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -17,38 +17,39 @@
         </form>
 
         <div class="listing-product">
-            @foreach ($product as $product)
-                <div class="card-product">
-                    <div class="column">
-                        <ul>
-                            <li>
-                                <h2>
-                                    {{ $product->part_number }} -
-                                    {{ $product->description }}
-                                </h2>
-                            </li>
-                            <li><strong>{{__('messages.Price Encoparts BR')}}:</strong> {{$product->custo_liquido_br}}</li>
-                            <li><strong>{{__('messages.Encoparts USA Price')}}:</strong> {{$product->custo_liquido_eua}}</li>
-                            <li><strong>{{__('messages.Weight')}}:</strong> {{$product->peso}} kg</li>
-                            <li><strong>NCM:</strong> {{$product->ncm}} | <strong>HS Code:</strong> {{$product->hscode}}</li>
-                            <li><strong>{{__('messages.Supply location')}}:</strong></li>
-                            <li><strong>&nbsp &nbsp &nbsp &nbsp • BR</strong>  | {{__('messages.Quantity in stock')}}: {{$product->saldo_br}} | Lead time: {{$product->lead_time_br}}</li>
-                            <li><strong>&nbsp &nbsp &nbsp &nbsp • EUA</strong>  | {{__('messages.Quantity in stock')}}: {{$product->saldo_eua}} | Lead time: {{$product->lead_time_eua}}</li>
-                        </ul>
-                    </div>
+            @if($product)
+                @foreach ($product as $product)
+                    <div class="card-product">
+                        <div class="column">
+                            <ul>
+                                <li>
+                                    <h2>
+                                        {{ $product->part_number }} -
+                                        {{ $product->description }}
+                                    </h2>
+                                </li>
+                                <li><strong>{{__('messages.Price Encoparts BR')}}:</strong> {{$product->custo_liquido_br}}</li>
+                                <li><strong>{{__('messages.Encoparts USA Price')}}:</strong> {{$product->custo_liquido_eua}}</li>
+                                <li><strong>{{__('messages.Weight')}}:</strong> {{$product->peso}} kg</li>
+                                <li><strong>NCM:</strong> {{$product->ncm}} | <strong>HS Code:</strong> {{$product->hscode}}</li>
+                                <li><strong>{{__('messages.Supply location')}}:</strong></li>
+                                <li><strong>&nbsp &nbsp &nbsp &nbsp • BR</strong>  | {{__('messages.Quantity in stock')}}: {{$product->saldo_br}} | Lead time: {{$product->lead_time_br}}</li>
+                                <li><strong>&nbsp &nbsp &nbsp &nbsp • EUA</strong>  | {{__('messages.Quantity in stock')}}: {{$product->saldo_eua}} | Lead time: {{$product->lead_time_eua}}</li>
+                            </ul>
+                        </div>
 
-                    <div class="column">
-                        <div class="image">
-                            @empty ($product->product_photo[0])
-                                <img src="https://b2b.encoparts.com/app-assets/images/logo/encoparts_c.png" alt="">
-                            @endempty
+                        <div class="column mt-1">
                             @isset ($product->product_photo[0])
-                                <img src="{{Storage::url('images/'.$product->product_photo->filename)}}" alt="">
+                                <a data-fslightbox="image-{{$product->part_number}}" class="button-yellow-1 button-small" href="{{Storage::url('images/'.$product->product_photo[0]->filename)}}">
+                                    {{__('messages.View image')}}
+                                </a>
                             @endisset
                         </div>
                     </div>
-                </div>
-            @endforeach
+                @endforeach
+            @else
+                <p class="warning">{{__('messages.Product not found')}}</p>
+            @endif
         </div>
     </section>
 @endsection

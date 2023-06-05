@@ -149,7 +149,12 @@ class QuotationDatatableController extends Controller
                 $product[$key]['saldo']                        = (!empty($item['ProductSisrev'][0][$saldo])) ? $item['ProductSisrev'][0][$saldo] : '-----';
                 $product[$key]['lead_time']                    = (!empty($item['ProductSisrev'][0][$lead_time])) ? $item['ProductSisrev'][0][$lead_time] : '-----';
                 $product[$key]['photo']                        = (!empty($item['ProductSisrev'][0]['product_photo'][0]['filename'] )) ? '/storage/images/'.$item['ProductSisrev'][0]['product_photo'][0]['filename'] : 'https://b2b.encoparts.com/app-assets/images/logo/encoparts_c.png';
-                $product[$key]['edit'] = '<div class="row-button"><button type="button" data-trigger="delete" onclick="triggerModal(\''.route('direct.distributor.quotation.product.destroy').'\', \''.$item['ProductSisrev'][0]['id'].'\')"><span class="tooltip"></span></button></div>';
+               
+                if($item['status'] === 'S') {
+                    $product[$key]['edit'] = '<div class="row-button"><button type="button" data-trigger="delete" onclick="triggerModal(\''.route('direct.distributor.quotation.product.destroy').'\', \''.$item['ProductSisrev'][0]['id'].'\')"><span class="tooltip"></span></button></div>';
+                } else {
+                    $product[$key]['edit'] = '';
+                }
             }  
             else
             {
@@ -168,7 +173,12 @@ class QuotationDatatableController extends Controller
                 $product[$key]['saldo']                    = '-----';
                 $product[$key]['lead_time']                = '-----';
                 $product[$key]['photo']                    = 'https://b2b.encoparts.com/app-assets/images/logo/encoparts_c.png';
-                $product[$key]['edit'] = '<div class="row-button"><button type="button" data-trigger="delete" onclick="triggerModal(\''.route('direct.distributor.quotation.product.destroy').'\', \''.$item['id'].'\')"><span class="tooltip"></span></button></div>';
+
+                if($item['status'] === 'S') {
+                    $product[$key]['edit'] = '<div class="row-button"><button type="button" data-trigger="delete" onclick="triggerModal(\''.route('direct.distributor.quotation.product.destroy').'\', \''.$item['id'].'\')"><span class="tooltip"></span></button></div>';
+                } else {
+                    $product[$key]['edit'] = '';
+                }
             } 
         } 
 

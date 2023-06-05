@@ -35,7 +35,6 @@
 
     <!-- Styles -->
     <link rel="stylesheet" href="{{ asset('css/helpers.css') }}">
-    <!--<link rel="stylesheet" href="{{ asset('css/main.css') }}">-->
     <link rel="stylesheet" href="{{ asset('css/sidebar.css') }}">
     <link rel="stylesheet" href="{{ asset('css/show.css') }}">
 
@@ -50,11 +49,13 @@
     <div class="app">
         <header class="header">
             <div class="container">
-                <nav class="menu">
-                    <a href="{{ url('/parceiro') }}" class="logo">
-                        <img src="{{ url('https://encoparts.com/wp-content/uploads/2023/02/enco-site.png') }}" alt="Logo encoparts">
-                    </a>
+                <a href="{{ url('/parceiro') }}" class="logo">
+                    <img src="{{ url('https://encoparts.com/wp-content/uploads/2023/02/enco-site.png') }}" alt="Logo encoparts">
+                </a>
 
+                <button type="button" class="hamburguer"></button>
+
+                <nav class="menu">
                     <ul class="list-menu">
                         <li class="item-menu">
                             <a href="{{ url('/parceiro') }}" class="link-menu">
@@ -111,43 +112,43 @@
                             </a>
                         </li>
                     </ul>
-                </nav>
 
-                <div class="d-flex">
-                    <div class="language">
-                        <button class="select">
-                            @if (app()->getLocale() == 'pt')
-                                <img src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png" alt="eua">
-                            @elseif(app()->getLocale() == 'en')
-                                <img src="https://encoparts.com/wp-content/uploads/flags/us.png" alt="bandeira eua">
-                            @endif
-                        </button>
-                    
-                        <div class="list">
-                            <a href="{{url('/change-language/en')}}" data-src="https://encoparts.com/wp-content/uploads/flags/us.png">
-                                <img src="https://encoparts.com/wp-content/uploads/flags/us.png" alt="bandeira brasil">
-                            </a>
-            
-                            <a href="{{url('/change-language/pt')}}" type="submit" data-src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png">
-                                <img src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png" alt="">
-                            </a>
-                        </div>
-                    </div>
-    
-                    <form action="{{ route('distributor.logout') }}" method="POST">
-                        <button type="submit" class="logout">
-                            @csrf
-                            @method('POST')
-                            <div class="icon">
-                                <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <path d="M13.6325 2.54415L7.31623 0.438743C6.6687 0.222899 6 0.704869 6 1.38743V14.6126C6 15.2951 6.66869 15.7771 7.31623 15.5613L13.6325 13.4558C14.4491 13.1836 15 12.4193 15 11.5585V4.44152C15 3.58066 14.4491 2.81638 13.6325 2.54415Z" fill="#7E869E" fill-opacity="0.25"/>
-                                    <path d="M8.5 5.5L11 8M11 8L8.5 10.5M11 8H1" stroke="#222222" stroke-linecap="round"/>
-                                </svg>
+                    <div class="d-flex">
+                        <div class="language">
+                            <button class="select">
+                                @if (app()->getLocale() == 'pt')
+                                    <img src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png" alt="eua">
+                                @elseif(app()->getLocale() == 'en')
+                                    <img src="https://encoparts.com/wp-content/uploads/flags/us.png" alt="bandeira eua">
+                                @endif
+                            </button>
+                        
+                            <div class="list">
+                                <a href="{{url('/change-language/en')}}" data-src="https://encoparts.com/wp-content/uploads/flags/us.png">
+                                    <img src="https://encoparts.com/wp-content/uploads/flags/us.png" alt="bandeira brasil">
+                                </a>
+                
+                                <a href="{{url('/change-language/pt')}}" type="submit" data-src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png">
+                                    <img src="https://encoparts.com/wp-content/plugins/sitepress-multilingual-cms/res/flags/pt-br.png" alt="">
+                                </a>
                             </div>
-                            {{ __('messages.Logout') }}
-                        </button>
-                    </form> 
-                </div>
+                        </div>
+        
+                        <form action="{{ route('distributor.logout') }}" method="POST">
+                            <button type="submit" class="logout">
+                                @csrf
+                                @method('POST')
+                                <div class="icon">
+                                    <svg width="15" height="16" viewBox="0 0 15 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M13.6325 2.54415L7.31623 0.438743C6.6687 0.222899 6 0.704869 6 1.38743V14.6126C6 15.2951 6.66869 15.7771 7.31623 15.5613L13.6325 13.4558C14.4491 13.1836 15 12.4193 15 11.5585V4.44152C15 3.58066 14.4491 2.81638 13.6325 2.54415Z" fill="#7E869E" fill-opacity="0.25"/>
+                                        <path d="M8.5 5.5L11 8M11 8L8.5 10.5M11 8H1" stroke="#222222" stroke-linecap="round"/>
+                                    </svg>
+                                </div>
+                                {{ __('messages.Logout') }}
+                            </button>
+                        </form> 
+                    </div>
+                </nav>
             </div>
         </header>
 
