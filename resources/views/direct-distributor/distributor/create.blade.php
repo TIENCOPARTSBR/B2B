@@ -15,7 +15,7 @@
                     action="{{route('direct.distributor.distributor.store')}}">
                 
                     @csrf @method('POST')
-                <input type="hidden" name="direct_distributor_id" value="{{Auth::guard('distributor')->user()->id}}">
+                <input type="hidden" name="direct_distributor_id" value="{{Auth::guard('direct-distributor')->user()->id}}">
 
                 <div class="group col-lg-6">
                     <label  for="name" 

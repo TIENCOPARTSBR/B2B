@@ -557,6 +557,6 @@ return [
     "Not found" => "Não encontrado",
     "Distributor Price" => "Preço do Distribuidor",
     "Passwords do not match" => "As senhas não correspondem",
-    "" => "",
-    "" => ""
+    "Enter at least 3 characters" => "Digite pelo menos 3 caracteres",
+    "Search one part number at a time" => "Pesquise um part number por vez",
 ];

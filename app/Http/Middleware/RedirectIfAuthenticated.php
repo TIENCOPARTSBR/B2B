@@ -14,7 +14,7 @@ class RedirectIfAuthenticated
         $guards = empty($guards) ? [null] : $guards;
 
         foreach ($guards as $guard) {
-            if(Auth::guard("distributor")->check()) 
+            if(Auth::guard("direct-distributor")->check()) 
             {
                 return redirect(RouteServiceProvider::DISTRIBUTOR);
             }

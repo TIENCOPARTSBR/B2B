@@ -15,13 +15,21 @@ class ProductController extends Controller
 
     public function show(ProductSisrev $product, Request $request)
     {   
-        $part_number = explode(',', trim($request->part_number));
+        // transform in array
+        $part_number = explode(',', $request->part_number);
 
-        $product = $product->with('product_photo')->whereIn('part_number', array_unique($part_number))->get();
+        $part_number = array_map('trim', $part_number);
 
-        if(app()->getLocale() == 'pt') unset($product['descricao_en'], $product['descricao_es']);
-        if(app()->getLocale() == 'en') unset($product['descricao_br'], $product['descricao_es']);
-        if(app()->getLocale() == 'es') unset($product['descricao_en'], $product['descricao_br']);
+        // set languages
+        if(app()->getLocale() == 'pt') $description = 'descricao_br';
+        if(app()->getLocale() == 'en') $description = 'descricao_en';
+        if(app()->getLocale() == 'es') $description = 'descricao_es';
+
+        // get products
+        $product = $product->with('product_photo')
+                            ->select('*', $description.' as description')
+                            ->whereIn('part_number', array_unique($part_number))
+                            ->get();
 
         return view('admin.product.search.show', ['product' => $product]);
     }

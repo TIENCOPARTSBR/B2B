@@ -44,15 +44,15 @@
                 <label for="name" class="form-label">{{__('messages.Quotation type')}}:</label>
                 <div class="form-select">
                     <select name="quotation_type"  {{ $quotation->status === 'S' ? 'disabled' : '' }}>
-                        <option value="S" {{ $quotation->urgent == "S" ? 'checked' : '' }}>SPOT</option>
-                        <option value="C" {{ $quotation->urgent == "C" ? 'checked' : '' }}>Contrato</option>
+                        <option value="S" {{ $quotation->quotation_type === "S" ? 'selected' : '' }}>SPOT</option>
+                        <option value="C" {{ $quotation->quotation_type === "C" ? 'selected' : '' }}>Contrato</option>
                     </select>
                 </div>
             </div>
             
             <div class="group mb-1">
                 <label for="name" class="form-label">{{__('messages.Reply date')}}:</label>
-                <input type="date" name="reply_date" class="form-input" value="" {{ $quotation->status === 'S' ? 'readonly' : '' }}>
+                <input type="date" name="reply_date" class="form-input" value="{{$quotation->reply_date}}"{{ $quotation->status === 'S' ? 'readonly' : '' }}>
             </div>
 
             <div class="group" mb-1">

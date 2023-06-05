@@ -17,7 +17,7 @@
             <form class="row justify-between" method="POST" action="{{ route('direct.distributor.user.store') }}" autocomplete="no">
                 @csrf @method('POST')
                 <div class="col-lg-6 mb-1">
-                    <input type="hidden" name="direct_distributor_id" value="{{Auth::guard('distributor')->user()->direct_distributor_id}}">
+                    <input type="hidden" name="direct_distributor_id" value="{{Auth::guard('direct-distributor')->user()->direct_distributor_id}}">
                     <label for="name" class="form-label" >{{ __('messages.Name') }}</label>
                     <input type="text" name="name" placeholder="{{ __('messages.Name') }}" class="form-control @error('name') form-invalid @enderror" value="{{ !empty(old('name')) ? old('name') : '' }}">
                 </div>

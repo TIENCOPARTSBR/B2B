@@ -25,7 +25,7 @@
                                 <li>
                                     <h2>
                                         {{ $product->part_number }} -
-                                        {{ $product->descricao }}
+                                        {{ $product->description }}
                                     </h2>
                                 </li>
                                 <li><strong>{{__('messages.Price Encoparts BR')}}:</strong> {{$product->custo_liquido_br}}</li>
@@ -33,18 +33,18 @@
                                 <li><strong>{{__('messages.Weight')}}:</strong> {{$product->peso}} kg</li>
                                 <li><strong>NCM:</strong> {{$product->ncm}} | <strong>HS Code:</strong> {{$product->hscode}}</li>
                                 <li><strong>{{__('messages.Supply location')}}:</strong></li>
-                                <li><strong>&nbsp &nbsp &nbsp &nbsp • BR</strong>  | Quantidade em estoque: {{$product->saldo_br}} | Lead time: {{$product->lead_time_br}}</li>
-                                <li><strong>&nbsp &nbsp &nbsp &nbsp • EUA</strong>  | Quantidade em estoque: {{$product->saldo_eua}} | Lead time: {{$product->lead_time_eua}}</li>
-                            </ul>
+                                <li><strong>&nbsp &nbsp &nbsp &nbsp • BR</strong>  | {{__('messages.Quantity in stock')}}: {{$product->saldo_br}} | Lead time: {{$product->lead_time_br}}</li>
+                                <li><strong>&nbsp &nbsp &nbsp &nbsp • EUA</strong>  | {{__('messages.Quantity in stock')}}: {{$product->saldo_eua}} | Lead time: {{$product->lead_time_eua}}</li>
+                            </ul>ñ
                         </div>
 
                         <div class="column">
                             <div class="image">
-                                @empty ($product['product_photo'][0])
+                                @empty ($product->product_photo[0])
                                     <img src="https://b2b.encoparts.com/app-assets/images/logo/encoparts_c.png" alt="">
                                 @endempty
-                                @isset ($product['product_photo'][0])
-                                    <img src="{{Storage::url('images/'.$product['product_photo'][0]->filename)}}" alt="">
+                                @isset ($product->product_photo[0])
+                                    <img src="{{Storage::url('images/'.$product->product_photo->filename)}}" alt="">
                                 @endisset
                             </div>
                         </div>

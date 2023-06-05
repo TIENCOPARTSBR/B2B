@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\DirectDistributor\Quotation;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Quotation\ExportForQuotationController;
 use App\Mail\SendQuotation;
 use App\Models\Quotation;
 use Illuminate\Http\Request;
@@ -16,7 +17,7 @@ class QuotationController extends Controller
     {
         return view('direct-distributor.quotation.index')
             ->with('quotation', $quotation
-                                    ->where('direct_distributor_id', Auth::guard('distributor')->user()->direct_distributor_id)
+                                    ->where('direct_distributor_id', Auth::guard('direct-distributor')->user()->direct_distributor_id)
                                     ->paginate(10));
     }
     
@@ -28,7 +29,7 @@ class QuotationController extends Controller
     public function store(Quotation $quotation, Request $request)
     {
         $create = [
-            'direct_distributor_id' => Auth::guard('distributor')->user()->direct_distributor_id,
+            'direct_distributor_id' => Auth::guard('direct-distributor')->user()->direct_distributor_id,
             'distributor_id' => NULL,
             'urgent' => ($request->urgent == "on")? 1 : 0,
             'name' => $request->name,
@@ -84,9 +85,7 @@ class QuotationController extends Controller
         $mail = new SendQuotation($id);
         Mail::to('daniel.ismael@encoparts.com')->send($mail);
 
-        $item = [
-            'status' => 'S'
-        ];
+        $item = [ 'status' => 'S' ];
 
         $quotation::findOrFail($id)->update($item);
 

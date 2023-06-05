@@ -3,7 +3,7 @@
 @section('content')
     <section class="page">
         <!-- Title -->
-        <h1 class="title">{{ __('messages.Distributor') }} | {{ Auth::guard('distributor')->user()->name; }}</h1>
+        <h1 class="title">{{ __('messages.Distributor') }} | {{ Auth::guard('direct-distributor')->user()->name; }}</h1>
 
         <!-- Card -->            
         <div class="card">

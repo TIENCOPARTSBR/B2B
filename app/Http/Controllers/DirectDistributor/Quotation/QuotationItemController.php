@@ -73,7 +73,7 @@ class QuotationItemController extends Controller
                         </div>
                     
                         <div class="row justify-end mt-2">
-                            <input type="number" class="input-number" name="quantity" placeholder="0" min="1">
+                            <input type="number" class="input-number" name="quantity" placeholder="1" min="1">
                             <input type="submit" class="input-submit" value="'.__('messages.Add to quotation').'">
                         </div>
                     </form>';
@@ -108,7 +108,7 @@ class QuotationItemController extends Controller
                         </div>
                     
                         <div class="row justify-end mt-2">
-                            <input type="number" class="input-number" name="quantity" placeholder="0" min="1">
+                            <input type="number" class="input-number" name="quantity" placeholder="1" min="1">
                             <input type="submit" class="input-submit" value="'.__('messages.Add to quotation').'">
                         </div>
                     </form>';
@@ -140,7 +140,7 @@ class QuotationItemController extends Controller
                         </div>
                     
                         <div class="row justify-end mt-2">
-                            <input type="number" class="input-number" name="quantity" placeholder="0" min="1">
+                            <input type="number" class="input-number" name="quantity" placeholder="1" min="1">
                             <input type="submit" class="input-submit" value="'.__('messages.Add to quotation').'">
                         </div>
                     </form>';
@@ -172,7 +172,7 @@ class QuotationItemController extends Controller
                 
                     <div class="row justify-end mt-2">
                         <input type="text" name="description" placeholder="'.__('messages.Description').'" style="width: 100%; margin: 0 0 1rem;">
-                        <input type="number" class="input-number" name="quantity" placeholder="0" min="1">
+                        <input type="number" class="input-number" name="quantity" placeholder="1" min="1">
                         <input type="submit" class="input-submit" value="'.__('messages.Add to quotation').'">
                     </div>
                 </form>';
@@ -211,7 +211,10 @@ class QuotationItemController extends Controller
     
     public function destroy(QuotationItem $quotationItem, Request $request)
     {
-        $quotationItem::findOrFail($request['id'])->delete();
-        return response()->json(json_encode(__('messages.Product successfully deleted')),200);
+        $quotationItem
+            ->findOrFail(trim($request['id_delete']))
+            ->delete();
+
+        return back()->with('successfully', __('messages.Product successfully deleted'));
     }
 }

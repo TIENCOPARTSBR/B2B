@@ -128,7 +128,7 @@
                             </a>
                         </li>
         
-                        @if (Auth::guard('distributor')->user()->type === 'A')
+                        @if (Auth::guard('direct-distributor')->user()->type === 'A')
                             <li class="item-menu">
                                 <a href="{{ url('/distribuidor') }}" class="link-menu">
                                     <div class="icon-menu">

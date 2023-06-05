@@ -14,7 +14,7 @@ class Authenticate extends Middleware
     public function handle($request, Closure $next, ...$guards)
     {   
         foreach($guards as $guard){
-            if($guard === "distributor")
+            if($guard === "direct-distributor")
             {
                 if(Auth::guard($guard)->check()) 
                 {

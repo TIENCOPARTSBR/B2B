@@ -9,58 +9,71 @@
         </svg>
     </button>
 
-    <i class="warning">Pesquisar um part number por vez.</i>
+    <i class="warning">{{__('messages.Search one part number at a time')}}</i>
 </form>
 
-<script defer>
+<script defer >
     $(document).ready(function(){
         $('#form-quotation').on('submit', function(event) {
             event.preventDefault();
-            // Instância o FormData passando como parâmetro o formulário
-            var formulario = document.getElementById('form-quotation');
-            var formData = new FormData(formulario);
+            var part_number = $('#part_number').val();
 
-            $.ajax({
-                url: "{{route('direct.distributor.quotation.product')}}",
-                type: "POST",
-                data: formData,
-                dataType: 'json',
-                processData: false,  
-                contentType: false,
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function (response) {
-                    $('.listing-product').append(JSON.parse(response));
-                    $('#part_number').val('');
+            if(part_number.length >= 3) {
+                // Instância o FormData passando como parâmetro o formulário
+                var formulario = document.getElementById('form-quotation');
+                var formData = new FormData(formulario);
 
-                    $('.card-product').on('submit', function(event) {
-                        event.preventDefault();
-                        var formData = new FormData($('.card-product')[0]);
-                        console.log(formData);
-                        $.ajax({
-                            url: "{{route('direct.distributor.quotation.product.add')}}",
-                            type: "POST",
-                            data: formData,
-                            dataType: 'json',
-                            processData: false,  
-                            contentType: false,
-                            headers: {
-                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                            },
-                            success: function (response) {
-                                alert(response);
-                                $('#tableQuotation').DataTable().ajax.reload();
-                            }
-                        })
-                        $(this).remove();
-                    });
+                $.ajax({
+                    url: "{{route('direct.distributor.quotation.product')}}",
+                    type: "POST",
+                    data: formData,
+                    dataType: 'json',
+                    processData: false,  
+                    contentType: false,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function (response) {
+                        $('.listing-product').append(JSON.parse(response));
 
-                    $("[data-modal=close]").on('click', function(){
-                        $(this).parent().remove();
-                    });
-                }
-            });
+                        $('#part_number').val('');
+
+                        $('.card-product').on('submit', function(event) {
+                            event.preventDefault();
+                            var formData = new FormData($('.card-product')[0]);
+                            $.ajax({
+                                url: "{{route('direct.distributor.quotation.product.add')}}",
+                                type: "POST",
+                                data: formData,
+                                dataType: 'json',
+                                processData: false,  
+                                contentType: false,
+                                headers: {
+                                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                                },
+                                beforeSend: function() {
+                                    $("#spinner").show();
+                                },
+                                success: function (response) {
+                                    $('#tableQuotation').DataTable().ajax.reload();
+                                    $("#spinner").hide();
+                                }
+                            })
+                            $(this).remove();
+                        });
+
+                        $("[data-modal=close]").on('click', function(){
+                            $(this).parent().remove();
+                        });
+                    }
+                });
+
+                $('.warning').html("{{__('messages.Search one part number at a time')}}");
+                $('.warning').css('color', 'black');
+            } else {
+                $('.warning').html("{{__('messages.Enter at least 3 characters')}}");
+                $('.warning').css('color', 'red');
+            }
         });
     });
 </script>

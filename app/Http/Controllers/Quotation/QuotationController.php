@@ -15,7 +15,7 @@ class QuotationController extends Controller
     public function index(Quotation $quotation)
     {
         return view('direct-distributor.quotation.index')
-            ->with('quotation', $quotation::where('direct_distributor_id', Auth::guard('distributor')->user()->id)->paginate(10));
+            ->with('quotation', $quotation::where('direct_distributor_id', Auth::guard('direct-distributor')->user()->id)->paginate(10));
     }
     
     public function create()
@@ -26,7 +26,7 @@ class QuotationController extends Controller
     public function store(Quotation $quotation, Request $request)
     {
         $create = [
-            'direct_distributor_id' => Auth::guard('distributor')->user()->direct_distributor_id,
+            'direct_distributor_id' => Auth::guard('direct-distributor')->user()->direct_distributor_id,
             'distributor_id' => NULL,
             'urgent' => ($request->urgent == "on")? 1 : 0,
             'name' => $request->name,

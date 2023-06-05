@@ -55,7 +55,7 @@
                             <form method="POST" action="{{route('direct.distributor.distributor.product.value.unitary.store')}}" class="tbody d-none @error('product_value') d-table-row @enderror @error('part_number') d-table-row @enderror" data-form="new">
                                 @csrf
                                 @method('POST')
-                                <input type="hidden" name="direct_distributor_id" value="{{Auth::guard('distributor')->user()->id}}">
+                                <input type="hidden" name="direct_distributor_id" value="{{Auth::guard('direct-distributor')->user()->id}}">
                                 <input type="hidden" name="distributor_id" value="{{$id}}">
 
                                 <div class="td">

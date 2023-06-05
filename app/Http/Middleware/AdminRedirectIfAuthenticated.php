@@ -21,7 +21,7 @@ class AdminRedirectIfAuthenticated
     public function handle(Request $request, Closure $next, ...$guards)
     {
         foreach ($guards as $guard) {
-            if($guard === "distributor")
+            if($guard === "direct-distributor")
             {
                 if(Auth::guard($guard)->check()) 
                 {

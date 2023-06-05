@@ -39,15 +39,15 @@ Route::group(['middleware' => 'Language'], function() {
     Route::get('/change-language/{lang}', [LanguageController::class, 'changeLang']);
 
     // login
-    Route::middleware('guest:distributor')->group(function() {
+    Route::middleware('guest:direct-distributor')->group(function() {
         Route::controller(LoginController::class)->group(function() {
             Route::get('/login','index')->name('direct.distributor.login');
             Route::post('/login','store')->name('direct.distributor.login.store');
         });
     });
 
-    // distributor authenticate
-    Route::middleware('auth:distributor')->group(function(){
+    // direct distributor authenticate
+    Route::middleware('auth:direct-distributor')->group(function(){
         Route::get('/', function() { return view('direct-distributor.index'); });
 
         /////////////////////// ROUTES PRODUCTS ///////////////////////

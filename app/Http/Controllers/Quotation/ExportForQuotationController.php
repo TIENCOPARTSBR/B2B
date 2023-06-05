@@ -29,9 +29,10 @@ class ExportForQuotationController implements FromView
         $quotation = QuotationItem::with('ProductSisrev', 'ProductSisrev.product_photo')
         ->where('quotation_id', $this->id)->get();
 
-        $product = [];
         $key = 0;
-        foreach($quotation as $index){
+        $product = [];
+        
+        foreach($quotation as $index) {
             // Eua
             if (strtoupper(trim($index['country'])) == 'USA' || strtoupper(trim($index['country'])) == 'EUA')
             {
@@ -71,7 +72,7 @@ class ExportForQuotationController implements FromView
                 // consultar preço adicional
                 $product_value = ProductValue
                     ::where('part_number', $index['ProductSisrev'][0]['part_number'])
-                    ->where('direct_distributor_id', Auth::guard('distributor')->user()->id)
+                    ->where('direct_distributor_id', Auth::guard('direct-distributor')->user()->id)
                     ->first();
 
                 // se existir valor adicional no part_number

@@ -14,7 +14,7 @@ class UserController extends Controller
     {
         return view('direct-distributor.user.index')
             ->with('user', $user
-                            ->where('direct_distributor_id', Auth::guard('distributor')->user()->direct_distributor_id)
+                            ->where('direct_distributor_id', Auth::guard('direct-distributor')->user()->direct_distributor_id)
                             ->paginate(10));
     }
 
@@ -23,7 +23,7 @@ class UserController extends Controller
         return view('direct-distributor.user.index')
             ->with('user', $user
                             ->where('name', 'LIKE', $request->only('name'))
-                            ->where('direct_distributor_id', Auth::guard('distributor')->user()->direct_distributor_id)
+                            ->where('direct_distributor_id', Auth::guard('direct-distributor')->user()->direct_distributor_id)
                             ->paginate(10));
     }
 

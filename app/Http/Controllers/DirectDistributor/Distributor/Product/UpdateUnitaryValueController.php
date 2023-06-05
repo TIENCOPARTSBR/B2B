@@ -11,7 +11,7 @@ class UpdateUnitaryValueController extends Controller
 {
     public function index(ProductValue $productValue, $id)
     {
-        $value = $productValue::where('direct_distributor_id', Auth::guard('distributor')->user()->direct_distributor_id)
+        $value = $productValue::where('direct_distributor_id', Auth::guard('direct-distributor')->user()->direct_distributor_id)
             ->where('distributor_id', $id)
             ->paginate(10);
 
@@ -22,7 +22,7 @@ class UpdateUnitaryValueController extends Controller
 
     public function show(ProductValue $productValue, Request $request, $id)
     {
-        $value = $productValue::where('direct_distributor_id', Auth::guard('distributor')->user()->direct_distributor_id)
+        $value = $productValue::where('direct_distributor_id', Auth::guard('direct-distributor')->user()->direct_distributor_id)
         ->where('distributor_id', $id)
         ->where('part_number', 'LIKE', '%'.$request->part_number.'%')
         ->paginate(10);

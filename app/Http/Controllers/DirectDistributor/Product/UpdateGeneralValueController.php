@@ -12,12 +12,12 @@ class UpdateGeneralValueController extends Controller
     public function index(DirectDistributor $distributor)
     {
         return view('direct-distributor.product.value.general-value.index')
-            ->with('general', $distributor::findOrFail(Auth::guard('distributor')->user()->direct_distributor_id));
+            ->with('general', $distributor::findOrFail(Auth::guard('direct-distributor')->user()->direct_distributor_id));
     }
 
     public function store(DirectDistributor $distributor, Request $request)
     {
-        $distributor::findOrFail(Auth::guard('distributor')->user()->direct_distributor_id)
+        $distributor::findOrFail(Auth::guard('direct-distributor')->user()->direct_distributor_id)
             ->update($request->all());
 
         return to_route('direct.distributor.product.value.general.value.index')

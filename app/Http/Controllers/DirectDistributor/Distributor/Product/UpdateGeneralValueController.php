@@ -12,7 +12,7 @@ class UpdateGeneralValueController extends Controller
     public function index(Distributor $distributor, $id)
     {
         $distributor = $distributor::where('id', $id)
-            ->where('direct_distributor_id', Auth::guard('distributor')->user()->id)
+            ->where('direct_distributor_id', Auth::guard('direct-distributor')->user()->id)
             ->first();
 
         return view('direct-distributor.distributor.value.general-value.index')

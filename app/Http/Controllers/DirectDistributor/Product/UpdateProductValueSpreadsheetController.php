@@ -80,7 +80,7 @@ class UpdateProductValueSpreadsheetController extends Controller
                 'part_number' => $product['PART_NUMBER'],
                 'product_value' => $value,
                 'value_type' => $type,
-                'direct_distributor_id' => Auth::guard('distributor')->user()->direct_distributor_id
+                'direct_distributor_id' => Auth::guard('direct-distributor')->user()->direct_distributor_id
             ];
 
             $productValue::create($prod);

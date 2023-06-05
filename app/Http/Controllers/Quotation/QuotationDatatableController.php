@@ -91,7 +91,7 @@ class QuotationDatatableController extends Controller
                     // consultar preço adicional
                     $product_value = ProductValue
                         ::where('part_number', $item['ProductSisrev'][0]['part_number'])
-                        ->where('direct_distributor_id', Auth::guard('distributor')->user()->id)
+                        ->where('direct_distributor_id', Auth::guard('direct-distributor')->user()->id)
                         ->first();
 
                     // se existir valor adicional no part_number

@@ -18,15 +18,20 @@ class ProductSisrevController extends Controller
     public function show(ProductSisrev $product, Request $request)
     {   
         // transform in array
-        $part_number = explode(',', trim($request->part_number));
+        $part_number = explode(',', $request->part_number);
+
+        $part_number = array_map('trim', $part_number);
+
+        // set languages
+        if(app()->getLocale() == 'pt') $description = 'descricao_br';
+        if(app()->getLocale() == 'en') $description = 'descricao_en';
+        if(app()->getLocale() == 'es') $description = 'descricao_es';
 
         // get products
-        $product = $product->with('product_photo')->whereIn('part_number', array_unique($part_number))->get();
-
-        // remove languages
-        if(app()->getLocale() == 'pt') unset($product['descricao_en'], $product['descricao_es']);
-        if(app()->getLocale() == 'en') unset($product['descricao_br'], $product['descricao_es']);
-        if(app()->getLocale() == 'es') unset($product['descricao_en'], $product['descricao_br']);
+        $product = $product->with('product_photo')
+                            ->select('*', $description.' as description')
+                            ->whereIn('part_number', array_unique($part_number))
+                            ->get();
 
         return view('direct-distributor.product.search.show', ['product' => $product]);
     }

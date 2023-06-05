@@ -35,7 +35,7 @@ class LoginController extends Controller
     public function logout(Request $request)
     {
         Auth::guard('admin')->logout();
-        Auth::guard('distributor')->logout();
+        Auth::guard('direct-distributor')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

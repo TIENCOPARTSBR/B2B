@@ -91,7 +91,7 @@ class QuotationDatatableController extends Controller
                     // consultar preço adicional
                     $product_value = ProductValue
                         ::where('part_number', $item['ProductSisrev'][0]['part_number'])
-                        ->where('direct_distributor_id', Auth::guard('distributor')->user()->id)
+                        ->where('direct_distributor_id', Auth::guard('direct-distributor')->user()->id)
                         ->first();
 
                     // se existir valor adicional no part_number
@@ -133,9 +133,9 @@ class QuotationDatatableController extends Controller
                 if(app()->getLocale() == 'pt')  $description = $item['ProductSisrev'][0]['descricao_br'];
                 if(app()->getLocale() == 'en')  $description = $item['ProductSisrev'][0]['descricao_en'];
                 if(app()->getLocale() == 'es')  $description = $item['ProductSisrev'][0]['descricao_es'];
+
                 if($item['description']) $description = $item['description'];
 
-                $product[$key]['id']                           = $item['id'];
                 $product[$key]['part_number']                  = $item['ProductSisrev'][0]['part_number'];
                 $product[$key]['description']                  = ($description) ? $description : '-----';
                 $product[$key]['custo_liquido_original']       = (!empty($custo_liquido_original)) ? '$ '.number_format((float) $custo_liquido_original, 2, '.', ',') : '-----';
@@ -149,6 +149,7 @@ class QuotationDatatableController extends Controller
                 $product[$key]['saldo']                        = (!empty($item['ProductSisrev'][0][$saldo])) ? $item['ProductSisrev'][0][$saldo] : '-----';
                 $product[$key]['lead_time']                    = (!empty($item['ProductSisrev'][0][$lead_time])) ? $item['ProductSisrev'][0][$lead_time] : '-----';
                 $product[$key]['photo']                        = (!empty($item['ProductSisrev'][0]['product_photo'][0]['filename'] )) ? '/storage/images/'.$item['ProductSisrev'][0]['product_photo'][0]['filename'] : 'https://b2b.encoparts.com/app-assets/images/logo/encoparts_c.png';
+                $product[$key]['edit'] = '<div class="row-button"><button type="button" data-trigger="delete" onclick="triggerModal(\''.route('direct.distributor.quotation.product.destroy').'\', \''.$item['ProductSisrev'][0]['id'].'\')"><span class="tooltip"></span></button></div>';
             }  
             else
             {
@@ -167,6 +168,7 @@ class QuotationDatatableController extends Controller
                 $product[$key]['saldo']                    = '-----';
                 $product[$key]['lead_time']                = '-----';
                 $product[$key]['photo']                    = 'https://b2b.encoparts.com/app-assets/images/logo/encoparts_c.png';
+                $product[$key]['edit'] = '<div class="row-button"><button type="button" data-trigger="delete" onclick="triggerModal(\''.route('direct.distributor.quotation.product.destroy').'\', \''.$item['id'].'\')"><span class="tooltip"></span></button></div>';
             } 
         } 
 

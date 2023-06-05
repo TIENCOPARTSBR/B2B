@@ -15,7 +15,7 @@ class LoginController extends Controller
 
     public function store(Request $request)
     {   
-        if(Auth::guard('distributor')
+        if(Auth::guard('direct-distributor')
             ->attempt([ 'mail' => $request->mail, 
                         'password' => $request->password, 
                         'is_active' => 1]))
@@ -30,7 +30,7 @@ class LoginController extends Controller
 
     public function logout(Request $request)
     {
-        Auth::guard('distributor')->logout();
+        Auth::guard('direct-distributor')->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();
 

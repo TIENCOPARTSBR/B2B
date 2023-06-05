@@ -12,7 +12,7 @@ class UpdateUnitaryValueController extends Controller
     public function index(ProductValue $productValue)
     {
         return view('direct-distributor.product.value.unitary.index')
-            ->with('type', $productValue::where('direct_distributor_id', Auth::guard('distributor')->user()->direct_distributor_id)->paginate(10));
+            ->with('type', $productValue::where('direct_distributor_id', Auth::guard('direct-distributor')->user()->direct_distributor_id)->paginate(10));
     }
 
     public function show(ProductValue $productValue, Request $request)

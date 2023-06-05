@@ -53,7 +53,7 @@ class ExportForQuotationController implements FromView
             // defualt
             if (empty(trim($index['country'])))
             {
-                $custo_liquido_name = 'custo_liquido_br';
+                $custo_liquido_name = '';
                 $saldo = 'saldo_br';
                 $local = 'local_fornecimento_br';
                 $lead_time = 'lead_time_br';
@@ -71,7 +71,7 @@ class ExportForQuotationController implements FromView
                 // consultar preço adicional
                 $product_value = ProductValue
                     ::where('part_number', $index['ProductSisrev'][0]['part_number'])
-                    ->where('direct_distributor_id', Auth::guard('distributor')->user()->id)
+                    ->where('direct_distributor_id', Auth::guard('direct-distributor')->user()->id)
                     ->first();
 
                 // se existir valor adicional no part_number
